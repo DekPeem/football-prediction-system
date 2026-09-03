@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full-Time Predictor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f5f7f3;
+    --surface: #ffffff;
+    --surface-2: #eef2ea;
+    --border: #d8ded2;
+    --text: #131a15;
+    --text-dim: #5c665c;
+    --accent: #1f8a4c;
+    --accent-text: #ffffff;
+    --home: #1f8a4c;
+    --draw: #b8790f;
+    --away: #2f5fa8;
+    --shadow: 0 1px 2px rgba(19, 26, 21, 0.06), 0 8px 24px rgba(19, 26, 21, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1210;
+      --surface: #141b17;
+      --surface-2: #182019;
+      --border: #263129;
+      --text: #eef3ee;
+      --text-dim: #93a398;
+      --accent: #4ade80;
+      --accent-text: #0d1712;
+      --home: #4ade80;
+      --draw: #f2b134;
+      --away: #6d9eff;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0d1210;
+    --surface: #141b17;
+    --surface-2: #182019;
+    --border: #263129;
+    --text: #eef3ee;
+    --text-dim: #93a398;
+    --accent: #4ade80;
+    --accent-text: #0d1712;
+    --home: #4ade80;
+    --draw: #f2b134;
+    --away: #6d9eff;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 20px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  header { display: flex; flex-direction: column; gap: 6px; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  h1 {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    font-size: clamp(36px, 6vw, 48px);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .sub {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    line-height: 1.55;
+    max-width: 58ch;
+  }
+  .sub a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); }
+  .sub a:hover { border-bottom-color: var(--accent); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  /* --- Match picker --- */
+  .picker { padding: 20px; }
+  .picker-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+  }
+  .team-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .team-field label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 11px 34px 11px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-dim) 50%), linear-gradient(135deg, var(--text-dim) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  select#awayTeam { text-align: right; }
+
+  .vs-swap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .vs-label {
+    font-family: 'Teko', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+  #swapBtn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 120ms ease, transform 120ms ease;
+  }
+  #swapBtn:hover { background: var(--border); }
+  #swapBtn:active { transform: scale(0.92) rotate(180deg); }
+  #swapBtn svg { width: 15px; height: 15px; }
+
+  .elo-hint {
+    display: flex; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+  .elo-hint b { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* --- Result card --- */
+  .result { padding: 22px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .result-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .result-head .matchup {
+    font-family: 'Teko', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.05;
+  }
+  .predicted-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pill-color) 16%, var(--surface));
+    color: var(--pill-color);
+    border: 1px solid color-mix(in srgb, var(--pill-color) 40%, transparent);
+    white-space: nowrap;
+  }
+
+  .bar {
+    display: flex;
+    height: 34px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .bar > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: #ffffff;
+    transition: flex-basis 220ms ease;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .bar .seg-home { background: var(--home); }
+  .bar .seg-draw { background: var(--draw); }
+  .bar .seg-away { background: var(--away); }
+
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-dim); }
+  .legend-item .sw { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .legend-item b { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* --- Stats table --- */
+  .stats { padding: 18px 20px 20px; }
+  .stats h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0 0 12px;
+    font-weight: 500;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 4px 10px;
+    font-size: 14px;
+  }
+  .stat-grid .col-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: right;
+  }
+  .stat-grid .col-head:first-child { text-align: left; }
+  .stat-grid .row-label { color: var(--text-dim); padding: 6px 0; }
+  .stat-grid .val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    padding: 6px 0;
+  }
+  .stat-grid .val.better { color: var(--accent); font-weight: 500; }
+  .stat-grid .row { display: contents; }
+  .stat-grid .row:not(:last-child) .row-label,
+  .stat-grid .row:not(:last-child) .val { border-bottom: 1px solid var(--surface-2); }
+
+  footer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px 4px 0;
+    color: var(--text-dim);
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+  footer code {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 11.5px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow"><span class="dot"></span>Live model demo &middot; real Premier League results, 2015&ndash;21</div>
+    <h1>Full-Time Predictor</h1>
+    <p class="sub">
+      Pick a home and away side to see the trained model's Home / Draw / Away
+      probabilities, computed live in your browser from the same Elo rating,
+      rolling-form and head-to-head features as the
+      <a href="https://github.com/DekPeem/football-prediction-system" target="_blank" rel="noopener">football-prediction-system</a>
+      repo. Trained on 2,280 real English Premier League matches (2015&ndash;16
+      through 2020&ndash;21) &mdash; Elo ratings reflect each club's actual results
+      up to the end of that span, not the current table.
+    </p>
+  </header>
+
+  <div class="card picker">
+    <div class="picker-row">
+      <div class="team-field">
+        <label for="homeTeam">Home</label>
+        <select id="homeTeam"></select>
+      </div>
+      <div class="vs-swap">
+        <span class="vs-label">vs</span>
+        <button id="swapBtn" type="button" aria-label="Swap home and away">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v13M7 4L3 8M7 4l4 4"/><path d="M17 20V7M17 20l4-4M17 20l-4-4"/></svg>
+        </button>
+      </div>
+      <div class="team-field">
+        <label for="awayTeam">Away</label>
+        <select id="awayTeam"></select>
+      </div>
+    </div>
+    <div class="elo-hint">
+      <span>Elo <b id="homeEloHint">—</b></span>
+      <span>Elo <b id="awayEloHint">—</b></span>
+    </div>
+  </div>
+
+  <div class="card result">
+    <div class="result-head">
+      <div class="matchup" id="matchupLabel">— vs —</div>
+      <div class="predicted-pill" id="predictedPill">—</div>
+    </div>
+    <div class="bar" id="probBar">
+      <div class="seg-home" id="segHome"></div>
+      <div class="seg-draw" id="segDraw"></div>
+      <div class="seg-away" id="segAway"></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="sw" style="background:var(--home)"></span>Home win <b id="pHome">—</b></div>
+      <div class="legend-item"><span class="sw" style="background:var(--draw)"></span>Draw <b id="pDraw">—</b></div>
+      <div class="legend-item"><span class="sw" style="background:var(--away)"></span>Away win <b id="pAway">—</b></div>
+    </div>
+  </div>
+
+  <div class="card stats">
+    <h2>Pre-match comparison</h2>
+    <div class="stat-grid" id="statGrid">
+      <div class="col-head" id="homeColHead">Home</div>
+      <div class="row-label"></div>
+      <div class="col-head" id="awayColHead">Away</div>
+      <div class="row-label"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record &middot; trained accuracy 51.1% vs 39.7% majority-class baseline, tested on the 2020&ndash;21 season (played behind closed doors, which weakened home advantage league-wide).</span>
+    <span>Point <code>data/matches.csv</code> at a newer season's CSV and re-run <code>python src/train.py &amp;&amp; python src/export_web_demo_data.py</code> to bring this page's numbers up to date.</span>
+  </footer>
+</div>
+
+<script>
+  const MODEL = __MODEL_DATA_JSON__;
+
+  const teams = Object.keys(MODEL.teams).sort();
+  const homeSel = document.getElementById('homeTeam');
+  const awaySel = document.getElementById('awayTeam');
+
+  for (const sel of [homeSel, awaySel]) {
+    for (const t of teams) {
+      const opt = document.createElement('option');
+      opt.value = t; opt.textContent = t;
+      sel.appendChild(opt);
+    }
+  }
+  // Pick a default fixture with a genuinely competitive spread, not a blowout.
+  homeSel.value = teams.includes('Liverpool') ? 'Liverpool' : teams[0];
+  awaySel.value = teams.includes('Man United') ? 'Man United' : teams[1];
+
+  const LABELS = { H: 'Home win', D: 'Draw', A: 'Away win' };
+  const COLOR_VAR = { H: '--home', D: '--draw', A: '--away' };
+
+  function predict(home, away) {
+    const t = MODEL.teams;
+    const eloDiff = t[home].elo - t[away].elo;
+    const formPtsDiff = t[home].form_pts - t[away].form_pts;
+    const formGdDiff = t[home].form_gd - t[away].form_gd;
+    const h2h = MODEL.h2h[`${home}|${away}`] ?? 0;
+    const feats = [
+      eloDiff, formPtsDiff, formGdDiff, h2h,
+      t[home].form_pts, t[away].form_pts,
+      t[home].form_gd, t[away].form_gd,
+      t[home].rest_days, t[away].rest_days,
+    ];
+    const z = feats.map((f, i) => (f - MODEL.scaler_mean[i]) / MODEL.scaler_scale[i]);
+    const logits = MODEL.coef.map((row, k) =>
+      row.reduce((sum, c, i) => sum + c * z[i], MODEL.intercept[k])
+    );
+    const mx = Math.max(...logits);
+    const exps = logits.map(l => Math.exp(l - mx));
+    const total = exps.reduce((a, b) => a + b, 0);
+    const probs = {};
+    MODEL.classes.forEach((cls, i) => { probs[cls] = exps[i] / total; });
+    return probs;
+  }
+
+  function fmtPct(p) { return (p * 100).toFixed(1) + '%'; }
+  function fmtSigned(x, digits = 2) {
+    const v = x.toFixed(digits);
+    return x > 0 ? `+${v}` : v;
+  }
+
+  function render() {
+    const home = homeSel.value, away = awaySel.value;
+    if (home === away) { awaySel.value = teams.find(t => t !== home); }
+    const h = homeSel.value, a = awaySel.value;
+    const probs = predict(h, a);
+
+    document.getElementById('matchupLabel').textContent = `${h} vs ${a}`;
+    document.getElementById('homeEloHint').textContent = MODEL.teams[h].elo.toFixed(0);
+    document.getElementById('awayEloHint').textContent = MODEL.teams[a].elo.toFixed(0);
+
+    document.getElementById('segHome').style.flexBasis = (probs.H * 100) + '%';
+    document.getElementById('segDraw').style.flexBasis = (probs.D * 100) + '%';
+    document.getElementById('segAway').style.flexBasis = (probs.A * 100) + '%';
+
+    const setSeg = (id, p) => {
+      const el = document.getElementById(id);
+      el.textContent = p > 0.09 ? fmtPct(p) : '';
+      el.style.flexGrow = p;
+    };
+    setSeg('segHome', probs.H);
+    setSeg('segDraw', probs.D);
+    setSeg('segAway', probs.A);
+
+    document.getElementById('pHome').textContent = fmtPct(probs.H);
+    document.getElementById('pDraw').textContent = fmtPct(probs.D);
+    document.getElementById('pAway').textContent = fmtPct(probs.A);
+
+    const top = Object.entries(probs).sort((x, y) => y[1] - x[1])[0][0];
+    const pill = document.getElementById('predictedPill');
+    pill.textContent = `Predicted: ${LABELS[top]} (${fmtPct(probs[top])})`;
+    pill.style.setProperty('--pill-color', `var(${COLOR_VAR[top]})`);
+
+    document.getElementById('homeColHead').textContent = h;
+    document.getElementById('awayColHead').textContent = a;
+
+    const th = MODEL.teams[h], ta = MODEL.teams[a];
+    const rows = [
+      ['Elo rating', th.elo.toFixed(0), ta.elo.toFixed(0), th.elo - ta.elo],
+      ['Form (pts/game, last 5)', th.form_pts.toFixed(2), ta.form_pts.toFixed(2), th.form_pts - ta.form_pts],
+      ['Form (goal diff/game)', fmtSigned(th.form_gd), fmtSigned(ta.form_gd), th.form_gd - ta.form_gd],
+      ['Rest days', th.rest_days, ta.rest_days, th.rest_days - ta.rest_days],
+    ];
+    const grid = document.getElementById('statGrid');
+    let html = `<div class="row-label"></div><div class="col-head">${h}</div><div class="col-head">${a}</div><div class="row-label"></div>`;
+    for (const [label, hv, av, diff] of rows) {
+      const homeBetter = diff > 0, awayBetter = diff < 0;
+      html += `
+        <div class="row-label">${label}</div>
+        <div class="val ${homeBetter ? 'better' : ''}">${hv}</div>
+        <div class="val ${awayBetter ? 'better' : ''}">${av}</div>
+        <div class="row-label"></div>
+      `;
+    }
+    grid.innerHTML = html;
+  }
+
+  homeSel.addEventListener('change', render);
+  awaySel.addEventListener('change', render);
+  document.getElementById('swapBtn').addEventListener('click', () => {
+    const h = homeSel.value;
+    homeSel.value = awaySel.value;
+    awaySel.value = h;
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>
