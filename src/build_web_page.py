@@ -3,7 +3,12 @@ Build web/index.html by embedding every web/leagues/*.json (one per league —
 run src/export_all_leagues.py first) into web/template.html, replacing the
 __ALL_LEAGUES_JSON__ placeholder with one {slug: leagueData} object. The
 result is a single self-contained HTML file — open it directly in a browser,
-no server needed.
+no server needed. Also copied to docs/index.html for GitHub Pages (Settings
+-> Pages -> Deploy from branch -> main -> /docs) — a publicly reachable copy
+that needs no claude.ai login, at the cost of the "Predict & Save" history
+feature (it needs Claude's `db` capability, which only exists on the hosted
+Artifact; the page detects its absence and disables Save with a note, same
+as any other local copy).
 
 Usage:
     python src/export_all_leagues.py   # (re)exports web/leagues/*.json
@@ -14,10 +19,12 @@ from __future__ import annotations
 import glob
 import json
 import os
+import shutil
 
 TEMPLATE_PATH = "web/template.html"
 LEAGUES_DIR = "web/leagues"
 OUT_PATH = "web/index.html"
+PAGES_OUT_PATH = "docs/index.html"
 
 # First entry is the switcher's default. Keep in sync with export_all_leagues.py's LEAGUES.
 SLUG_ORDER = [
@@ -50,8 +57,11 @@ def main() -> None:
     out = template.replace("__ALL_LEAGUES_JSON__", json.dumps(ordered))
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         f.write(out)
-
     print(f"Wrote {OUT_PATH} ({len(out):,} bytes, {len(ordered)} leagues: {', '.join(ordered)})")
+
+    os.makedirs(os.path.dirname(PAGES_OUT_PATH), exist_ok=True)
+    shutil.copyfile(OUT_PATH, PAGES_OUT_PATH)
+    print(f"Copied -> {PAGES_OUT_PATH} (for GitHub Pages)")
 
 
 if __name__ == "__main__":

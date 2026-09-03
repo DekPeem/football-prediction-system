@@ -206,7 +206,15 @@ for why) behind a switcher in the header.
   double-click it (or in VS Code, right-click → Open with Live Server) to
   open it in a browser. It has every league's model weights baked in, so it
   works straight from disk.
-- **Or view it hosted:** https://claude.ai/code/artifact/ceec7cc0-6284-4ca7-b495-718b45ad84a7
+- **View it hosted (claude.ai, with save/history):** https://claude.ai/code/artifact/ceec7cc0-6284-4ca7-b495-718b45ad84a7
+  — needs a claude.ai login, since Predict & Save needs Claude's `db`
+  capability.
+- **Or view it hosted (GitHub Pages, no login):** once
+  [enabled](#github-pages-a-public-no-login-copy), publicly reachable at
+  `https://<owner>.github.io/football-prediction-system/` — same live
+  predictions for every league, minus Predict & Save/history (no `db`
+  capability outside claude.ai; the page detects that and disables Save with
+  a note, same as any local copy).
 
 Every league's page reads from the same scaler + logistic-regression weights
 `predict.py` uses for that league, so the CLI and the web page always agree.
@@ -227,6 +235,28 @@ hosted version too, read it with the Artifact tool (`action: "read"`) at
 the URL above, then publish `web/index.html`'s freshly-built content to
 that same URL — omit `capabilities` on republish so it keeps the stored
 `db: {}` declaration.
+
+### GitHub Pages — a public, no-login copy
+
+The hosted Artifact needs a claude.ai account to open — reasonable for
+working on this project, less so for "here's a link, check tonight's
+predictions" to someone who doesn't use Claude. `build_web_page.py` also
+writes an identical copy to `docs/index.html` for exactly that: GitHub
+Pages can serve it at a public URL with no login at all.
+
+**One-time setup (repo owner, via github.com — no CLI tool here can flip
+this repo setting):** *Settings → Pages → Source: "Deploy from a branch" →
+Branch: `main`, folder: `/docs` → Save.* GitHub builds it in a minute or two
+and shows the live URL on that same settings page
+(`https://<owner>.github.io/football-prediction-system/`). Every future push
+to `main` that touches `docs/index.html` — including the
+[weekly refresh](#keeping-the-data-current-automatically) — redeploys it
+automatically; nothing else to run.
+
+It's the same file as `web/index.html`, so it's exactly as capable as any
+other non-hosted copy: full live predictions for every league, "Today's
+matchday" included, Predict & Save disabled (no `db` capability outside
+claude.ai).
 
 ### "Today's matchday" + prediction history + track record
 
@@ -370,6 +400,7 @@ src/build_web_page.py        combines web/leagues/*.json into web/index.html
 web/template.html            web demo page shell (has the JSON placeholder)
 web/leagues/<slug>.json       one exported league's data (input to build_web_page.py)
 web/index.html                the runnable web demo — every league, open directly in a browser
+docs/index.html               identical copy, served by GitHub Pages once enabled (no login)
 models/                      trained Premier League model + metrics (git-ignored)
 models/<league>/              same, per league/division above (git-ignored)
 ```
