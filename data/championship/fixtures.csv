@@ -1,0 +1,517 @@
+Date,HomeTeam,AwayTeam
+01/09/2026,Preston North End,Bristol City
+01/09/2026,West Ham,Wolves
+01/09/2026,Lincoln City,Blackburn Rovers
+01/09/2026,Sheffield United,Bolton Wanderers
+01/09/2026,Portsmouth,Derby County
+01/09/2026,Swansea,Watford
+01/09/2026,Stoke,Norwich
+01/09/2026,Birmingham City,Southampton
+02/09/2026,Millwall,Wrexham
+02/09/2026,QPR,Cardiff
+02/09/2026,West Brom,Charlton Athletic
+02/09/2026,Burnley,Middlesbrough
+05/09/2026,Preston North End,Blackburn Rovers
+05/09/2026,Stoke,Charlton Athletic
+05/09/2026,Lincoln City,Southampton
+05/09/2026,QPR,Middlesbrough
+05/09/2026,Sheffield United,Norwich
+05/09/2026,Portsmouth,Cardiff
+05/09/2026,West Brom,Watford
+05/09/2026,West Ham,Derby County
+05/09/2026,Burnley,Bristol City
+05/09/2026,Millwall,Bolton Wanderers
+05/09/2026,Swansea,Wrexham
+06/09/2026,Birmingham City,Wolves
+08/09/2026,Blackburn Rovers,Sheffield United
+08/09/2026,Southampton,Swansea
+08/09/2026,Watford,Preston North End
+08/09/2026,Cardiff,Stoke
+08/09/2026,Wrexham,Burnley
+08/09/2026,Bolton Wanderers,West Ham
+09/09/2026,Wolves,Portsmouth
+09/09/2026,Derby County,West Brom
+09/09/2026,Norwich,Birmingham City
+09/09/2026,Charlton Athletic,QPR
+11/09/2026,West Ham,Wrexham
+12/09/2026,Derby County,Birmingham City
+12/09/2026,Bolton Wanderers,Cardiff
+12/09/2026,West Brom,QPR
+12/09/2026,Southampton,Bristol City
+12/09/2026,Preston North End,Lincoln City
+12/09/2026,Blackburn Rovers,Millwall
+12/09/2026,Charlton Athletic,Portsmouth
+12/09/2026,Watford,Stoke
+12/09/2026,Swansea,Burnley
+12/09/2026,Middlesbrough,Norwich
+13/09/2026,Sheffield United,Wolves
+15/09/2026,Middlesbrough,Millwall
+15/09/2026,Bristol City,Lincoln City
+18/09/2026,Bristol City,Watford
+19/09/2026,Stoke,Sheffield United
+19/09/2026,Millwall,West Ham
+19/09/2026,Cardiff,Charlton Athletic
+19/09/2026,Wrexham,Southampton
+19/09/2026,Burnley,Derby County
+19/09/2026,QPR,Preston North End
+19/09/2026,Portsmouth,Blackburn Rovers
+19/09/2026,Birmingham City,Middlesbrough
+19/09/2026,Lincoln City,Swansea
+20/09/2026,Wolves,West Brom
+20/09/2026,Norwich,Bolton Wanderers
+09/10/2026,West Ham,QPR
+10/10/2026,West Brom,Birmingham City
+10/10/2026,Swansea,Norwich
+10/10/2026,Charlton Athletic,Bristol City
+10/10/2026,Sheffield United,Lincoln City
+10/10/2026,Watford,Burnley
+10/10/2026,Derby County,Wrexham
+10/10/2026,Blackburn Rovers,Cardiff
+10/10/2026,Bolton Wanderers,Stoke
+10/10/2026,Preston North End,Millwall
+10/10/2026,Middlesbrough,Wolves
+11/10/2026,Southampton,Portsmouth
+13/10/2026,Wolves,Bolton Wanderers
+13/10/2026,Wrexham,West Brom
+13/10/2026,Millwall,Swansea
+13/10/2026,Cardiff,Watford
+13/10/2026,Burnley,Charlton Athletic
+13/10/2026,Bristol City,Blackburn Rovers
+13/10/2026,Birmingham City,Preston North End
+13/10/2026,Stoke,Middlesbrough
+14/10/2026,Portsmouth,Sheffield United
+14/10/2026,Norwich,Southampton
+14/10/2026,QPR,Derby County
+14/10/2026,Lincoln City,West Ham
+16/10/2026,Burnley,Wolves
+17/10/2026,Millwall,Lincoln City
+17/10/2026,Middlesbrough,Cardiff
+17/10/2026,Watford,Charlton Athletic
+17/10/2026,Norwich,Portsmouth
+17/10/2026,Southampton,Bolton Wanderers
+17/10/2026,Bristol City,Sheffield United
+17/10/2026,Birmingham City,QPR
+17/10/2026,Derby County,Stoke
+17/10/2026,Swansea,West Ham
+17/10/2026,West Brom,Blackburn Rovers
+17/10/2026,Wrexham,Preston North End
+23/10/2026,Bolton Wanderers,Middlesbrough
+24/10/2026,Sheffield United,Derby County
+24/10/2026,Charlton Athletic,Norwich
+24/10/2026,Portsmouth,Millwall
+24/10/2026,Cardiff,Birmingham City
+24/10/2026,QPR,Swansea
+24/10/2026,Stoke,Bristol City
+24/10/2026,Preston North End,West Brom
+24/10/2026,Lincoln City,Burnley
+24/10/2026,West Ham,Southampton
+24/10/2026,Blackburn Rovers,Wrexham
+24/10/2026,Wolves,Watford
+30/10/2026,Sheffield United,Wrexham
+31/10/2026,Stoke,Preston North End
+31/10/2026,Norwich,Watford
+31/10/2026,Lincoln City,Birmingham City
+31/10/2026,Wolves,Cardiff
+31/10/2026,West Ham,West Brom
+31/10/2026,Swansea,Blackburn Rovers
+31/10/2026,Bolton Wanderers,Bristol City
+31/10/2026,Middlesbrough,Charlton Athletic
+31/10/2026,Burnley,Portsmouth
+31/10/2026,Millwall,Derby County
+31/10/2026,Southampton,QPR
+03/11/2026,QPR,Burnley
+03/11/2026,Derby County,Norwich
+03/11/2026,Blackburn Rovers,Stoke
+03/11/2026,Watford,Lincoln City
+03/11/2026,Charlton Athletic,Bolton Wanderers
+03/11/2026,Birmingham City,Millwall
+03/11/2026,Portsmouth,Swansea
+03/11/2026,Preston North End,Sheffield United
+03/11/2026,West Brom,Southampton
+04/11/2026,Cardiff,West Ham
+04/11/2026,Wrexham,Middlesbrough
+04/11/2026,Bristol City,Wolves
+06/11/2026,Derby County,Bolton Wanderers
+07/11/2026,Wrexham,Wolves
+07/11/2026,Portsmouth,Stoke
+07/11/2026,Bristol City,Norwich
+07/11/2026,QPR,Lincoln City
+07/11/2026,Cardiff,Burnley
+07/11/2026,Charlton Athletic,Sheffield United
+07/11/2026,Watford,Middlesbrough
+07/11/2026,Blackburn Rovers,West Ham
+07/11/2026,West Brom,Millwall
+07/11/2026,Preston North End,Southampton
+07/11/2026,Birmingham City,Swansea
+21/11/2026,Sheffield United,Watford
+21/11/2026,Southampton,Derby County
+21/11/2026,Millwall,QPR
+21/11/2026,Swansea,West Brom
+21/11/2026,Middlesbrough,Bristol City
+21/11/2026,Bolton Wanderers,Portsmouth
+21/11/2026,Stoke,Birmingham City
+21/11/2026,Norwich,Cardiff
+21/11/2026,Lincoln City,Wrexham
+21/11/2026,West Ham,Preston North End
+21/11/2026,Wolves,Charlton Athletic
+22/11/2026,Burnley,Blackburn Rovers
+24/11/2026,Cardiff,Preston North End
+24/11/2026,Middlesbrough,Swansea
+24/11/2026,Portsmouth,West Ham
+24/11/2026,Sheffield United,Southampton
+24/11/2026,Charlton Athletic,Lincoln City
+24/11/2026,Bristol City,Wrexham
+24/11/2026,Norwich,QPR
+24/11/2026,Wolves,Derby County
+25/11/2026,Watford,Blackburn Rovers
+25/11/2026,Bolton Wanderers,West Brom
+25/11/2026,Burnley,Birmingham City
+25/11/2026,Stoke,Millwall
+27/11/2026,Southampton,Middlesbrough
+28/11/2026,Blackburn Rovers,Charlton Athletic
+28/11/2026,Lincoln City,Wolves
+28/11/2026,Preston North End,Norwich
+28/11/2026,Wrexham,Portsmouth
+28/11/2026,QPR,Sheffield United
+28/11/2026,Millwall,Burnley
+28/11/2026,Birmingham City,Bolton Wanderers
+28/11/2026,Derby County,Watford
+28/11/2026,West Ham,Stoke
+28/11/2026,West Brom,Bristol City
+29/11/2026,Swansea,Cardiff
+04/12/2026,Sheffield United,West Ham
+05/12/2026,Bristol City,Swansea
+05/12/2026,Bolton Wanderers,Blackburn Rovers
+05/12/2026,Middlesbrough,Derby County
+05/12/2026,Cardiff,Lincoln City
+05/12/2026,Norwich,Wrexham
+05/12/2026,Charlton Athletic,Birmingham City
+05/12/2026,Wolves,Southampton
+05/12/2026,Watford,Millwall
+05/12/2026,Portsmouth,West Brom
+05/12/2026,Stoke,QPR
+06/12/2026,Burnley,Preston North End
+08/12/2026,Blackburn Rovers,Norwich
+08/12/2026,West Brom,Cardiff
+08/12/2026,Wrexham,Charlton Athletic
+08/12/2026,Millwall,Sheffield United
+08/12/2026,Swansea,Bolton Wanderers
+08/12/2026,QPR,Wolves
+08/12/2026,Birmingham City,Watford
+08/12/2026,West Ham,Middlesbrough
+09/12/2026,Preston North End,Portsmouth
+09/12/2026,Lincoln City,Stoke
+09/12/2026,Derby County,Bristol City
+09/12/2026,Southampton,Burnley
+11/12/2026,Bolton Wanderers,Wrexham
+12/12/2026,Preston North End,Middlesbrough
+12/12/2026,QPR,Watford
+12/12/2026,Stoke,West Brom
+12/12/2026,Charlton Athletic,Swansea
+12/12/2026,West Ham,Bristol City
+12/12/2026,Lincoln City,Norwich
+12/12/2026,Blackburn Rovers,Derby County
+12/12/2026,Portsmouth,Birmingham City
+12/12/2026,Sheffield United,Burnley
+12/12/2026,Wolves,Millwall
+12/12/2026,Cardiff,Southampton
+18/12/2026,West Brom,Sheffield United
+19/12/2026,Bristol City,Cardiff
+19/12/2026,Millwall,Charlton Athletic
+19/12/2026,Birmingham City,West Ham
+19/12/2026,Swansea,Preston North End
+19/12/2026,Watford,Bolton Wanderers
+19/12/2026,Middlesbrough,Portsmouth
+19/12/2026,Norwich,Wolves
+19/12/2026,Burnley,Stoke
+19/12/2026,Derby County,Lincoln City
+19/12/2026,Wrexham,QPR
+19/12/2026,Southampton,Blackburn Rovers
+26/12/2026,Bolton Wanderers,Burnley
+26/12/2026,Sheffield United,Middlesbrough
+26/12/2026,Portsmouth,Watford
+26/12/2026,Blackburn Rovers,Birmingham City
+26/12/2026,West Ham,Norwich
+26/12/2026,Wolves,Swansea
+26/12/2026,QPR,Bristol City
+26/12/2026,Stoke,Wrexham
+26/12/2026,Cardiff,Millwall
+26/12/2026,Lincoln City,West Brom
+26/12/2026,Preston North End,Derby County
+26/12/2026,Charlton Athletic,Southampton
+29/12/2026,Wrexham,Blackburn Rovers
+29/12/2026,West Brom,Preston North End
+29/12/2026,Derby County,Sheffield United
+29/12/2026,Swansea,QPR
+29/12/2026,Watford,Wolves
+29/12/2026,Norwich,Charlton Athletic
+29/12/2026,Burnley,Lincoln City
+29/12/2026,Birmingham City,Cardiff
+29/12/2026,Middlesbrough,Bolton Wanderers
+29/12/2026,Bristol City,Stoke
+29/12/2026,Millwall,Portsmouth
+29/12/2026,Southampton,West Ham
+01/01/2027,Middlesbrough,Preston North End
+01/01/2027,Southampton,Cardiff
+01/01/2027,Watford,QPR
+01/01/2027,Burnley,Sheffield United
+01/01/2027,Derby County,Blackburn Rovers
+01/01/2027,Birmingham City,Portsmouth
+01/01/2027,West Brom,Stoke
+01/01/2027,Norwich,Lincoln City
+01/01/2027,Swansea,Charlton Athletic
+01/01/2027,Wrexham,Bolton Wanderers
+01/01/2027,Millwall,Wolves
+01/01/2027,Bristol City,West Ham
+16/01/2027,Stoke,Derby County
+16/01/2027,Charlton Athletic,Watford
+16/01/2027,Wolves,Burnley
+16/01/2027,Preston North End,Wrexham
+16/01/2027,Cardiff,Middlesbrough
+16/01/2027,Lincoln City,Millwall
+16/01/2027,Portsmouth,Norwich
+16/01/2027,QPR,Birmingham City
+16/01/2027,Sheffield United,Bristol City
+16/01/2027,West Ham,Swansea
+16/01/2027,Bolton Wanderers,Southampton
+16/01/2027,Blackburn Rovers,West Brom
+23/01/2027,Wrexham,Sheffield United
+23/01/2027,Preston North End,Stoke
+23/01/2027,Cardiff,Wolves
+23/01/2027,QPR,Southampton
+23/01/2027,Bristol City,Bolton Wanderers
+23/01/2027,Derby County,Millwall
+23/01/2027,Portsmouth,Burnley
+23/01/2027,Charlton Athletic,Middlesbrough
+23/01/2027,Birmingham City,Lincoln City
+23/01/2027,Watford,Norwich
+23/01/2027,West Brom,West Ham
+23/01/2027,Blackburn Rovers,Swansea
+26/01/2027,Bolton Wanderers,Charlton Athletic
+26/01/2027,Norwich,Derby County
+26/01/2027,Lincoln City,Watford
+26/01/2027,Sheffield United,Preston North End
+26/01/2027,Southampton,West Brom
+26/01/2027,Millwall,Birmingham City
+26/01/2027,Stoke,Blackburn Rovers
+26/01/2027,Burnley,QPR
+27/01/2027,Wolves,Bristol City
+27/01/2027,Swansea,Portsmouth
+27/01/2027,West Ham,Cardiff
+27/01/2027,Middlesbrough,Wrexham
+30/01/2027,Burnley,Cardiff
+30/01/2027,Swansea,Birmingham City
+30/01/2027,Southampton,Preston North End
+30/01/2027,Millwall,West Brom
+30/01/2027,Wolves,Wrexham
+30/01/2027,Lincoln City,QPR
+30/01/2027,Stoke,Portsmouth
+30/01/2027,Bolton Wanderers,Derby County
+30/01/2027,West Ham,Blackburn Rovers
+30/01/2027,Middlesbrough,Watford
+30/01/2027,Sheffield United,Charlton Athletic
+30/01/2027,Norwich,Bristol City
+06/02/2027,West Brom,Swansea
+06/02/2027,Derby County,Southampton
+06/02/2027,Watford,Sheffield United
+06/02/2027,Preston North End,West Ham
+06/02/2027,Portsmouth,Bolton Wanderers
+06/02/2027,QPR,Millwall
+06/02/2027,Charlton Athletic,Wolves
+06/02/2027,Wrexham,Lincoln City
+06/02/2027,Blackburn Rovers,Burnley
+06/02/2027,Cardiff,Norwich
+06/02/2027,Birmingham City,Stoke
+06/02/2027,Bristol City,Middlesbrough
+13/02/2027,Bristol City,Southampton
+13/02/2027,QPR,West Brom
+13/02/2027,Lincoln City,Preston North End
+13/02/2027,Birmingham City,Derby County
+13/02/2027,Norwich,Middlesbrough
+13/02/2027,Cardiff,Bolton Wanderers
+13/02/2027,Wolves,Sheffield United
+13/02/2027,Stoke,Watford
+13/02/2027,Wrexham,West Ham
+13/02/2027,Burnley,Swansea
+13/02/2027,Portsmouth,Charlton Athletic
+13/02/2027,Millwall,Blackburn Rovers
+16/02/2027,Blackburn Rovers,Bristol City
+16/02/2027,Sheffield United,Portsmouth
+16/02/2027,West Ham,Lincoln City
+16/02/2027,Charlton Athletic,Burnley
+16/02/2027,Preston North End,Birmingham City
+16/02/2027,Watford,Cardiff
+16/02/2027,West Brom,Wrexham
+16/02/2027,Derby County,QPR
+17/02/2027,Bolton Wanderers,Wolves
+17/02/2027,Swansea,Millwall
+17/02/2027,Southampton,Norwich
+17/02/2027,Middlesbrough,Stoke
+20/02/2027,Southampton,Wrexham
+20/02/2027,Charlton Athletic,Cardiff
+20/02/2027,Swansea,Lincoln City
+20/02/2027,Sheffield United,Stoke
+20/02/2027,Preston North End,QPR
+20/02/2027,Derby County,Burnley
+20/02/2027,Middlesbrough,Birmingham City
+20/02/2027,Watford,Bristol City
+20/02/2027,Blackburn Rovers,Portsmouth
+20/02/2027,West Ham,Millwall
+20/02/2027,Bolton Wanderers,Norwich
+20/02/2027,West Brom,Wolves
+27/02/2027,QPR,West Ham
+27/02/2027,Portsmouth,Southampton
+27/02/2027,Stoke,Bolton Wanderers
+27/02/2027,Norwich,Swansea
+27/02/2027,Wrexham,Derby County
+27/02/2027,Wolves,Middlesbrough
+27/02/2027,Bristol City,Charlton Athletic
+27/02/2027,Birmingham City,West Brom
+27/02/2027,Lincoln City,Sheffield United
+27/02/2027,Burnley,Watford
+27/02/2027,Cardiff,Blackburn Rovers
+27/02/2027,Millwall,Preston North End
+02/03/2027,Middlesbrough,Blackburn Rovers
+02/03/2027,Norwich,Millwall
+02/03/2027,Burnley,West Brom
+02/03/2027,Watford,Wrexham
+02/03/2027,Charlton Athletic,West Ham
+02/03/2027,Bolton Wanderers,QPR
+02/03/2027,Bristol City,Birmingham City
+02/03/2027,Cardiff,Derby County
+03/03/2027,Portsmouth,Lincoln City
+03/03/2027,Wolves,Preston North End
+03/03/2027,Sheffield United,Swansea
+03/03/2027,Stoke,Southampton
+06/03/2027,Derby County,Charlton Athletic
+06/03/2027,Blackburn Rovers,Wolves
+06/03/2027,Southampton,Watford
+06/03/2027,Wrexham,Cardiff
+06/03/2027,Swansea,Stoke
+06/03/2027,Preston North End,Bolton Wanderers
+06/03/2027,Lincoln City,Middlesbrough
+06/03/2027,Millwall,Bristol City
+06/03/2027,QPR,Portsmouth
+06/03/2027,West Brom,Norwich
+06/03/2027,Birmingham City,Sheffield United
+06/03/2027,West Ham,Burnley
+13/03/2027,Watford,Derby County
+13/03/2027,Burnley,Millwall
+13/03/2027,Portsmouth,Wrexham
+13/03/2027,Middlesbrough,Southampton
+13/03/2027,Sheffield United,QPR
+13/03/2027,Bristol City,West Brom
+13/03/2027,Charlton Athletic,Blackburn Rovers
+13/03/2027,Stoke,West Ham
+13/03/2027,Norwich,Preston North End
+13/03/2027,Cardiff,Swansea
+13/03/2027,Bolton Wanderers,Birmingham City
+13/03/2027,Wolves,Lincoln City
+16/03/2027,Preston North End,Burnley
+16/03/2027,Swansea,Bristol City
+16/03/2027,QPR,Stoke
+16/03/2027,West Brom,Portsmouth
+16/03/2027,Wrexham,Norwich
+16/03/2027,Lincoln City,Cardiff
+16/03/2027,Derby County,Middlesbrough
+16/03/2027,Southampton,Wolves
+17/03/2027,West Ham,Sheffield United
+17/03/2027,Millwall,Watford
+17/03/2027,Blackburn Rovers,Bolton Wanderers
+17/03/2027,Birmingham City,Charlton Athletic
+20/03/2027,Swansea,Wolves
+20/03/2027,Millwall,Cardiff
+20/03/2027,Wrexham,Stoke
+20/03/2027,Bristol City,QPR
+20/03/2027,Watford,Portsmouth
+20/03/2027,Southampton,Charlton Athletic
+20/03/2027,Birmingham City,Blackburn Rovers
+20/03/2027,Burnley,Bolton Wanderers
+20/03/2027,Middlesbrough,Sheffield United
+20/03/2027,West Brom,Lincoln City
+20/03/2027,Norwich,West Ham
+20/03/2027,Derby County,Preston North End
+03/04/2027,Stoke,Burnley
+03/04/2027,Portsmouth,Middlesbrough
+03/04/2027,Cardiff,Bristol City
+03/04/2027,Bolton Wanderers,Watford
+03/04/2027,Charlton Athletic,Millwall
+03/04/2027,West Ham,Birmingham City
+03/04/2027,Lincoln City,Derby County
+03/04/2027,Wolves,Norwich
+03/04/2027,Sheffield United,West Brom
+03/04/2027,Blackburn Rovers,Southampton
+03/04/2027,QPR,Wrexham
+03/04/2027,Preston North End,Swansea
+06/04/2027,Lincoln City,Bristol City
+06/04/2027,Millwall,Middlesbrough
+06/04/2027,West Ham,Bolton Wanderers
+06/04/2027,QPR,Charlton Athletic
+06/04/2027,Stoke,Cardiff
+06/04/2027,Portsmouth,Wolves
+06/04/2027,Swansea,Southampton
+06/04/2027,Burnley,Wrexham
+07/04/2027,Preston North End,Watford
+07/04/2027,West Brom,Derby County
+07/04/2027,Birmingham City,Norwich
+07/04/2027,Sheffield United,Blackburn Rovers
+10/04/2027,Wrexham,Swansea
+10/04/2027,Wolves,Birmingham City
+10/04/2027,Watford,West Brom
+10/04/2027,Blackburn Rovers,Preston North End
+10/04/2027,Bolton Wanderers,Millwall
+10/04/2027,Norwich,Sheffield United
+10/04/2027,Middlesbrough,QPR
+10/04/2027,Cardiff,Portsmouth
+10/04/2027,Southampton,Lincoln City
+10/04/2027,Charlton Athletic,Stoke
+10/04/2027,Bristol City,Burnley
+10/04/2027,Derby County,West Ham
+17/04/2027,Preston North End,Charlton Athletic
+17/04/2027,Portsmouth,Bristol City
+17/04/2027,Birmingham City,Wrexham
+17/04/2027,Stoke,Wolves
+17/04/2027,Lincoln City,Bolton Wanderers
+17/04/2027,West Brom,Middlesbrough
+17/04/2027,QPR,Blackburn Rovers
+17/04/2027,West Ham,Watford
+17/04/2027,Burnley,Norwich
+17/04/2027,Millwall,Southampton
+17/04/2027,Swansea,Derby County
+17/04/2027,Sheffield United,Cardiff
+20/04/2027,Bolton Wanderers,Sheffield United
+20/04/2027,Norwich,Stoke
+20/04/2027,Middlesbrough,Burnley
+20/04/2027,Derby County,Portsmouth
+20/04/2027,Wolves,West Ham
+20/04/2027,Wrexham,Millwall
+20/04/2027,Southampton,Birmingham City
+20/04/2027,Charlton Athletic,West Brom
+21/04/2027,Bristol City,Preston North End
+21/04/2027,Blackburn Rovers,Lincoln City
+21/04/2027,Cardiff,QPR
+21/04/2027,Watford,Swansea
+24/04/2027,Watford,Birmingham City
+24/04/2027,Middlesbrough,West Ham
+24/04/2027,Stoke,Lincoln City
+24/04/2027,Burnley,Southampton
+24/04/2027,Bolton Wanderers,Swansea
+24/04/2027,Sheffield United,Millwall
+24/04/2027,Wolves,QPR
+24/04/2027,Bristol City,Derby County
+24/04/2027,Charlton Athletic,Wrexham
+24/04/2027,Norwich,Blackburn Rovers
+24/04/2027,Cardiff,West Brom
+24/04/2027,Portsmouth,Preston North End
+01/05/2027,QPR,Norwich
+01/05/2027,West Ham,Portsmouth
+01/05/2027,West Brom,Bolton Wanderers
+01/05/2027,Southampton,Sheffield United
+01/05/2027,Birmingham City,Burnley
+01/05/2027,Millwall,Stoke
+01/05/2027,Wrexham,Bristol City
+01/05/2027,Blackburn Rovers,Watford
+01/05/2027,Lincoln City,Charlton Athletic
+01/05/2027,Preston North End,Cardiff
+01/05/2027,Derby County,Wolves
+01/05/2027,Swansea,Middlesbrough

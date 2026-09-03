@@ -9,7 +9,8 @@ match statistics (goals, shots, cards, recent form, head-to-head record).
 > archives (see [`src/import_openfootball.py`](src/import_openfootball.py)).
 > `data/fixtures.csv` holds every match from the current season that hasn't
 > been played yet — see [Predicting the next matchday](#predicting-the-next-matchday).
-> Three more leagues (La Liga, Serie A, Ligue 1) ship the same way under
+> Seven more leagues/divisions (La Liga, Serie A, Ligue 1, and the
+> Championship, Segunda, Serie B, Ligue 2) ship the same way under
 > `data/<league>/` — see [Other leagues](#other-leagues).
 > `src/generate_sample_data.py` can still generate a synthetic league if you'd
 > rather not use real club names while testing.
@@ -92,15 +93,22 @@ into `data/matches.csv` (see [Keeping the data current](#keeping-the-data-curren
 
 ## Other leagues
 
-La Liga, Serie A and Ligue 1 ship the same way, each in its own subfolder
-with its own model (a Ligue 1 team's Elo has nothing to do with a Premier
-League team's, so the leagues are trained separately, not merged):
+Seven more competitions ship the same way, each in its own subfolder with its
+own model (a Ligue 2 team's Elo has nothing to do with a Premier League
+team's, so every league/division is trained separately, never merged):
 
-```
-data/la-liga/matches.csv    data/la-liga/fixtures.csv    models/la-liga/model.joblib
-data/serie-a/matches.csv    data/serie-a/fixtures.csv    models/serie-a/model.joblib
-data/ligue-1/matches.csv    data/ligue-1/fixtures.csv    models/ligue-1/model.joblib
-```
+| League | Folder | Source file | Accuracy vs baseline |
+| --- | --- | --- | --- |
+| La Liga | `data/la-liga/` | `openfootball/espana` `1-liga.txt` | 53.5% vs 46.6% |
+| Serie A | `data/serie-a/` | `openfootball/italy` `1-seriea.txt` | 52.0% vs 39.0% |
+| Ligue 1 | `data/ligue-1/` | `openfootball/france` `france/*_fr1.txt` | 52.1% vs 44.2% |
+| Championship | `data/championship/` | `openfootball/england` `2-championship.txt` | 42.9% vs 41.4% |
+| Segunda División | `data/segunda/` | `openfootball/espana` `2-liga2.txt` | 47.1% vs 45.8% |
+| Serie B | `data/serie-b/` | `openfootball/italy` `2-serieb.txt` | 44.5% vs 43.7% |
+| Ligue 2 | `data/ligue-2/` | `openfootball/france` `france/*_fr2.txt` | 47.9% vs 43.2% |
+
+Second divisions are close to their baseline — expect less signal than the
+top flights above (more competitive parity, fewer big-Elo-gap fixtures).
 
 Every script takes `--data` / `--fixtures` / `--model` (and `train.py` takes
 `--model-out`), so point them at a league's files instead of the
@@ -110,14 +118,52 @@ Premier League default:
 python src/predict_fixtures.py --data data/la-liga/matches.csv \
     --fixtures data/la-liga/fixtures.csv --model models/la-liga/model.joblib
 
-python src/predict.py "Real Madrid" "Barcelona" --data data/la-liga/matches.csv --model models/la-liga/model.joblib
+python src/predict.py "Palermo" "Modena" --data data/serie-b/matches.csv --model models/serie-b/model.joblib
 ```
 
-Built from `openfootball/espana` (`1-liga.txt`), `openfootball/italy`
-(`1-seriea.txt`), and the `france/` folder of `openfootball/france`
-(`*_fr1.txt`) — same `import_openfootball.py`, same date/team-name handling,
-just a different set of season files and alias entries in `TEAM_ALIASES`.
-The web demo (below) only covers the Premier League for now.
+**`predict_fixtures.py`'s "next matchday" is only reliable for leagues whose
+source has a current-season file** (Premier League, La Liga, Serie A, Ligue 1,
+Championship — all track 2026-27). Segunda, Serie B and Ligue 2 stop at
+2025-26 in this archive, so their `fixtures.csv` holds whatever was unplayed
+at the end of that season, not real next-week fixtures — `predict.py` (name
+two teams yourself) still works fine, it just won't be "this weekend."
+
+Built with the same `import_openfootball.py`, same date/team-name handling —
+just a different season-file source and `TEAM_ALIASES` entries per
+league/division. The web demo (below) only covers the Premier League for now.
+
+### Cup competitions — not included
+
+openfootball does have cup files (`facup.txt`, `eflcup.txt`, Spain/Italy's
+`cup.txt`, France's `*_frcup.txt`), but two things make them a different job
+from a league import, not just more files:
+
+1. **Different scoreline shapes.** Extra time and penalties show up as
+   `2-1 a.e.t. (1-1, 0-1)` or `pen. 4-3 a.e.t. ...` — `import_openfootball.py`
+   currently drops any row that looks like this rather than mis-parsing it
+   (see `SUSPECT_TEAM_RE`), which for a cup file would be a large fraction of
+   rows, not the rare handful it is in league files.
+2. **Most opponents have zero history.** Early cup rounds pit top-flight
+   teams against lower-league or non-league sides this project has no Elo
+   for — the model would fall back to a neutral prior for one side, which
+   isn't a real prediction.
+
+Worth adding if you want it, but it's a real follow-up, not a flag flip.
+
+### Thai League — no accessible data source
+
+I looked for a Thai League 1 results dataset via GitHub search and general
+web search and didn't find one — openfootball doesn't cover Thailand, and no
+public GitHub CSV mirror turned up. `football-data.co.uk` might have it, but
+this environment's network policy blocks that domain entirely (see
+[Keeping the data current](#keeping-the-data-current)).
+
+To add it: get match results into a CSV with `Date` (`DD/MM/YYYY`),
+`HomeTeam`, `AwayTeam`, `FTHG`, `FTAG`, `FTR` columns — from Thai League's own
+site, a stats provider, or by hand for a season or two — and save it as
+`data/thai-league/matches.csv`. No import script needed for a file already in
+that shape; `train.py --data data/thai-league/matches.csv --model-out
+models/thai-league/model.joblib` picks it up as-is.
 
 ## Web demo
 
@@ -167,11 +213,18 @@ this repo was built from). A file the parser can't make sense of raises
 `ValueError` rather than silently mis-parsing it — if openfootball changes
 its layout again, that's your signal to check `parse_season_file()`.
 
-For the other leagues, swap in the matching repo/file and `--out`/`--fixtures-out`:
-`openfootball/espana` + `1-liga.txt` → `data/la-liga/`, `openfootball/italy` +
-`1-seriea.txt` → `data/serie-a/`, the `france/` folder of `openfootball/france`
-+ `*_fr1.txt` → `data/ligue-1/` (then `--model-out models/<league>/model.joblib`
-on the `train.py` step).
+For the other leagues, swap in the matching repo/file and `--out`/`--fixtures-out`
+(then `--model-out models/<league>/model.joblib` on the `train.py` step):
+
+| League | Repo | File |
+| --- | --- | --- |
+| La Liga | `openfootball/espana` | `1-liga.txt` |
+| Serie A | `openfootball/italy` | `1-seriea.txt` |
+| Ligue 1 | `openfootball/france` | `france/*_fr1.txt` |
+| Championship | `openfootball/england` | `2-championship.txt` |
+| Segunda | `openfootball/espana` | `2-liga2.txt` |
+| Serie B | `openfootball/italy` | `2-serieb.txt` |
+| Ligue 2 | `openfootball/france` | `france/*_fr2.txt` |
 
 Alternatively, a manually downloaded CSV from
 [football-data.co.uk](https://www.football-data.co.uk/englandm.php) also
@@ -200,10 +253,9 @@ since football-data.co.uk only publishes results.
 ```
 data/matches.csv            played matches, Premier League (real, 2015-16 to current season)
 data/fixtures.csv           Premier League's current-season not-yet-played matches
-data/la-liga/                same pair of files, La Liga
-data/serie-a/                same pair of files, Serie A
-data/ligue-1/                same pair of files, Ligue 1
-src/import_openfootball.py  converts openfootball season files (any of the 4 leagues)
+data/la-liga/, data/serie-a/, data/ligue-1/               same pair of files, per top-flight league
+data/championship/, data/segunda/, data/serie-b/, data/ligue-2/   same, per second division
+src/import_openfootball.py  converts openfootball season files (any of the 8 leagues/divisions above)
 src/generate_sample_data.py synthetic data generator (alternative to real data)
 src/features.py             feature engineering (Elo, form, head-to-head)
 src/train.py                 training + evaluation
@@ -215,5 +267,5 @@ web/template.html            web demo page shell (has the JSON placeholder)
 web/model_export.json        exported model + team state (Premier League)
 web/index.html                the runnable web demo (open directly in a browser)
 models/                      trained Premier League model + metrics (git-ignored)
-models/la-liga/, models/serie-a/, models/ligue-1/   same, per league (git-ignored)
+models/<league>/              same, per league/division above (git-ignored)
 ```

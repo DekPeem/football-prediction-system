@@ -1,0 +1,191 @@
+Date,HomeTeam,AwayTeam
+24/10/2025,Bastia,Laval
+07/11/2025,Nancy,Laval
+07/11/2025,Clermont,Amiens
+07/11/2025,Grenoble,Rodez
+07/11/2025,Montpellier,Annecy
+07/11/2025,Bastia,Reims
+07/11/2025,Dunkerque,Boulogne
+08/11/2025,Guingamp,Pau
+08/11/2025,Le Mans,Red Star
+08/11/2025,Troyes,Saint-Etienne
+21/11/2025,Boulogne,Grenoble
+21/11/2025,Annecy,Bastia
+21/11/2025,Pau,Le Mans
+21/11/2025,Rodez,Dunkerque
+21/11/2025,Laval,Troyes
+22/11/2025,Red Star,Clermont
+22/11/2025,Amiens,Guingamp
+22/11/2025,Saint-Etienne,Nancy
+24/11/2025,Reims,Montpellier
+05/12/2025,Clermont,Boulogne
+05/12/2025,Guingamp,Annecy
+05/12/2025,Grenoble,Nancy
+05/12/2025,Le Mans,Amiens
+05/12/2025,Bastia,Red Star
+06/12/2025,Troyes,Rodez
+06/12/2025,Montpellier,Pau
+06/12/2025,Dunkerque,Saint-Etienne
+08/12/2025,Reims,Laval
+12/12/2025,Nancy,Clermont
+12/12/2025,Annecy,Le Mans
+12/12/2025,Pau,Amiens
+12/12/2025,Rodez,Guingamp
+12/12/2025,Laval,Dunkerque
+13/12/2025,Red Star,Reims
+13/12/2025,Grenoble,Montpellier
+13/12/2025,Saint-Etienne,Bastia
+15/12/2025,Boulogne,Troyes
+02/01/2026,Clermont,Laval
+02/01/2026,Guingamp,Boulogne
+02/01/2026,Troyes,Red Star
+02/01/2026,Pau,Rodez
+02/01/2026,Montpellier,Dunkerque
+02/01/2026,Le Mans,Saint-Etienne
+02/01/2026,Amiens,Nancy
+02/01/2026,Bastia,Grenoble
+02/01/2026,Reims,Annecy
+16/01/2026,Boulogne,Montpellier
+16/01/2026,Nancy,Guingamp
+16/01/2026,Saint-Etienne,Clermont
+16/01/2026,Troyes,Reims
+16/01/2026,Annecy,Amiens
+16/01/2026,Grenoble,Red Star
+16/01/2026,Rodez,Le Mans
+16/01/2026,Laval,Bastia
+16/01/2026,Dunkerque,Pau
+23/01/2026,Nancy,Rodez
+23/01/2026,Guingamp,Troyes
+23/01/2026,Annecy,Clermont
+23/01/2026,Pau,Grenoble
+23/01/2026,Red Star,Boulogne
+23/01/2026,Le Mans,Dunkerque
+23/01/2026,Amiens,Laval
+23/01/2026,Bastia,Montpellier
+23/01/2026,Reims,Saint-Etienne
+30/01/2026,Saint-Etienne,Boulogne
+30/01/2026,Clermont,Reims
+30/01/2026,Troyes,Le Mans
+30/01/2026,Grenoble,Amiens
+30/01/2026,Montpellier,Guingamp
+30/01/2026,Rodez,Red Star
+30/01/2026,Bastia,Nancy
+30/01/2026,Laval,Pau
+30/01/2026,Dunkerque,Annecy
+06/02/2026,Boulogne,Rodez
+06/02/2026,Nancy,Troyes
+06/02/2026,Saint-Etienne,Montpellier
+06/02/2026,Annecy,Grenoble
+06/02/2026,Red Star,Pau
+06/02/2026,Le Mans,Laval
+06/02/2026,Amiens,Clermont
+06/02/2026,Reims,Bastia
+06/02/2026,Dunkerque,Guingamp
+13/02/2026,Clermont,Rodez
+13/02/2026,Guingamp,Saint-Etienne
+13/02/2026,Pau,Boulogne
+13/02/2026,Red Star,Nancy
+13/02/2026,Grenoble,Reims
+13/02/2026,Montpellier,Le Mans
+13/02/2026,Amiens,Dunkerque
+13/02/2026,Bastia,Troyes
+13/02/2026,Laval,Annecy
+20/02/2026,Boulogne,Clermont
+20/02/2026,Nancy,Grenoble
+20/02/2026,Saint-Etienne,Laval
+20/02/2026,Troyes,Pau
+20/02/2026,Annecy,Red Star
+20/02/2026,Le Mans,Guingamp
+20/02/2026,Rodez,Montpellier
+20/02/2026,Reims,Amiens
+20/02/2026,Dunkerque,Bastia
+27/02/2026,Clermont,Dunkerque
+27/02/2026,Guingamp,Rodez
+27/02/2026,Pau,Saint-Etienne
+27/02/2026,Red Star,Le Mans
+27/02/2026,Grenoble,Boulogne
+27/02/2026,Montpellier,Reims
+27/02/2026,Amiens,Troyes
+27/02/2026,Bastia,Annecy
+27/02/2026,Laval,Nancy
+06/03/2026,Boulogne,Amiens
+06/03/2026,Nancy,Montpellier
+06/03/2026,Saint-Etienne,Red Star
+06/03/2026,Troyes,Clermont
+06/03/2026,Pau,Bastia
+06/03/2026,Le Mans,Annecy
+06/03/2026,Rodez,Grenoble
+06/03/2026,Laval,Guingamp
+06/03/2026,Dunkerque,Reims
+13/03/2026,Nancy,Le Mans
+13/03/2026,Clermont,Pau
+13/03/2026,Guingamp,Amiens
+13/03/2026,Annecy,Troyes
+13/03/2026,Red Star,Dunkerque
+13/03/2026,Grenoble,Saint-Etienne
+13/03/2026,Montpellier,Laval
+13/03/2026,Bastia,Boulogne
+13/03/2026,Reims,Rodez
+20/03/2026,Boulogne,Nancy
+20/03/2026,Saint-Etienne,Annecy
+20/03/2026,Clermont,Red Star
+20/03/2026,Guingamp,Reims
+20/03/2026,Troyes,Dunkerque
+20/03/2026,Pau,Montpellier
+20/03/2026,Rodez,Bastia
+20/03/2026,Amiens,Le Mans
+20/03/2026,Laval,Grenoble
+03/04/2026,Nancy,Saint-Etienne
+03/04/2026,Annecy,Guingamp
+03/04/2026,Red Star,Laval
+03/04/2026,Grenoble,Clermont
+03/04/2026,Montpellier,Troyes
+03/04/2026,Le Mans,Pau
+03/04/2026,Bastia,Amiens
+03/04/2026,Reims,Boulogne
+03/04/2026,Dunkerque,Rodez
+10/04/2026,Boulogne,Le Mans
+10/04/2026,Saint-Etienne,Dunkerque
+10/04/2026,Clermont,Nancy
+10/04/2026,Guingamp,Grenoble
+10/04/2026,Annecy,Montpellier
+10/04/2026,Red Star,Bastia
+10/04/2026,Rodez,Troyes
+10/04/2026,Amiens,Pau
+10/04/2026,Laval,Reims
+17/04/2026,Nancy,Annecy
+17/04/2026,Troyes,Boulogne
+17/04/2026,Pau,Guingamp
+17/04/2026,Montpellier,Grenoble
+17/04/2026,Le Mans,Clermont
+17/04/2026,Rodez,Amiens
+17/04/2026,Bastia,Saint-Etienne
+17/04/2026,Reims,Red Star
+17/04/2026,Dunkerque,Laval
+24/04/2026,Boulogne,Dunkerque
+24/04/2026,Saint-Etienne,Troyes
+24/04/2026,Clermont,Bastia
+24/04/2026,Annecy,Pau
+24/04/2026,Red Star,Guingamp
+24/04/2026,Grenoble,Le Mans
+24/04/2026,Amiens,Montpellier
+24/04/2026,Laval,Rodez
+24/04/2026,Reims,Nancy
+01/05/2026,Boulogne,Annecy
+01/05/2026,Guingamp,Bastia
+01/05/2026,Troyes,Laval
+01/05/2026,Pau,Nancy
+01/05/2026,Montpellier,Clermont
+01/05/2026,Le Mans,Reims
+01/05/2026,Rodez,Saint-Etienne
+01/05/2026,Amiens,Red Star
+01/05/2026,Dunkerque,Grenoble
+08/05/2026,Nancy,Dunkerque
+08/05/2026,Saint-Etienne,Amiens
+08/05/2026,Clermont,Guingamp
+08/05/2026,Annecy,Rodez
+08/05/2026,Red Star,Montpellier
+08/05/2026,Grenoble,Troyes
+08/05/2026,Bastia,Le Mans
+08/05/2026,Laval,Boulogne
+08/05/2026,Reims,Pau

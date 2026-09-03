@@ -181,13 +181,106 @@ TEAM_ALIASES = {
     "Stade Brestois": "Brest", "Stade Brestois 29": "Brest",
     "Stade de Reims": "Reims",
     "Toulouse FC": "Toulouse",
+
+    # -- Championship (openfootball/england, 2-championship.txt) --
+    "Barnsley FC": "Barnsley",
+    "Birmingham City FC": "Birmingham City",
+    "Blackburn Rovers FC": "Blackburn Rovers",
+    "Blackpool FC": "Blackpool",
+    "Bolton Wanderers FC": "Bolton Wanderers",
+    "Bristol City FC": "Bristol City",
+    "Charlton Athletic FC": "Charlton Athletic",
+    "Derby County FC": "Derby County",
+    "Lincoln City FC": "Lincoln City",
+    "Millwall FC": "Millwall",
+    "Oxford United FC": "Oxford United",
+    "Peterborough United FC": "Peterborough United",
+    "Plymouth Argyle FC": "Plymouth Argyle",
+    "Portsmouth FC": "Portsmouth",
+    "Preston North End FC": "Preston North End",
+    "Queens Park Rangers FC": "QPR",
+    "Reading FC": "Reading",
+    "Rotherham United FC": "Rotherham United",
+    "Sheffield Wednesday FC": "Sheffield Wednesday",
+    "Swansea City AFC": "Swansea",
+    "Wigan Athletic FC": "Wigan Athletic",
+    "Wrexham AFC": "Wrexham",
+
+    # -- Segunda División (openfootball/espana, 2-liga2.txt) --
+    "AD Alcorcón": "Alcorcon",
+    "AD Ceuta FC": "Ceuta",
+    "Burgos CF": "Burgos",
+    "CD Castellón": "Castellon",
+    "CD Eldense": "Eldense",
+    "CD Lugo": "Lugo",
+    "CD Mirandés": "Mirandes",
+    "CD Tenerife": "Tenerife",
+    "CF Fuenlabrada": "Fuenlabrada",
+    "Córdoba CF": "Cordoba",
+    "FC Andorra": "Andorra",
+    "FC Cartagena": "Cartagena",
+    "SD Amorebieta": "Amorebieta",
+    "SD Ponferradina": "Ponferradina",
+    "UD Ibiza": "Ibiza",
+    "Villarreal CF B": "Villarreal B",
+
+    # -- Serie B (openfootball/italy, 2-serieb.txt) --
+    "AC Perugia Calcio": "Perugia",
+    "AC Reggiana 1919": "Reggiana",
+    "AS Cittadella": "Cittadella",
+    "Ascoli Calcio": "Ascoli",
+    "Calcio Lecco 1912": "Lecco",
+    "Calcio Padova": "Padova",
+    "Carrarese Calcio": "Carrarese",
+    "Cesena FC": "Cesena",
+    "Cosenza Calcio": "Cosenza",
+    "FC Südtirol": "Sudtirol",
+    "Feralpisalò": "Feralpisalo",
+    "L.R. Vicenza": "Vicenza",
+    "Mantova 1911 SSD": "Mantova",
+    "Modena FC": "Modena",
+    "Palermo FC": "Palermo",
+    "Pisa SC": "Pisa",
+    "Pordenone Calcio": "Pordenone",
+    "Reggina 1914": "Reggina",
+    "SSC Bari": "Bari",
+    "Ternana Calcio": "Ternana",
+    "US Alessandria 1912": "Alessandria",
+    "US Avellino": "Avellino",
+    "US Catanzaro": "Catanzaro",
+
+    # -- Ligue 2 (openfootball/france, france/*_fr2.txt) --
+    "Chamois Niortais": "Niort",
+    "FC Annecy": "Annecy",
+    "FC Martigues": "Martigues",
+    "FC Sochaux": "Sochaux",
+    "Grenoble Foot 38": "Grenoble",
+    "Havre AC": "Le Havre",
+    "Pau FC": "Pau",
+    "Red Star FC": "Red Star",
+    "Rodez AF": "Rodez",
+    "Stade Lavallois": "Laval",
+    "US Boulogne": "Boulogne",
+    "US Concarneau": "Concarneau",
+    "US Quevilly-Rouen": "Quevilly-Rouen",
+    "USL Dunkerque": "Dunkerque",
+    "Valenciennes FC": "Valenciennes",
 }
 
 # Some seasons (e.g. Ligue 1 2019-20, cut short by COVID) mark a team's
 # remaining fixtures with a trailing "<score> [awarded]" or "[cancelled]"
 # annotation instead of just omitting them. Strip that before normalizing,
 # or it reads as a distinct "team".
-ANNOTATION_RE = re.compile(r"\s+(?:\d+-\d+\s+)?\[(?:awarded|cancelled)\]\s*$")
+ANNOTATION_RE = re.compile(r"\s+(?:\d+-\d+\s+)?\[(?:awarded|cancelled|postponed)\]\s*$")
+
+# Promotion play-offs / two-legged cup ties (extra time, penalties, [postponed])
+# use a scoreline shape SCORE_MID_FORMAT_RE / V_FORMAT_RE weren't built for
+# ("pen. 1-1 a.e.t. (1-1, 0-1)"), so the whole annotation ends up misparsed
+# into one side's "team name" instead of a score. Rather than growing the
+# regex to cover every playoff-scoreline variant, rows where that leaked
+# through are dropped in main() — these are single-digit counts per season,
+# not the bulk of the data.
+SUSPECT_TEAM_RE = re.compile(r"a\.e\.t|pen\.|postponed|cancelled|awarded", re.IGNORECASE)
 
 
 def normalize_team(name: str) -> str:
@@ -274,9 +367,12 @@ def main() -> None:
 
     played, upcoming = [], []
     last_file_index = len(args.files) - 1
-    dropped = 0
+    dropped = malformed = 0
     for i, path in enumerate(args.files):
         rows = parse_season_file(path)
+        clean_rows = [r for r in rows if not (SUSPECT_TEAM_RE.search(r["HomeTeam"]) or SUSPECT_TEAM_RE.search(r["AwayTeam"]))]
+        malformed += len(rows) - len(clean_rows)
+        rows = clean_rows
         file_played = [r for r in rows if r["FTR"] is not None]
         file_upcoming = [r for r in rows if r["FTR"] is None]
         played.extend(file_played)
@@ -293,6 +389,8 @@ def main() -> None:
               f"{'' if i == last_file_index else ' (dropped, not the current season)' if file_upcoming else ''}")
     if dropped:
         print(f"\n({dropped} stale unplayed row(s) from non-current seasons dropped entirely)")
+    if malformed:
+        print(f"({malformed} row(s) with an unparsed playoff/extra-time/penalty scoreline dropped entirely)")
 
     with open(args.out, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR"])
