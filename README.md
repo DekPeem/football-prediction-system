@@ -4,22 +4,25 @@ Predicts football match outcomes — **Home win / Draw / Away win** — from his
 match statistics (goals, shots, cards, recent form, head-to-head record).
 
 > The bundled `data/matches.csv` is **real English Premier League results** —
-> 2,280 matches across the 2015–16 through 2020–21 seasons, converted from the
-> open-source [footballcsv/england](https://github.com/footballcsv/england)
-> archive (see [`src/import_footballcsv.py`](src/import_footballcsv.py)).
-> It stops at 2020–21 because that's as far as that archive goes; see
-> [Getting more recent data](#getting-more-recent-data) to bring it up to date.
+> 4,200 matches, 2015–16 through the current (2026–27) season, converted from
+> the open-source [openfootball/england](https://github.com/openfootball/england)
+> archive (see [`src/import_openfootball.py`](src/import_openfootball.py)).
+> `data/fixtures.csv` holds every match from the current season that hasn't
+> been played yet — see [Predicting the next matchday](#predicting-the-next-matchday).
 > `src/generate_sample_data.py` can still generate a synthetic league if you'd
 > rather not use real club names while testing.
 
 ## How it works
 
-1. **`src/import_footballcsv.py`** — converts footballcsv/england season files
-   into this project's `Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR` layout, normalizing
-   team names that vary release to release ("Arsenal FC" vs "Arsenal"). This is
-   what built the bundled `data/matches.csv`.
-   **`src/generate_sample_data.py`** does the same job with a synthetic
-   10-team league instead, for testing without real club names.
+1. **`src/import_openfootball.py`** — converts openfootball/england season
+   files into this project's `Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR` layout,
+   normalizing team names that vary release to release ("Arsenal FC" vs
+   "Arsenal") and file to file (some seasons use a `Team A v Team B  2-1`
+   layout, others `Team A  2-1  Team B`). Played matches go to
+   `data/matches.csv`; not-yet-played matches in the current season go to
+   `data/fixtures.csv`. This is what built both bundled files.
+   **`src/generate_sample_data.py`** does the same training-data job with a
+   synthetic 10-team league instead, for testing without real club names.
 2. **`src/features.py`** — turns raw results into pre-match features with no
    lookahead leakage: an Elo-style rating per team, rolling form (points per game,
    goal difference) over the last 5 matches, head-to-head record, and rest days
@@ -28,8 +31,11 @@ match statistics (goals, shots, cards, recent form, head-to-head record).
    features, evaluated with a **chronological** train/test split (matches are
    time-ordered, so a random split would leak future form into training).
 4. **`src/predict.py`** — replays full match history to get each team's current
-   Elo/form, then predicts the outcome of a new fixture.
-5. **`src/export_web_demo_data.py`** — exports the trained model's coefficients
+   Elo/form, then predicts the outcome of a single fixture you name.
+5. **`src/predict_fixtures.py`** — same idea, but predicts every match in
+   `data/fixtures.csv` — by default just the next matchday
+   (see [Predicting the next matchday](#predicting-the-next-matchday)).
+6. **`src/export_web_demo_data.py`** — exports the trained model's coefficients
    and every team's current Elo/form/head-to-head as `web/model_export.json`,
    so a static page can reproduce the exact same prediction in the browser
    (see [Web demo](#web-demo)).
@@ -47,13 +53,38 @@ python src/predict.py "Liverpool" "Man United"
 Example output:
 
 ```
-Liverpool (Elo 1724.1)  vs  Man United (Elo 1679.2)
-  Home win   49.9%
-  Draw       25.8%
-  Away win   24.2%
+Liverpool (Elo 1658.8)  vs  Man United (Elo 1646.1)
+  Home win   45.7%
+  Draw       26.0%
+  Away win   28.4%
 
 Predicted: Home win
 ```
+
+## Predicting the next matchday
+
+`data/fixtures.csv` holds the current season's not-yet-played matches (built
+by `import_openfootball.py` alongside `data/matches.csv`). To see the model's
+call on every game in the next round:
+
+```bash
+python src/predict_fixtures.py
+```
+
+```
+10 fixture(s), 04 Sep 2026 - 06 Sep 2026
+
+Fri 04 Sep  Ipswich Town vs Liverpool
+    H 14%  D 22%  A 65%   -> Away win (65%)
+Sat 05 Sep  Man City vs Coventry City
+    H 82%  D 14%  A 5%   -> Home win (82%)
+...
+```
+
+`--all` predicts every remaining fixture in the season instead of just the
+next round; `--date 2026-09-05` predicts one specific date. Once a matchday
+is actually played, re-run the import to move it from `data/fixtures.csv`
+into `data/matches.csv` (see [Keeping the data current](#keeping-the-data-current)).
 
 ## Web demo
 
@@ -79,36 +110,44 @@ placeholder — edit it to change the page's look; `build_web_page.py` fills
 in the placeholder.) To update the hosted version too, paste `web/index.html`'s
 content into the Artifact and republish it.
 
-## Getting more recent data
+## Keeping the data current
 
-`data/matches.csv` stops at the 2020–21 season because that's as far as the
-open-source footballcsv/england archive goes. To bring it up to date, get a
-newer season CSV from [football-data.co.uk](https://www.football-data.co.uk/englandm.php)
-(e.g. `E0.csv` for the Premier League — free, no sign-up) and save it as
-`data/matches.csv`. The loader needs at minimum:
+openfootball/england updates its current-season file after real matchdays
+are played. To pull in newer results (and refresh `data/fixtures.csv` with
+what's left to play):
 
-| Column | Meaning |
-| --- | --- |
-| `Date` | match date, `DD/MM/YYYY` |
-| `HomeTeam`, `AwayTeam` | team names |
-| `FTHG`, `FTAG` | full-time home/away goals |
-| `FTR` | full-time result: `H` / `D` / `A` |
+```bash
+git clone --depth 1 https://github.com/openfootball/england /tmp/openfootball-england
+python src/import_openfootball.py \
+    /tmp/openfootball-england/2015-16/1-premierleague.txt \
+    /tmp/openfootball-england/2016-17/1-premierleague.txt \
+    ... \
+    /tmp/openfootball-england/2026-27/1-premierleague.txt \
+    --out data/matches.csv --fixtures-out data/fixtures.csv
+python src/train.py
+python src/export_web_demo_data.py && python src/build_web_page.py
+```
 
-Then just re-run `python src/train.py`. Multiple seasons/leagues can be
-concatenated into one CSV as long as column names match and rows stay sorted
-(or at least sortable) by `Date` — keeping the older footballcsv-derived rows
-and appending newer football-data.co.uk seasons works fine as long as team
-names match (check against `TEAM_ALIASES` in `src/import_footballcsv.py`;
-football-data.co.uk tends to use short names like "Man United" already).
+Pass every season file oldest-first (see the `git log` on
+[`import_openfootball.py`](src/import_openfootball.py) for the exact list
+this repo was built from). A file the parser can't make sense of raises
+`ValueError` rather than silently mis-parsing it — if openfootball changes
+its layout again, that's your signal to check `parse_season_file()`.
+
+Alternatively, a manually downloaded CSV from
+[football-data.co.uk](https://www.football-data.co.uk/englandm.php) also
+works directly as `data/matches.csv` (no import script needed) as long as it
+has `Date` (`DD/MM/YYYY`), `HomeTeam`, `AwayTeam`, `FTHG`, `FTAG`, `FTR`
+columns — but it won't give you `data/fixtures.csv` (unplayed matches),
+since football-data.co.uk only publishes results.
 
 ## Model quality — read this before trusting a prediction
 
 - **Baseline matters more than accuracy.** On the bundled data, "always
-  predict home win" scores 39.7% (the test season, 2020–21, was played
-  behind closed doors — home advantage was unusually weak league-wide that
-  year, which is also why the model's own accuracy, 51.1%, is lower than
-  you'd see on a normal season). `train.py` prints this baseline next to the
-  model's accuracy — only the gap over baseline is real signal.
+  predict home win" scores 42.2% on the (most recent, chronological) test
+  split; the model itself scores 49.8%. `train.py` prints this baseline next
+  to the model's accuracy every time you retrain — only the gap over
+  baseline is real signal.
 - Draws are structurally the hardest class to call; expect low recall there.
 - This is a starting point (Elo + form + head-to-head + logistic regression),
   not a betting-grade model. Realistic next steps: add bookmaker odds as a
@@ -120,12 +159,14 @@ football-data.co.uk tends to use short names like "Man United" already).
 ## Project layout
 
 ```
-data/matches.csv            match results (real EPL 2015-21 by default)
-src/import_footballcsv.py   converts footballcsv/england season files
+data/matches.csv            played matches (real EPL, 2015-16 to current season)
+data/fixtures.csv           current season's not-yet-played matches
+src/import_openfootball.py  converts openfootball/england season files
 src/generate_sample_data.py synthetic data generator (alternative to real data)
 src/features.py             feature engineering (Elo, form, head-to-head)
 src/train.py                 training + evaluation
 src/predict.py               CLI to predict a single fixture
+src/predict_fixtures.py      CLI to predict data/fixtures.csv (next matchday by default)
 src/export_web_demo_data.py  exports model + team state -> web/model_export.json
 src/build_web_page.py        embeds web/model_export.json into web/index.html
 web/template.html            web demo page shell (has the JSON placeholder)

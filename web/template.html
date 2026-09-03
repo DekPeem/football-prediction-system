@@ -303,16 +303,16 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow"><span class="dot"></span>Live model demo &middot; real Premier League results, 2015&ndash;21</div>
+    <div class="eyebrow"><span class="dot"></span>Live model demo &middot; real Premier League results, 2015&ndash;present</div>
     <h1>Full-Time Predictor</h1>
     <p class="sub">
       Pick a home and away side to see the trained model's Home / Draw / Away
       probabilities, computed live in your browser from the same Elo rating,
       rolling-form and head-to-head features as the
       <a href="https://github.com/DekPeem/football-prediction-system" target="_blank" rel="noopener">football-prediction-system</a>
-      repo. Trained on 2,280 real English Premier League matches (2015&ndash;16
-      through 2020&ndash;21) &mdash; Elo ratings reflect each club's actual results
-      up to the end of that span, not the current table.
+      repo. Trained on 4,200 real English Premier League matches (2015&ndash;16
+      through the 2026&ndash;27 season in progress) &mdash; Elo ratings reflect each
+      club's actual results up to the most recently played matchday.
     </p>
   </header>
 
@@ -367,8 +367,8 @@
   </div>
 
   <footer>
-    <span>Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record &middot; trained accuracy 51.1% vs 39.7% majority-class baseline, tested on the 2020&ndash;21 season (played behind closed doors, which weakened home advantage league-wide).</span>
-    <span>Point <code>data/matches.csv</code> at a newer season's CSV and re-run <code>python src/train.py &amp;&amp; python src/export_web_demo_data.py</code> to bring this page's numbers up to date.</span>
+    <span>Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record &middot; trained accuracy 49.8% vs 42.2% majority-class baseline on a chronological holdout (2024&ndash;present).</span>
+    <span>Re-run <code>python src/import_openfootball.py ... &amp;&amp; python src/train.py &amp;&amp; python src/export_web_demo_data.py &amp;&amp; python src/build_web_page.py</code> to bring this page's numbers up to date after a new matchday.</span>
   </footer>
 </div>
 
