@@ -1253,6 +1253,58 @@
     "Wolves|West Brom": -1.5,
     "Wolves|West Ham": -0.0
   },
+  "next_matchday": [
+    {
+      "date": "2026-09-04",
+      "home": "Ipswich Town",
+      "away": "Liverpool"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Newcastle",
+      "away": "Bournemouth"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Nottingham Forest",
+      "away": "Tottenham"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Man City",
+      "away": "Coventry City"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Brighton",
+      "away": "Leeds"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Brentford",
+      "away": "Sunderland"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Fulham",
+      "away": "Crystal Palace"
+    },
+    {
+      "date": "2026-09-05",
+      "home": "Hull City",
+      "away": "Aston Villa"
+    },
+    {
+      "date": "2026-09-06",
+      "home": "Arsenal",
+      "away": "Chelsea"
+    },
+    {
+      "date": "2026-09-06",
+      "home": "Everton",
+      "away": "Man United"
+    }
+  ],
   "n_train_matches": 4200,
   "date_range": [
     "2015-08-08",

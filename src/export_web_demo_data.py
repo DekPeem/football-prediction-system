@@ -2,7 +2,9 @@
 Export the trained model's coefficients + each team's current state (Elo, form,
 head-to-head, rest days) as a single JSON file, so a static web page can
 reproduce the exact same prediction client-side (no server needed) — the page
-runs the identical scaler + logistic-regression math in JavaScript.
+runs the identical scaler + logistic-regression math in JavaScript. Also
+exports the next matchday from data/fixtures.csv, for the page's "predict
+today's matches" panel.
 
 Usage:
     python src/export_web_demo_data.py
@@ -11,6 +13,7 @@ from __future__ import annotations
 
 import itertools
 import json
+import os
 
 import joblib
 import pandas as pd
@@ -56,6 +59,21 @@ def main() -> None:
     scaler = model.named_steps["scaler"]
     clf = model.named_steps["clf"]
 
+    next_matchday = []
+    if os.path.exists("data/fixtures.csv"):
+        fixtures = pd.read_csv("data/fixtures.csv")
+        if not fixtures.empty:
+            fixtures["Date"] = pd.to_datetime(fixtures["Date"], format="%d/%m/%Y")
+            fixtures = fixtures.sort_values("Date")
+            # A round spans a few days (Fri-Mon), not just one date - same
+            # window predict_fixtures.py uses for "next matchday".
+            window_start = fixtures["Date"].min()
+            round_fixtures = fixtures[fixtures["Date"] <= window_start + pd.Timedelta(days=3)]
+            next_matchday = [
+                {"date": row.Date.strftime("%Y-%m-%d"), "home": row.HomeTeam, "away": row.AwayTeam}
+                for row in round_fixtures.itertuples(index=False)
+            ]
+
     export = {
         "feature_columns": FEATURE_COLUMNS,
         "scaler_mean": scaler.mean_.tolist(),
@@ -65,6 +83,7 @@ def main() -> None:
         "classes": clf.classes_.tolist(),
         "teams": team_info,
         "h2h": h2h_pairs,
+        "next_matchday": next_matchday,
         "n_train_matches": int(len(matches)),
         "date_range": [matches["Date"].min().strftime("%Y-%m-%d"), matches["Date"].max().strftime("%Y-%m-%d")],
     }

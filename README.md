@@ -216,6 +216,26 @@ placeholder — edit it to change the page's look; `build_web_page.py` fills
 in the placeholder.) To update the hosted version too, paste `web/index.html`'s
 content into the Artifact and republish it.
 
+### "Today's matchday" + prediction history
+
+The page also auto-predicts the whole next round (`data/fixtures.csv`, same
+window `predict_fixtures.py` uses — "Today's matchday" is really "the next
+scheduled round," which may be a few days out) and a **Predict & Save**
+button that logs those predictions to the page's own shared history —
+visible to anyone who opens the page, growing over time as it's clicked on
+new matchdays.
+
+This part **only works on the hosted (claude.ai) copy** — saving needs
+Claude's `db` capability (a small per-artifact JSON store), which a page
+opened from a local file has no access to at all. `web/index.html` still
+shows the same predictions, just with the save button disabled and a note
+explaining why — open the hosted link above for history.
+
+It's a log of predictions made, not (yet) a scored track record — there's no
+automatic check against actual results once a match is played. A page
+declaring `db` can also read game results back in, so that's a real
+follow-up if you want it, not a rebuild.
+
 ## Keeping the data current
 
 openfootball/england updates its current-season file after real matchdays

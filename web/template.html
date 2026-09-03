@@ -282,6 +282,92 @@
   .stat-grid .row:not(:last-child) .row-label,
   .stat-grid .row:not(:last-child) .val { border-bottom: 1px solid var(--surface-2); }
 
+  /* --- Today's matchday --- */
+  .today { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .today-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .today-head h2 {
+    font-family: 'Teko', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+  .today-sub { font-size: 13px; color: var(--text-dim); margin-top: -8px; }
+  .save-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 9px 16px;
+    border-radius: 9px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 120ms ease;
+  }
+  .save-btn:hover { opacity: 0.88; }
+  .save-btn:disabled { cursor: not-allowed; opacity: 0.5; }
+  .save-status {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 9px 12px;
+    line-height: 1.5;
+  }
+
+  .fixture-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .fixture-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--surface);
+    font-size: 13.5px;
+  }
+  .fixture-date { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--text-dim); }
+  .fixture-teams { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fixture-teams .vs-sm { color: var(--text-dim); font-size: 11px; margin: 0 4px; }
+  .fixture-probs { display: flex; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fp { padding: 2px 6px; border-radius: 5px; }
+  .fp-h { background: color-mix(in srgb, var(--home) 16%, transparent); color: var(--home); }
+  .fp-d { background: color-mix(in srgb, var(--draw) 16%, transparent); color: var(--draw); }
+  .fp-a { background: color-mix(in srgb, var(--away) 16%, transparent); color: var(--away); }
+
+  /* --- History --- */
+  .history { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .history h2 {
+    font-family: 'Teko', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+  .history-list { display: flex; flex-direction: column; gap: 12px; }
+  .history-empty { font-size: 13.5px; color: var(--text-dim); padding: 8px 0; }
+  .history-entry { border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .history-entry-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .history-date { font-family: 'Teko', sans-serif; font-size: 17px; font-weight: 600; }
+  .history-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); }
+  .history-fixtures { display: flex; flex-direction: column; gap: 4px; }
+  .history-fixture { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; }
+  .history-fixture span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .history-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex: none;
+  }
+  .history-pill[data-outcome="H"] { background: color-mix(in srgb, var(--home) 16%, transparent); color: var(--home); }
+  .history-pill[data-outcome="D"] { background: color-mix(in srgb, var(--draw) 16%, transparent); color: var(--draw); }
+  .history-pill[data-outcome="A"] { background: color-mix(in srgb, var(--away) 16%, transparent); color: var(--away); }
+
   footer {
     display: flex;
     flex-direction: column;
@@ -315,6 +401,23 @@
       club's actual results up to the most recently played matchday.
     </p>
   </header>
+
+  <div class="card today" id="todayCard" hidden>
+    <div class="today-head">
+      <h2>Today's matchday</h2>
+      <button id="saveBtn" class="save-btn" type="button">Predict &amp; Save</button>
+    </div>
+    <div class="today-sub" id="todaySub">—</div>
+    <div class="fixture-list" id="fixtureList"></div>
+    <div class="save-status" id="saveStatus" hidden></div>
+  </div>
+
+  <div class="card history" id="historyCard" hidden>
+    <h2>Prediction history</h2>
+    <div class="history-list" id="historyList">
+      <div class="history-empty">No saved predictions yet — click "Predict &amp; Save" above.</div>
+    </div>
+  </div>
 
   <div class="card picker">
     <div class="picker-row">
@@ -369,6 +472,7 @@
   <footer>
     <span>Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record &middot; trained accuracy 49.8% vs 42.2% majority-class baseline on a chronological holdout (2024&ndash;present).</span>
     <span>Re-run <code>python src/import_openfootball.py ... &amp;&amp; python src/train.py &amp;&amp; python src/export_web_demo_data.py &amp;&amp; python src/build_web_page.py</code> to bring this page's numbers up to date after a new matchday.</span>
+    <span>"Predict &amp; Save" writes to this page's own shared history — it needs the hosted version (opened on claude.ai); a copy saved to disk can still compute predictions but can't save or show history.</span>
   </footer>
 </div>
 
@@ -489,6 +593,132 @@
   });
 
   render();
+
+  // --- Today's matchday + save-to-history ---
+  // Client-side prediction works everywhere; saving/reading history needs
+  // the `db` capability, only available on the hosted (claude.ai) copy of
+  // this page — a copy opened from a local file has no window.claude at
+  // all, so this degrades to "predictions shown, save disabled".
+  function fmtFixtureDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
+  }
+  function fmtRowDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit' });
+  }
+
+  function renderFixtureList() {
+    const fixtures = MODEL.next_matchday || [];
+    const card = document.getElementById('todayCard');
+    if (!fixtures.length) { card.hidden = true; return; }
+    card.hidden = false;
+
+    const dates = fixtures.map(f => f.date).sort();
+    const range = dates[0] === dates[dates.length - 1]
+      ? fmtFixtureDate(dates[0])
+      : `${fmtFixtureDate(dates[0])} – ${fmtFixtureDate(dates[dates.length - 1])}`;
+    document.getElementById('todaySub').textContent = `${fixtures.length} fixture(s), ${range}`;
+
+    document.getElementById('fixtureList').innerHTML = fixtures.map(f => {
+      const probs = predict(f.home, f.away);
+      return `
+        <div class="fixture-row">
+          <div class="fixture-date">${fmtRowDate(f.date)}</div>
+          <div class="fixture-teams">${f.home}<span class="vs-sm">vs</span>${f.away}</div>
+          <div class="fixture-probs">
+            <span class="fp fp-h">H ${fmtPct(probs.H)}</span>
+            <span class="fp fp-d">D ${fmtPct(probs.D)}</span>
+            <span class="fp fp-a">A ${fmtPct(probs.A)}</span>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function fmtHistoryDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function renderHistory(entries) {
+    const list = document.getElementById('historyList');
+    if (!entries.length) {
+      list.innerHTML = '<div class="history-empty">No saved predictions yet — click "Predict &amp; Save" above.</div>';
+      return;
+    }
+    list.innerHTML = entries.map(e => {
+      const savedLabel = e.savedAt ? new Date(e.savedAt).toLocaleString() : '';
+      const rows = (e.fixtures || []).map(f => `
+        <div class="history-fixture">
+          <span>${f.home} vs ${f.away}</span>
+          <span class="history-pill" data-outcome="${f.predicted}">${LABELS[f.predicted]} ${fmtPct(f.probs[f.predicted])}</span>
+        </div>`).join('');
+      return `
+        <div class="history-entry">
+          <div class="history-entry-head">
+            <span class="history-date">${fmtHistoryDate(e.date)}</span>
+            <span class="history-meta">${(e.fixtures || []).length} matches &middot; saved ${savedLabel}</span>
+          </div>
+          <div class="history-fixtures">${rows}</div>
+        </div>`;
+    }).join('');
+  }
+
+  async function saveToday() {
+    const fixtures = MODEL.next_matchday || [];
+    if (!fixtures.length) return;
+    const saveBtn = document.getElementById('saveBtn');
+    saveBtn.disabled = true;
+    const originalLabel = saveBtn.textContent;
+    saveBtn.textContent = 'Saving…';
+    try {
+      const db = await window.claude.use('db');
+      if (!db) throw new Error('db unavailable');
+      const roundDate = [...fixtures].sort((a, b) => a.date.localeCompare(b.date))[0].date;
+      const predicted = fixtures.map(f => {
+        const probs = predict(f.home, f.away);
+        const top = Object.entries(probs).sort((a, b) => b[1] - a[1])[0][0];
+        return { home: f.home, away: f.away, date: f.date, probs, predicted: top };
+      });
+      await db.collection('predictions').doc(roundDate).set({
+        date: roundDate,
+        savedAt: new Date().toISOString(),
+        fixtures: predicted,
+      });
+      saveBtn.textContent = 'Saved ✓';
+    } catch (e) {
+      saveBtn.textContent = 'Save failed';
+    } finally {
+      setTimeout(() => { saveBtn.textContent = originalLabel; saveBtn.disabled = false; }, 1800);
+    }
+  }
+
+  renderFixtureList();
+
+  (async () => {
+    const historyCard = document.getElementById('historyCard');
+    const saveBtn = document.getElementById('saveBtn');
+    const saveStatus = document.getElementById('saveStatus');
+
+    let db = null;
+    if (window.claude && window.claude.use) {
+      try { db = await window.claude.use('db'); } catch (e) { db = null; }
+    }
+
+    if (!db) {
+      saveBtn.disabled = true;
+      saveStatus.hidden = false;
+      saveStatus.textContent = 'History needs the hosted page (open this on claude.ai) — a local copy can still predict, just not save.';
+      return;
+    }
+
+    historyCard.hidden = false;
+    saveBtn.addEventListener('click', saveToday);
+    db.collection('predictions').orderBy('date', 'desc').limit(20).onSnapshot(
+      snap => renderHistory(snap.docs.map(d => d.data())),
+      err => { console.error('history subscribe failed', err); }
+    );
+  })();
 </script>
 </body>
 </html>
