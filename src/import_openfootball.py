@@ -75,11 +75,123 @@ TEAM_ALIASES = {
     "West Bromwich Albion FC": "West Brom", "West Bromwich Albion": "West Brom", "West Brom": "West Brom",
     "West Ham United FC": "West Ham", "West Ham United": "West Ham",
     "Wolverhampton Wanderers FC": "Wolves", "Wolverhampton Wanderers": "Wolves", "Wolves": "Wolves",
+
+    # -- La Liga (openfootball/espana) --
+    "Athletic Club": "Athletic Bilbao",
+    "Atlético Madrid": "Atletico Madrid", "Atlético de Madrid": "Atletico Madrid", "Club Atlético de Madrid": "Atletico Madrid",
+    "Barcelona": "Barcelona", "FC Barcelona": "Barcelona",
+    "CA Osasuna": "Osasuna",
+    "CD Alavés": "Alaves", "Deportivo Alavés": "Alaves",
+    "CD Leganés": "Leganes",
+    "Cádiz CF": "Cadiz",
+    "Deportivo La Coruña": "Deportivo La Coruna", "RC Deportivo La Coruña": "Deportivo La Coruna",
+    "Elche CF": "Elche",
+    "Espanyol Barcelona": "Espanyol", "RCD Espanyol": "Espanyol", "RCD Espanyol de Barcelona": "Espanyol",
+    "Getafe CF": "Getafe",
+    "Girona FC": "Girona",
+    "Granada CF": "Granada",
+    "Levante UD": "Levante",
+    "Málaga CF": "Malaga",
+    "RC Celta": "Celta Vigo", "RC Celta de Vigo": "Celta Vigo",
+    "RCD Mallorca": "Mallorca",
+    "Rayo Vallecano": "Rayo Vallecano", "Rayo Vallecano de Madrid": "Rayo Vallecano",
+    "Real Betis": "Real Betis", "Real Betis Balompié": "Real Betis",
+    "Real Madrid": "Real Madrid", "Real Madrid C.F.": "Real Madrid", "Real Madrid CF": "Real Madrid",
+    "Real Racing Club de Santander": "Racing Santander",
+    "Real Sociedad": "Real Sociedad", "Real Sociedad de Fútbol": "Real Sociedad",
+    "Real Valladolid": "Valladolid", "Real Valladolid CF": "Valladolid",
+    "SD Eibar": "Eibar",
+    "SD Huesca": "Huesca",
+    "Sevilla": "Sevilla", "Sevilla FC": "Sevilla",
+    "Sporting Gijón": "Sporting Gijon",
+    "UD Almería": "Almeria",
+    "UD Las Palmas": "Las Palmas",
+    "Valencia CF": "Valencia",
+    "Villarreal": "Villarreal", "Villarreal CF": "Villarreal",
+
+    # -- Serie A (openfootball/italy) --
+    "AC Milan": "AC Milan", "Milan": "AC Milan",
+    "AC Monza": "Monza",
+    "ACF Fiorentina": "Fiorentina", "Fiorentina": "Fiorentina",
+    "AS Roma": "AS Roma",
+    "Atalanta": "Atalanta", "Atalanta BC": "Atalanta",
+    "Benevento Calcio": "Benevento",
+    "Bologna": "Bologna", "Bologna FC": "Bologna", "Bologna FC 1909": "Bologna",
+    "Brescia Calcio": "Brescia",
+    "Cagliari": "Cagliari", "Cagliari Calcio": "Cagliari",
+    "Carpi FC": "Carpi",
+    "Chievo Verona": "Chievo",
+    "Como": "Como", "Como 1907": "Como",
+    "Cremonese": "Cremonese", "US Cremonese": "Cremonese",
+    "Delfino Pescara": "Pescara",
+    "Empoli FC": "Empoli",
+    "FC Crotone": "Crotone",
+    "FC Internazionale Milano": "Inter", "Inter": "Inter",
+    "Frosinone Calcio": "Frosinone",
+    "Genoa": "Genoa", "Genoa CFC": "Genoa",
+    "Hellas Verona": "Hellas Verona", "Hellas Verona FC": "Hellas Verona",
+    "Juventus": "Juventus", "Juventus FC": "Juventus",
+    "Lazio": "Lazio", "Lazio Roma": "Lazio", "SS Lazio": "Lazio",
+    "Lecce": "Lecce", "US Lecce": "Lecce",
+    "Napoli": "Napoli", "SSC Napoli": "Napoli",
+    "Parma": "Parma", "Parma Calcio 1913": "Parma",
+    "Pisa": "Pisa",
+    "SPAL 2013 Ferrara": "SPAL",
+    "Sampdoria": "Sampdoria", "UC Sampdoria": "Sampdoria",
+    "Sassuolo": "Sassuolo", "Sassuolo Calcio": "Sassuolo", "US Sassuolo Calcio": "Sassuolo",
+    "Spezia Calcio": "Spezia",
+    "Torino": "Torino", "Torino FC": "Torino",
+    "US Palermo": "Palermo",
+    "US Salernitana 1919": "Salernitana",
+    "Udinese": "Udinese", "Udinese Calcio": "Udinese",
+    "Venezia FC": "Venezia",
+
+    # -- Ligue 1 (openfootball/france, france/ subfolder) --
+    "AC Ajaccio": "Ajaccio",
+    "AJ Auxerre": "Auxerre", "Auxerre": "Auxerre",
+    "AS Monaco": "Monaco", "AS Monaco FC": "Monaco",
+    "AS Nancy Lorraine": "Nancy",
+    "AS Saint-Étienne": "Saint-Etienne",
+    "Amiens SC": "Amiens",
+    "Angers SCO": "Angers",
+    "Clermont Foot 63": "Clermont",
+    "Dijon FCO": "Dijon",
+    "EA Guingamp": "Guingamp",
+    "ES Troyes AC": "Troyes", "ESTAC Troyes": "Troyes",
+    "FC Lorient": "Lorient",
+    "FC Metz": "Metz",
+    "FC Nantes": "Nantes",
+    "Gazélec FC Ajaccio": "Gazelec Ajaccio",
+    "Girondins Bordeaux": "Bordeaux",
+    "Le Havre": "Le Havre", "Le Havre AC": "Le Havre",
+    "Le Mans FC": "Le Mans",
+    "Lens": "Lens", "RC Lens": "Lens", "Racing Club de Lens": "Lens",
+    "Lille": "Lille", "Lille OSC": "Lille",
+    "Montpellier HSC": "Montpellier",
+    "Nîmes Olympique": "Nimes",
+    "OGC Nice": "Nice",
+    "Olympique Lyonnais": "Lyon",
+    "Olympique Marseille": "Marseille", "Olympique de Marseille": "Marseille",
+    "Paris FC": "Paris FC",
+    "Paris Saint-Germain": "PSG", "Paris Saint-Germain FC": "PSG",
+    "RC Strasbourg": "Strasbourg", "RC Strasbourg Alsace": "Strasbourg",
+    "Rennes": "Rennes", "Stade Rennais": "Rennes", "Stade Rennais FC 1901": "Rennes",
+    "SC Bastia": "Bastia",
+    "SM Caen": "Caen",
+    "Stade Brestois": "Brest", "Stade Brestois 29": "Brest",
+    "Stade de Reims": "Reims",
+    "Toulouse FC": "Toulouse",
 }
+
+# Some seasons (e.g. Ligue 1 2019-20, cut short by COVID) mark a team's
+# remaining fixtures with a trailing "<score> [awarded]" or "[cancelled]"
+# annotation instead of just omitting them. Strip that before normalizing,
+# or it reads as a distinct "team".
+ANNOTATION_RE = re.compile(r"\s+(?:\d+-\d+\s+)?\[(?:awarded|cancelled)\]\s*$")
 
 
 def normalize_team(name: str) -> str:
-    name = name.strip()
+    name = ANNOTATION_RE.sub("", name.strip()).strip()
     return TEAM_ALIASES.get(name, name)
 
 
@@ -87,19 +199,17 @@ def parse_season_file(path: str) -> list[dict]:
     with open(path, encoding="utf-8") as f:
         lines = f.readlines()
 
-    start_year = None
+    start_year = start_month = None
     for line in lines[:10]:
         m = SEASON_START_RE.match(line)
         if m:
-            start_year = int(m.group(3))
+            start_month, start_year = MONTHS[m.group(1)], int(m.group(3))
             break
     if start_year is None:
         raise ValueError(f"Couldn't find a '# Date ...' header in {path}")
 
     rows = []
     current_date = None
-    current_year = start_year
-    prev_month = None
 
     for line in lines:
         content = line.strip()
@@ -111,11 +221,15 @@ def parse_season_file(path: str) -> list[dict]:
             month = MONTHS[m.group(1)]
             day = int(m.group(2))
             if m.group(3):
-                current_year = int(m.group(3))
-            elif prev_month is not None and month < prev_month:
-                current_year += 1  # crossed into a new year without the source restating it
-            prev_month = month
-            current_date = f"{day:02d}/{month:02d}/{current_year}"
+                year = int(m.group(3))
+            else:
+                # A season runs, e.g., Aug year0 - May/Jul year1. Deriving the
+                # year from the season's calendar (rather than tracking month
+                # increases through the file) also copes with a source that
+                # lists rescheduled/postponed matches out of chronological
+                # order — real for COVID-affected seasons.
+                year = start_year if month >= start_month else start_year + 1
+            current_date = f"{day:02d}/{month:02d}/{year}"
             continue
 
         if content.startswith(("=", "#", "▪", "(")):
@@ -159,13 +273,26 @@ def main() -> None:
     args = parser.parse_args()
 
     played, upcoming = [], []
-    for path in args.files:
+    last_file_index = len(args.files) - 1
+    dropped = 0
+    for i, path in enumerate(args.files):
         rows = parse_season_file(path)
         file_played = [r for r in rows if r["FTR"] is not None]
         file_upcoming = [r for r in rows if r["FTR"] is None]
         played.extend(file_played)
-        upcoming.extend(file_upcoming)
-        print(f"{path}: {len(file_played)} played, {len(file_upcoming)} upcoming")
+        if i == last_file_index:
+            # Only the last (current-season) file's unplayed rows are real
+            # upcoming fixtures. An earlier file's unplayed rows are stale —
+            # a postponed/COVID-cancelled match the source never resolved —
+            # and would corrupt "next matchday" if mixed in, so they're
+            # dropped rather than written anywhere.
+            upcoming.extend(file_upcoming)
+        else:
+            dropped += len(file_upcoming)
+        print(f"{path}: {len(file_played)} played, {len(file_upcoming)} upcoming"
+              f"{'' if i == last_file_index else ' (dropped, not the current season)' if file_upcoming else ''}")
+    if dropped:
+        print(f"\n({dropped} stale unplayed row(s) from non-current seasons dropped entirely)")
 
     with open(args.out, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR"])
