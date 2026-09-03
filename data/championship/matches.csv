@@ -554,6 +554,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 13/05/2022,Luton Town,Huddersfield,1,1,D
 14/05/2022,Sheffield United,Nottingham Forest,1,2,A
 16/05/2022,Huddersfield,Luton Town,1,0,H
+17/05/2022,Nottingham Forest,Sheffield United,1,2,A
 29/05/2022,Huddersfield,Nottingham Forest,0,1,A
 29/07/2022,Huddersfield,Burnley,0,1,A
 30/07/2022,Rotherham United,Swansea,1,1,D
@@ -1111,6 +1112,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 14/05/2023,Coventry City,Middlesbrough,0,0,D
 16/05/2023,Luton Town,Sunderland,2,0,H
 17/05/2023,Middlesbrough,Coventry City,0,1,A
+27/05/2023,Coventry City,Luton Town,1,1,D
 04/08/2023,Sheffield Wednesday,Southampton,1,2,A
 05/08/2023,Blackburn Rovers,West Brom,2,1,H
 05/08/2023,Bristol City,Preston North End,1,1,D
@@ -2223,6 +2225,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 08/05/2025,Bristol City,Sheffield United,0,3,A
 09/05/2025,Coventry City,Sunderland,1,2,A
 12/05/2025,Sheffield United,Bristol City,3,0,H
+13/05/2025,Sunderland,Coventry City,1,1,D
 24/05/2025,Sheffield United,Sunderland,1,2,A
 08/08/2025,Birmingham City,Ipswich Town,1,1,D
 09/08/2025,Charlton Athletic,Watford,1,0,H
@@ -2779,6 +2782,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 08/05/2026,Hull City,Millwall,0,0,D
 09/05/2026,Middlesbrough,Southampton,0,0,D
 11/05/2026,Millwall,Hull City,0,2,A
+12/05/2026,Southampton,Middlesbrough,1,0,H
 23/05/2026,Hull City,Middlesbrough,1,0,H
 14/08/2026,Wolves,Blackburn Rovers,2,2,D
 15/08/2026,Bolton Wanderers,Preston North End,2,1,H

@@ -382,11 +382,13 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 12/05/2022,Vicenza,Cosenza,1,0,H
 20/05/2022,Cosenza,Vicenza,2,0,H
 13/05/2022,Ascoli,Benevento,0,1,A
+14/05/2022,Brescia,Perugia,3,2,H
 17/05/2022,Benevento,Pisa,1,0,H
 18/05/2022,Brescia,Monza,1,2,A
 21/05/2022,Pisa,Benevento,1,0,H
 22/05/2022,Monza,Brescia,2,1,H
 26/05/2022,Monza,Pisa,2,1,H
+29/05/2022,Pisa,Monza,3,4,A
 12/08/2022,Parma,Bari,2,2,D
 13/08/2022,Como,Cagliari,1,1,D
 13/08/2022,Palermo,Perugia,2,0,H
@@ -1160,6 +1162,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 16/05/2024,Bari,Ternana,1,1,D
 23/05/2024,Ternana,Bari,0,3,A
 17/05/2024,Palermo,Sampdoria,2,0,H
+18/05/2024,Catanzaro,Brescia,4,2,H
 20/05/2024,Palermo,Venezia,0,1,A
 21/05/2024,Catanzaro,Cremonese,2,2,D
 24/05/2024,Venezia,Palermo,2,1,H
@@ -1188,6 +1191,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 25/08/2024,Mantova,Cosenza,3,2,H
 27/08/2024,Bari,Sassuolo,1,1,D
 27/08/2024,Carrarese,Sudtirol,2,0,H
+27/08/2024,Cittadella,Pisa,0,3,A
 27/08/2024,Cremonese,Palermo,0,1,A
 27/08/2024,Frosinone,Modena,1,1,D
 27/08/2024,Reggiana,Brescia,2,0,H

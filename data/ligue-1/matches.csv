@@ -707,6 +707,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 15/04/2017,Rennes,Lille,2,0,H
 15/04/2017,Monaco,Dijon,2,1,H
 16/04/2017,Nantes,Bordeaux,0,1,A
+16/04/2017,Bastia,Lyon,0,0,D
 16/04/2017,Marseille,Saint-Etienne,4,0,H
 21/04/2017,Nancy,Marseille,0,0,D
 22/04/2017,PSG,Montpellier,2,0,H
@@ -3473,6 +3474,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR
 15/03/2025,Angers,Monaco,0,2,A
 15/03/2025,Lens,Rennes,1,0,H
 16/03/2025,Lyon,Le Havre,4,2,H
+16/03/2025,Montpellier,Saint-Etienne,0,2,A
 16/03/2025,Brest,Reims,0,0,D
 16/03/2025,Strasbourg,Toulouse,2,1,H
 16/03/2025,PSG,Marseille,3,1,H

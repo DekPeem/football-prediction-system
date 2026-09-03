@@ -9,9 +9,12 @@ match statistics (goals, shots, cards, recent form, head-to-head record).
 > archives (see [`src/import_openfootball.py`](src/import_openfootball.py)).
 > `data/fixtures.csv` holds every match from the current season that hasn't
 > been played yet — see [Predicting the next matchday](#predicting-the-next-matchday).
-> Seven more leagues/divisions (La Liga, Serie A, Ligue 1, and the
-> Championship, Segunda, Serie B, Ligue 2) ship the same way under
-> `data/<league>/` — see [Other leagues](#other-leagues).
+> Twelve more competitions ship the same way under `data/<league>/` — three
+> more top flights (La Liga, Serie A, Ligue 1), four second divisions
+> (Championship, Segunda, Serie B, Ligue 2), and five cups (FA Cup, EFL Cup,
+> Coppa Italia, Copa del Rey, Coupe de France) — see
+> [Other leagues](#other-leagues) and
+> [Cup competitions](#cup-competitions--included-but-read-this-before-trusting-one).
 > `src/generate_sample_data.py` can still generate a synthetic league if you'd
 > rather not use real club names while testing.
 
@@ -93,7 +96,7 @@ into `data/matches.csv` (see [Keeping the data current](#keeping-the-data-curren
 
 ## Other leagues
 
-Seven more competitions ship the same way, each in its own subfolder with its
+Seven more leagues/divisions ship the same way, each in its own subfolder with its
 own model (a Ligue 2 team's Elo has nothing to do with a Premier League
 team's, so every league/division is trained separately, never merged):
 
@@ -132,23 +135,47 @@ Built with the same `import_openfootball.py`, same date/team-name handling —
 just a different season-file source and `TEAM_ALIASES` entries per
 league/division. The web demo (below) only covers the Premier League for now.
 
-### Cup competitions — not included
+### Cup competitions — included, but read this before trusting one
 
-openfootball does have cup files (`facup.txt`, `eflcup.txt`, Spain/Italy's
-`cup.txt`, France's `*_frcup.txt`), but two things make them a different job
-from a league import, not just more files:
+| Cup | Folder | Source | Seasons | Accuracy vs baseline |
+| --- | --- | --- | --- | --- |
+| FA Cup | `data/fa-cup/` | `openfootball/england` `facup.txt` | 2021-22 to 2024-25 | 47.1% vs 43.8% |
+| EFL Cup | `data/efl-cup/` | `openfootball/england` `eflcup.txt` | 2021-22 to 2024-25 | 47.3% vs **48.4%** |
+| Coppa Italia | `data/coppa-italia/` | `openfootball/italy` `cup.txt` | 2021-22 to 2024-25 | 51.4% vs **51.4%** |
+| Copa del Rey | `data/copa-del-rey/` | `openfootball/espana` `cup.txt` | 2021-22 to 2024-25 | 63.9% vs **64.8%** |
+| Coupe de France | `data/coupe-de-france/` | `openfootball/france` `france/*_frcup.txt` | 2024-25 only | 32.6% vs **46.5%** |
 
-1. **Different scoreline shapes.** Extra time and penalties show up as
-   `2-1 a.e.t. (1-1, 0-1)` or `pen. 4-3 a.e.t. ...` — `import_openfootball.py`
-   currently drops any row that looks like this rather than mis-parsing it
-   (see `SUSPECT_TEAM_RE`), which for a cup file would be a large fraction of
-   rows, not the rare handful it is in league files.
-2. **Most opponents have zero history.** Early cup rounds pit top-flight
-   teams against lower-league or non-league sides this project has no Elo
-   for — the model would fall back to a neutral prior for one side, which
+**Three of these five lose to the "always predict home win" baseline, and
+none of them clearly beats it.** Two things specific to cup competitions
+explain why, and neither is a bug to fix:
+
+1. **Most opponents have thin or zero Elo history.** A cup draw pits
+   top-flight sides against lower-league or non-league teams this project
+   has little or no history for (this repo has no Serie C, Championship-below
+   data, etc.) — the model falls back to a neutral prior for one side, which
    isn't a real prediction.
+2. **Small samples.** A league season is 380 matches; a cup competition is
+   ~45-200 across a whole season, so there's far less to learn from — Coupe
+   de France in particular is only one season (200 matches) since that's all
+   `openfootball/france` has tracked so far.
 
-Worth adding if you want it, but it's a real follow-up, not a flag flip.
+`import_openfootball.py` does parse these correctly, though — extra time and
+penalty-shootout scorelines (`2-1 a.e.t. (1-1, 0-1)`, `9-8 pen. (0-0)`) are
+handled by `extract_score()`, always resolving to the actual 90+30 minute
+result (a shootout only happens after a draw, so that's correctly a "D" for
+training, not a coin-flip "win"). `predict.py` works the same as any other
+competition — no current-season file exists for any of these five yet
+(so no `fixtures.csv`/`predict_fixtures.py` next-round data), but naming two
+teams still gets you a live prediction against these teams' cup Elo:
+
+```bash
+python src/predict.py "Palermo" "Modena" --data data/coppa-italia/matches.csv --model models/coppa-italia/model.joblib
+```
+
+Given the numbers above, treat a cup prediction as considerably less
+trustworthy than a league one — this project's most useful call on Palermo
+vs Modena is still the [Serie B one](#other-leagues), since both are
+genuinely Serie B sides and that model actually beats its baseline.
 
 ### Thai League — no accessible data source
 
@@ -225,6 +252,11 @@ For the other leagues, swap in the matching repo/file and `--out`/`--fixtures-ou
 | Segunda | `openfootball/espana` | `2-liga2.txt` |
 | Serie B | `openfootball/italy` | `2-serieb.txt` |
 | Ligue 2 | `openfootball/france` | `france/*_fr2.txt` |
+| FA Cup | `openfootball/england` | `facup.txt` |
+| EFL Cup | `openfootball/england` | `eflcup.txt` |
+| Coppa Italia | `openfootball/italy` | `cup.txt` |
+| Copa del Rey | `openfootball/espana` | `cup.txt` |
+| Coupe de France | `openfootball/france` | `france/*_frcup.txt` |
 
 Alternatively, a manually downloaded CSV from
 [football-data.co.uk](https://www.football-data.co.uk/englandm.php) also
@@ -255,7 +287,9 @@ data/matches.csv            played matches, Premier League (real, 2015-16 to cur
 data/fixtures.csv           Premier League's current-season not-yet-played matches
 data/la-liga/, data/serie-a/, data/ligue-1/               same pair of files, per top-flight league
 data/championship/, data/segunda/, data/serie-b/, data/ligue-2/   same, per second division
-src/import_openfootball.py  converts openfootball season files (any of the 8 leagues/divisions above)
+data/fa-cup/, data/efl-cup/, data/coppa-italia/,
+data/copa-del-rey/, data/coupe-de-france/                 same, per cup competition (no fixtures.csv yet)
+src/import_openfootball.py  converts openfootball season files (any of the 13 competitions above)
 src/generate_sample_data.py synthetic data generator (alternative to real data)
 src/features.py             feature engineering (Elo, form, head-to-head)
 src/train.py                 training + evaluation

@@ -1,16 +1,25 @@
 """
-Convert English top-flight season files from the open-source openfootball
-archive (https://github.com/openfootball/england) into this project's CSV
-layout. Two things make this format trickier than footballcsv/england:
+Convert season files from the open-source openfootball family of archives
+(https://github.com/openfootball — england/espana/italy/france) into this
+project's CSV layout. Covers 13 competitions across those 4 countries: 4 top
+flights, 4 second divisions, 5 domestic cups (see README.md's "Other leagues"
+and "Cup competitions" sections for the exact repo/file per competition).
+Three things make this format trickier than a single clean CSV:
 
-1. The per-line layout changed across seasons — some use
-   "Team A   2-1 (1-0)   Team B", others "Team A   v   Team B   2-1 (1-0)".
-   parse_season_file() tries both.
-2. A season file mixes **played** matches (have a score) and **future
-   fixtures** (no score yet, e.g. a season in progress). Both are parsed;
-   train.py only ever sees the played ones (features.py drops rows with no
-   FTR), while the unplayed ones become data/fixtures.csv — the input to
-   predict_fixtures.py for "what's the model's call on next weekend's games".
+1. **The per-line layout changed across seasons and competitions** — some
+   use "Team A   2-1 (1-0)   Team B", others "Team A   v   Team B  2-1
+   (1-0)". split_match_line() handles both by splitting on runs of 2+ spaces
+   (what actually separates the columns) rather than anchoring a format-
+   specific regex.
+2. **Cup scorelines carry extra-time/penalty-shootout annotations** —
+   "2-1 a.e.t. (1-1, 0-1)", "9-8 pen. (0-0)". extract_score() always resolves
+   to the actual 90+30 minute result, never the shootout score (a shootout
+   only happens after a draw, so that's correctly "D" for training).
+3. **A season file mixes played matches and future fixtures** (no score yet,
+   for a season in progress). Both are parsed; train.py only ever sees the
+   played ones (features.py drops rows with no FTR), while the unplayed ones
+   become data/fixtures.csv — the input to predict_fixtures.py for "what's
+   the model's call on next weekend's games".
 
 Usage:
     python src/import_openfootball.py \
@@ -33,11 +42,69 @@ MONTHS = {m: i + 1 for i, m in enumerate([
 
 DATE_HEADER_RE = re.compile(r"^\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+([A-Z][a-z]{2})\s+(\d{1,2})(?:\s+(\d{4}))?\s*$")
 SEASON_START_RE = re.compile(r"^#\s*Dates?\s+\S+\s+([A-Z][a-z]{2})\s+(\d{1,2})\s+(\d{4})\s*-")
-SCORE_RE = r"(\d+)-(\d+)(?:\s*\([\d]+-[\d]+\))?"
-# "Team A ... v ... Team B ... [score]" (score optional -> future fixture)
-V_FORMAT_RE = re.compile(rf"^(?:\d{{2}}:\d{{2}}\s+)?(.+?)\s+v\s+(.+?)(?:\s{{2,}}{SCORE_RE})?\s*$")
-# "Team A ... [score] ... Team B" (score always present in this layout, so it's how we tell them apart)
-SCORE_MID_FORMAT_RE = re.compile(rf"^(?:\d{{2}}:\d{{2}}\s+)?(.+?)\s{{2,}}{SCORE_RE}\s+(.+?)\s*$")
+
+FIELD_SPLIT_RE = re.compile(r"\s{2,}")
+TIME_RE = re.compile(r"^\d{1,2}:\d{2}$")
+# The real (90+30 min) result, allowing for a penalty-shootout prefix that's
+# discarded (a shootout only happens after a draw, so the match itself is
+# correctly a "D" for training either way) and/or an extra-time marker. The
+# score sometimes isn't restated outside the parenthetical at all ("9-8 pen.
+# (0-0)"), so that's the fallback source if nothing was captured directly.
+CUP_SCORE_RE = re.compile(
+    r"^(?:\d+-\d+\s+pen\.\s+)?"
+    r"(?:(\d+)-(\d+))?"
+    r"(?:\s*a\.e\.t\.)?"
+    r"(?:\s*\((\d+)-(\d+)[^)]*\))?"
+)
+
+
+def extract_score(text: str) -> tuple[int, int] | None:
+    m = CUP_SCORE_RE.match(text.strip())
+    if not m:
+        return None
+    real_h, real_a, paren_h, paren_a = m.groups()
+    if real_h is not None:
+        return int(real_h), int(real_a)
+    if paren_h is not None:
+        return int(paren_h), int(paren_a)
+    return None
+
+
+def split_match_line(content: str) -> tuple[str, str, str | None] | None:
+    """Split one non-header line into (home, away, score_text_or_None).
+
+    Splitting on runs of 2+ spaces is what actually separates the columns —
+    team names and the scoreline can each contain single spaces internally,
+    but the source always pads between columns with 2+. Handles both known
+    row layouts ("Team A v Team B  <score>" and "Team A  <score>  Team B"),
+    plus the case where a long team name overflows its column padding down to
+    a single space before "v" (so "Team A v Team B" collapses into one field
+    once split), and a multi-token scoreline ("0-3    [awarded]",
+    "5-4 pen. 0-0 a.e.t. (0-0)") that itself contains 2+-space gaps.
+    """
+    fields = FIELD_SPLIT_RE.split(content)
+    if fields and TIME_RE.match(fields[0]):
+        fields = fields[1:]
+    if not fields:
+        return None
+
+    if " v " in fields[0]:
+        home, away = fields[0].split(" v ", 1)
+        score_text = " ".join(fields[1:]) if len(fields) > 1 else None
+    elif len(fields) >= 2 and fields[1].startswith("v "):
+        home, away = fields[0], fields[1][2:]
+        score_text = " ".join(fields[2:]) if len(fields) > 2 else None
+    elif len(fields) >= 3:
+        home = fields[0]
+        if fields[-1].startswith("[") and len(fields) >= 4:
+            # A trailing "[awarded]"/"[cancelled]" annotation is its own
+            # field after the away team, not part of it.
+            away, score_text = fields[-2], " ".join(fields[1:-2] + fields[-1:])
+        else:
+            away, score_text = fields[-1], " ".join(fields[1:-1])
+    else:
+        return None
+    return home.strip(), away.strip(), (score_text or None)
 
 TEAM_ALIASES = {
     "AFC Bournemouth": "Bournemouth", "Bournemouth": "Bournemouth",
@@ -267,25 +334,16 @@ TEAM_ALIASES = {
     "Valenciennes FC": "Valenciennes",
 }
 
-# Some seasons (e.g. Ligue 1 2019-20, cut short by COVID) mark a team's
-# remaining fixtures with a trailing "<score> [awarded]" or "[cancelled]"
-# annotation instead of just omitting them. Strip that before normalizing,
-# or it reads as a distinct "team".
-ANNOTATION_RE = re.compile(r"\s+(?:\d+-\d+\s+)?\[(?:awarded|cancelled|postponed)\]\s*$")
-
-# Promotion play-offs / two-legged cup ties (extra time, penalties, [postponed])
-# use a scoreline shape SCORE_MID_FORMAT_RE / V_FORMAT_RE weren't built for
-# ("pen. 1-1 a.e.t. (1-1, 0-1)"), so the whole annotation ends up misparsed
-# into one side's "team name" instead of a score. Rather than growing the
-# regex to cover every playoff-scoreline variant, rows where that leaked
-# through are dropped in main() — these are single-digit counts per season,
-# not the bulk of the data.
-SUSPECT_TEAM_RE = re.compile(r"a\.e\.t|pen\.|postponed|cancelled|awarded", re.IGNORECASE)
+# Safety net, not the primary mechanism: split_match_line()/extract_score()
+# keep a "<score> [awarded]"/"[cancelled]"/"[postponed]" annotation or a
+# penalty-shootout scoreline out of the team-name fields in every layout this
+# project has actually seen. This catches whatever format quirk shows up
+# next instead of quietly training on a mis-split row.
+SUSPECT_TEAM_RE = re.compile(r"a\.e\.t|pen\.|postponed|cancelled|awarded|\[|\]", re.IGNORECASE)
 
 
 def normalize_team(name: str) -> str:
-    name = ANNOTATION_RE.sub("", name.strip()).strip()
-    return TEAM_ALIASES.get(name, name)
+    return TEAM_ALIASES.get(name.strip(), name.strip())
 
 
 def parse_season_file(path: str) -> list[dict]:
@@ -330,20 +388,16 @@ def parse_season_file(path: str) -> list[dict]:
         if current_date is None:
             continue  # header/blank-line noise before the first date
 
-        home = away = home_goals = away_goals = None
-        m = SCORE_MID_FORMAT_RE.match(content)
-        if m and " v " not in m.group(1):
-            home, hg, ag, away = m.group(1), m.group(2), m.group(3), m.group(4)
-            home_goals, away_goals = int(hg), int(ag)
-        else:
-            m = V_FORMAT_RE.match(content)
-            if m:
-                home, away = m.group(1), m.group(2)
-                if m.group(3) is not None:
-                    home_goals, away_goals = int(m.group(3)), int(m.group(4))
-
-        if home is None or away is None:
+        parsed = split_match_line(content)
+        if parsed is None:
             continue  # not a match line (blank/annotation we didn't already skip)
+        home, away, score_text = parsed
+
+        home_goals = away_goals = None
+        if score_text:
+            score = extract_score(score_text)
+            if score is not None:
+                home_goals, away_goals = score
 
         home, away = normalize_team(home), normalize_team(away)
         ftr = None
