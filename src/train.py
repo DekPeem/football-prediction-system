@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 
 import joblib
 import numpy as np
@@ -69,8 +70,10 @@ def main() -> None:
     print(f"Saved model -> {args.model_out}")
 
     metrics = {"accuracy": acc, "log_loss": ll, "baseline_accuracy": baseline_acc, "n_test": len(test_df)}
-    with open("models/metrics.json", "w") as f:
+    metrics_path = os.path.join(os.path.dirname(args.model_out) or ".", "metrics.json")
+    with open(metrics_path, "w") as f:
         json.dump(metrics, f, indent=2)
+    print(f"Saved metrics -> {metrics_path}")
 
 
 if __name__ == "__main__":

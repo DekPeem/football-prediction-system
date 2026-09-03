@@ -101,6 +101,28 @@
     text-wrap: balance;
   }
 
+  .title-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .league-field { display: flex; flex-direction: column; gap: 5px; }
+  .league-field label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .league-field select {
+    width: auto;
+    min-width: 180px;
+    padding: 8px 30px 8px 12px;
+    font-size: 14px;
+  }
+
   .sub {
     color: var(--text-dim);
     font-size: 14.5px;
@@ -339,12 +361,19 @@
 
   /* --- History --- */
   .history { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .history-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
   .history h2 {
     font-family: 'Teko', sans-serif;
     font-size: 22px;
     font-weight: 600;
     margin: 0;
     letter-spacing: 0.01em;
+  }
+  .track-record {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
   }
   .history-list { display: flex; flex-direction: column; gap: 12px; }
   .history-empty { font-size: 13.5px; color: var(--text-dim); padding: 8px 0; }
@@ -353,8 +382,14 @@
   .history-date { font-family: 'Teko', sans-serif; font-size: 17px; font-weight: 600; }
   .history-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); }
   .history-fixtures { display: flex; flex-direction: column; gap: 4px; }
-  .history-fixture { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; }
-  .history-fixture span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .history-fixture {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .history-fixture .hf-teams { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .history-pill {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10.5px;
@@ -367,6 +402,15 @@
   .history-pill[data-outcome="H"] { background: color-mix(in srgb, var(--home) 16%, transparent); color: var(--home); }
   .history-pill[data-outcome="D"] { background: color-mix(in srgb, var(--draw) 16%, transparent); color: var(--draw); }
   .history-pill[data-outcome="A"] { background: color-mix(in srgb, var(--away) 16%, transparent); color: var(--away); }
+  .history-actual {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .history-actual.correct { color: var(--accent); }
+  .history-actual.wrong { color: var(--away); }
+  .history-actual.pending { color: var(--text-dim); }
 
   footer {
     display: flex;
@@ -389,16 +433,22 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow"><span class="dot"></span>Live model demo &middot; real Premier League results, 2015&ndash;present</div>
-    <h1>Full-Time Predictor</h1>
+    <div class="eyebrow"><span class="dot"></span>Live model demo &middot; real results, 2015&ndash;present</div>
+    <div class="title-row">
+      <h1>Full-Time Predictor</h1>
+      <div class="league-field">
+        <label for="leagueSelect">League</label>
+        <select id="leagueSelect"></select>
+      </div>
+    </div>
     <p class="sub">
       Pick a home and away side to see the trained model's Home / Draw / Away
       probabilities, computed live in your browser from the same Elo rating,
       rolling-form and head-to-head features as the
       <a href="https://github.com/DekPeem/football-prediction-system" target="_blank" rel="noopener">football-prediction-system</a>
-      repo. Trained on 4,200 real English Premier League matches (2015&ndash;16
-      through the 2026&ndash;27 season in progress) &mdash; Elo ratings reflect each
-      club's actual results up to the most recently played matchday.
+      repo. Trained on <span id="trainCount">—</span> real matches
+      (<span id="trainRange">—</span>) &mdash; Elo ratings reflect each club's
+      actual results up to the most recently played matchday.
     </p>
   </header>
 
@@ -413,7 +463,10 @@
   </div>
 
   <div class="card history" id="historyCard" hidden>
-    <h2>Prediction history</h2>
+    <div class="history-head">
+      <h2>Prediction history</h2>
+      <span class="track-record" id="trackRecord" hidden></span>
+    </div>
     <div class="history-list" id="historyList">
       <div class="history-empty">No saved predictions yet — click "Predict &amp; Save" above.</div>
     </div>
@@ -470,29 +523,38 @@
   </div>
 
   <footer>
-    <span>Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record &middot; trained accuracy 49.8% vs 42.2% majority-class baseline on a chronological holdout (2024&ndash;present).</span>
-    <span>Re-run <code>python src/import_openfootball.py ... &amp;&amp; python src/train.py &amp;&amp; python src/export_web_demo_data.py &amp;&amp; python src/build_web_page.py</code> to bring this page's numbers up to date after a new matchday.</span>
+    <span id="modelStatsLine">Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record.</span>
+    <span>Re-run <code>python src/import_openfootball.py ... &amp;&amp; python src/train.py &amp;&amp; python src/export_all_leagues.py &amp;&amp; python src/build_web_page.py</code> to bring this page's numbers up to date after a new matchday.</span>
     <span>"Predict &amp; Save" writes to this page's own shared history — it needs the hosted version (opened on claude.ai); a copy saved to disk can still compute predictions but can't save or show history.</span>
   </footer>
 </div>
 
 <script>
-  const MODEL = __MODEL_DATA_JSON__;
+  const ALL_LEAGUES = __ALL_LEAGUES_JSON__;
+  const SLUGS = Object.keys(ALL_LEAGUES);
+  let currentSlug = SLUGS[0];
+  let MODEL = ALL_LEAGUES[currentSlug];
+  let teams = [];
 
-  const teams = Object.keys(MODEL.teams).sort();
+  // Recognizable, competitive default fixtures per league (not a blowout).
+  // Anything without an entry here just falls back to the first two teams.
+  const DEFAULT_PAIRS = {
+    'premier-league': ['Liverpool', 'Man United'],
+    'la-liga': ['Real Madrid', 'Barcelona'],
+    'serie-a': ['AC Milan', 'Inter'],
+    'ligue-1': ['PSG', 'Marseille'],
+  };
+
+  const leagueSel = document.getElementById('leagueSelect');
   const homeSel = document.getElementById('homeTeam');
   const awaySel = document.getElementById('awayTeam');
 
-  for (const sel of [homeSel, awaySel]) {
-    for (const t of teams) {
-      const opt = document.createElement('option');
-      opt.value = t; opt.textContent = t;
-      sel.appendChild(opt);
-    }
+  for (const slug of SLUGS) {
+    const opt = document.createElement('option');
+    opt.value = slug; opt.textContent = ALL_LEAGUES[slug].label;
+    leagueSel.appendChild(opt);
   }
-  // Pick a default fixture with a genuinely competitive spread, not a blowout.
-  homeSel.value = teams.includes('Liverpool') ? 'Liverpool' : teams[0];
-  awaySel.value = teams.includes('Man United') ? 'Man United' : teams[1];
+  leagueSel.value = currentSlug;
 
   const LABELS = { H: 'Home win', D: 'Draw', A: 'Away win' };
   const COLOR_VAR = { H: '--home', D: '--draw', A: '--away' };
@@ -525,6 +587,18 @@
   function fmtSigned(x, digits = 2) {
     const v = x.toFixed(digits);
     return x > 0 ? `+${v}` : v;
+  }
+  function fmtFixtureDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
+  }
+  function fmtRowDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit' });
+  }
+  function fmtHistoryDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
   }
 
   function render() {
@@ -559,9 +633,6 @@
     pill.textContent = `Predicted: ${LABELS[top]} (${fmtPct(probs[top])})`;
     pill.style.setProperty('--pill-color', `var(${COLOR_VAR[top]})`);
 
-    document.getElementById('homeColHead').textContent = h;
-    document.getElementById('awayColHead').textContent = a;
-
     const th = MODEL.teams[h], ta = MODEL.teams[a];
     const rows = [
       ['Elo rating', th.elo.toFixed(0), ta.elo.toFixed(0), th.elo - ta.elo],
@@ -581,31 +652,6 @@
       `;
     }
     grid.innerHTML = html;
-  }
-
-  homeSel.addEventListener('change', render);
-  awaySel.addEventListener('change', render);
-  document.getElementById('swapBtn').addEventListener('click', () => {
-    const h = homeSel.value;
-    homeSel.value = awaySel.value;
-    awaySel.value = h;
-    render();
-  });
-
-  render();
-
-  // --- Today's matchday + save-to-history ---
-  // Client-side prediction works everywhere; saving/reading history needs
-  // the `db` capability, only available on the hosted (claude.ai) copy of
-  // this page — a copy opened from a local file has no window.claude at
-  // all, so this degrades to "predictions shown, save disabled".
-  function fmtFixtureDate(iso) {
-    const d = new Date(iso + 'T00:00:00');
-    return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
-  }
-  function fmtRowDate(iso) {
-    const d = new Date(iso + 'T00:00:00');
-    return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit' });
   }
 
   function renderFixtureList() {
@@ -635,24 +681,44 @@
     }).join('');
   }
 
-  function fmtHistoryDate(iso) {
-    const d = new Date(iso + 'T00:00:00');
-    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  // A saved prediction is checked against MODEL.recent_results (the league it
+  // was saved under, looked up by team names — dates can drift slightly on a
+  // postponement, so team names within the embedded window is the reliable
+  // match). Absent = that round hasn't been re-imported into this page yet.
+  function findActualResult(league, home, away) {
+    const results = (ALL_LEAGUES[league] || {}).recent_results || [];
+    return results.find(r => r.home === home && r.away === away) || null;
   }
 
   function renderHistory(entries) {
     const list = document.getElementById('historyList');
+    const trackRecord = document.getElementById('trackRecord');
     if (!entries.length) {
       list.innerHTML = '<div class="history-empty">No saved predictions yet — click "Predict &amp; Save" above.</div>';
+      trackRecord.hidden = true;
       return;
     }
+
+    let known = 0, correct = 0;
+
     list.innerHTML = entries.map(e => {
       const savedLabel = e.savedAt ? new Date(e.savedAt).toLocaleString() : '';
-      const rows = (e.fixtures || []).map(f => `
-        <div class="history-fixture">
-          <span>${f.home} vs ${f.away}</span>
-          <span class="history-pill" data-outcome="${f.predicted}">${LABELS[f.predicted]} ${fmtPct(f.probs[f.predicted])}</span>
-        </div>`).join('');
+      const rows = (e.fixtures || []).map(f => {
+        const actual = findActualResult(e.league, f.home, f.away);
+        let actualHtml = '<span class="history-actual pending">pending</span>';
+        if (actual) {
+          known++;
+          const isCorrect = actual.result === f.predicted;
+          if (isCorrect) correct++;
+          actualHtml = `<span class="history-actual ${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? '✓' : '✗'} FT ${actual.home_goals}-${actual.away_goals}</span>`;
+        }
+        return `
+          <div class="history-fixture">
+            <span class="hf-teams">${f.home} vs ${f.away}</span>
+            <span class="history-pill" data-outcome="${f.predicted}">${LABELS[f.predicted]} ${fmtPct(f.probs[f.predicted])}</span>
+            ${actualHtml}
+          </div>`;
+      }).join('');
       return `
         <div class="history-entry">
           <div class="history-entry-head">
@@ -662,6 +728,13 @@
           <div class="history-fixtures">${rows}</div>
         </div>`;
     }).join('');
+
+    if (known > 0) {
+      trackRecord.hidden = false;
+      trackRecord.textContent = `Track record: ${correct}/${known} correct (${fmtPct(correct / known)})`;
+    } else {
+      trackRecord.hidden = true;
+    }
   }
 
   async function saveToday() {
@@ -680,7 +753,8 @@
         const top = Object.entries(probs).sort((a, b) => b[1] - a[1])[0][0];
         return { home: f.home, away: f.away, date: f.date, probs, predicted: top };
       });
-      await db.collection('predictions').doc(roundDate).set({
+      await db.collection('predictions').doc(`${currentSlug}__${roundDate}`).set({
+        league: currentSlug,
         date: roundDate,
         savedAt: new Date().toISOString(),
         fixtures: predicted,
@@ -693,14 +767,79 @@
     }
   }
 
-  renderFixtureList();
+  function subscribeHistory() {
+    if (historyUnsub) { historyUnsub(); historyUnsub = null; }
+    if (!db) return;
+    document.getElementById('historyCard').hidden = false;
+    historyUnsub = db.collection('predictions')
+      .where('league', '==', currentSlug)
+      .orderBy('date', 'desc')
+      .limit(20)
+      .onSnapshot(
+        snap => renderHistory(snap.docs.map(d => d.data())),
+        err => { console.error('history subscribe failed', err); }
+      );
+  }
+
+  function updateHeaderText() {
+    document.getElementById('trainCount').textContent = MODEL.n_train_matches.toLocaleString();
+    const [start, end] = MODEL.date_range;
+    document.getElementById('trainRange').textContent = `${MODEL.label}, ${start.slice(0, 4)}–${end.slice(0, 4)}`;
+
+    const statsLine = document.getElementById('modelStatsLine');
+    if (MODEL.accuracy != null) {
+      statsLine.textContent = `Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record · ${MODEL.label} trained accuracy ${fmtPct(MODEL.accuracy)} vs ${fmtPct(MODEL.baseline_accuracy)} majority-class baseline.`;
+    } else {
+      statsLine.textContent = 'Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record.';
+    }
+  }
+
+  function switchLeague(slug) {
+    currentSlug = slug;
+    MODEL = ALL_LEAGUES[slug];
+
+    teams = Object.keys(MODEL.teams).sort();
+    for (const sel of [homeSel, awaySel]) {
+      sel.innerHTML = '';
+      for (const t of teams) {
+        const opt = document.createElement('option');
+        opt.value = t; opt.textContent = t;
+        sel.appendChild(opt);
+      }
+    }
+    const defaults = DEFAULT_PAIRS[slug] || [teams[0], teams[1]];
+    homeSel.value = teams.includes(defaults[0]) ? defaults[0] : teams[0];
+    awaySel.value = teams.includes(defaults[1]) ? defaults[1] : teams[1];
+
+    updateHeaderText();
+    render();
+    renderFixtureList();
+    subscribeHistory();
+  }
+
+  homeSel.addEventListener('change', render);
+  awaySel.addEventListener('change', render);
+  document.getElementById('swapBtn').addEventListener('click', () => {
+    const h = homeSel.value;
+    homeSel.value = awaySel.value;
+    awaySel.value = h;
+    render();
+  });
+  leagueSel.addEventListener('change', () => switchLeague(leagueSel.value));
+
+  // --- db capability (hosted page only) ---
+  // Client-side prediction works everywhere; saving/reading history needs
+  // Claude's `db` capability, only available on the hosted (claude.ai) copy
+  // of this page — a copy opened from a local file has no window.claude at
+  // all, so this degrades to "predictions shown, save disabled".
+  let db = null, historyUnsub = null;
+
+  switchLeague(currentSlug); // first render, before we know whether db is available
 
   (async () => {
-    const historyCard = document.getElementById('historyCard');
     const saveBtn = document.getElementById('saveBtn');
     const saveStatus = document.getElementById('saveStatus');
 
-    let db = null;
     if (window.claude && window.claude.use) {
       try { db = await window.claude.use('db'); } catch (e) { db = null; }
     }
@@ -712,12 +851,8 @@
       return;
     }
 
-    historyCard.hidden = false;
     saveBtn.addEventListener('click', saveToday);
-    db.collection('predictions').orderBy('date', 'desc').limit(20).onSnapshot(
-      snap => renderHistory(snap.docs.map(d => d.data())),
-      err => { console.error('history subscribe failed', err); }
-    );
+    subscribeHistory();
   })();
 </script>
 </body>

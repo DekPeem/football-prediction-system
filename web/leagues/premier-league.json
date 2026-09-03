@@ -1,4 +1,7 @@
 {
+  "label": "Premier League",
+  "accuracy": 0.4982164090368609,
+  "baseline_accuracy": 0.4221165279429251,
   "feature_columns": [
     "elo_diff",
     "form_pts_diff",
@@ -1303,6 +1306,168 @@
       "date": "2026-09-06",
       "home": "Everton",
       "away": "Man United"
+    }
+  ],
+  "recent_results": [
+    {
+      "date": "2026-08-21",
+      "home": "Arsenal",
+      "away": "Coventry City",
+      "home_goals": 3,
+      "away_goals": 0,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-22",
+      "home": "Hull City",
+      "away": "Man United",
+      "home_goals": 2,
+      "away_goals": 0,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-22",
+      "home": "Ipswich Town",
+      "away": "Sunderland",
+      "home_goals": 2,
+      "away_goals": 1,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-22",
+      "home": "Nottingham Forest",
+      "away": "Leeds",
+      "home_goals": 0,
+      "away_goals": 1,
+      "result": "A"
+    },
+    {
+      "date": "2026-08-22",
+      "home": "Everton",
+      "away": "Crystal Palace",
+      "home_goals": 2,
+      "away_goals": 0,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-22",
+      "home": "Brentford",
+      "away": "Tottenham",
+      "home_goals": 3,
+      "away_goals": 0,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-23",
+      "home": "Newcastle",
+      "away": "Liverpool",
+      "home_goals": 2,
+      "away_goals": 2,
+      "result": "D"
+    },
+    {
+      "date": "2026-08-23",
+      "home": "Man City",
+      "away": "Bournemouth",
+      "home_goals": 2,
+      "away_goals": 1,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-23",
+      "home": "Brighton",
+      "away": "Aston Villa",
+      "home_goals": 4,
+      "away_goals": 0,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-24",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "home_goals": 2,
+      "away_goals": 3,
+      "result": "A"
+    },
+    {
+      "date": "2026-08-28",
+      "home": "Crystal Palace",
+      "away": "Man City",
+      "home_goals": 1,
+      "away_goals": 4,
+      "result": "A"
+    },
+    {
+      "date": "2026-08-29",
+      "home": "Coventry City",
+      "away": "Hull City",
+      "home_goals": 0,
+      "away_goals": 1,
+      "result": "A"
+    },
+    {
+      "date": "2026-08-29",
+      "home": "Tottenham",
+      "away": "Newcastle",
+      "home_goals": 0,
+      "away_goals": 2,
+      "result": "A"
+    },
+    {
+      "date": "2026-08-29",
+      "home": "Liverpool",
+      "away": "Nottingham Forest",
+      "home_goals": 2,
+      "away_goals": 2,
+      "result": "D"
+    },
+    {
+      "date": "2026-08-29",
+      "home": "Bournemouth",
+      "away": "Everton",
+      "home_goals": 1,
+      "away_goals": 1,
+      "result": "D"
+    },
+    {
+      "date": "2026-08-30",
+      "home": "Leeds",
+      "away": "Brentford",
+      "home_goals": 1,
+      "away_goals": 1,
+      "result": "D"
+    },
+    {
+      "date": "2026-08-30",
+      "home": "Man United",
+      "away": "Ipswich Town",
+      "home_goals": 5,
+      "away_goals": 2,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-30",
+      "home": "Sunderland",
+      "away": "Fulham",
+      "home_goals": 1,
+      "away_goals": 0,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-30",
+      "home": "Chelsea",
+      "away": "Brighton",
+      "home_goals": 4,
+      "away_goals": 3,
+      "result": "H"
+    },
+    {
+      "date": "2026-08-31",
+      "home": "Aston Villa",
+      "away": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 1,
+      "result": "A"
     }
   ],
   "n_train_matches": 4200,

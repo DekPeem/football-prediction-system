@@ -43,10 +43,12 @@ match statistics (goals, shots, cards, recent form, head-to-head record).
 5. **`src/predict_fixtures.py`** — same idea, but predicts every match in
    `data/fixtures.csv` — by default just the next matchday
    (see [Predicting the next matchday](#predicting-the-next-matchday)).
-6. **`src/export_web_demo_data.py`** — exports the trained model's coefficients
-   and every team's current Elo/form/head-to-head as `web/model_export.json`,
-   so a static page can reproduce the exact same prediction in the browser
-   (see [Web demo](#web-demo)).
+6. **`src/export_web_demo_data.py`** — exports one league's trained model
+   coefficients, every team's current Elo/form/head-to-head, and its recent
+   results, so a static page can reproduce the exact same prediction in the
+   browser and check past predictions against what happened.
+   **`src/export_all_leagues.py`** runs it for every league the web demo
+   covers (see [Web demo](#web-demo)).
 
 ## Quickstart
 
@@ -194,49 +196,81 @@ models/thai-league/model.joblib` picks it up as-is.
 
 ## Web demo
 
-A pick-two-teams-and-see-the-probabilities page, running the trained model
-client-side — no server, no backend, works offline once loaded.
+A pick-a-league-and-two-teams-and-see-the-probabilities page, running the
+trained model client-side — no server, no backend, works offline once
+loaded. Covers all 8 leagues/divisions (not the 5 cups — see
+[Cup competitions](#cup-competitions--included-but-read-this-before-trusting-one)
+for why) behind a switcher in the header.
 
 - **Open it locally:** `web/index.html` is a single self-contained file —
   double-click it (or in VS Code, right-click → Open with Live Server) to
-  open it in a browser. It has the model's weights baked in, so it works
-  straight from disk.
+  open it in a browser. It has every league's model weights baked in, so it
+  works straight from disk.
 - **Or view it hosted:** https://claude.ai/code/artifact/ceec7cc0-6284-4ca7-b495-718b45ad84a7
 
-Both read from the same scaler + logistic-regression weights `predict.py`
-uses, so all three always agree. After retraining on new data, refresh both:
+Every league's page reads from the same scaler + logistic-regression weights
+`predict.py` uses for that league, so the CLI and the web page always agree.
+After retraining on new data, refresh both:
 
 ```bash
-python src/export_web_demo_data.py   # -> web/model_export.json
-python src/build_web_page.py         # embeds it into web/index.html
+python src/export_all_leagues.py   # -> web/leagues/<slug>.json, one per league
+python src/build_web_page.py       # combines them into web/index.html
 ```
 
-(`web/template.html` is the page shell with a `__MODEL_DATA_JSON__`
+(`web/template.html` is the page shell with an `__ALL_LEAGUES_JSON__`
 placeholder — edit it to change the page's look; `build_web_page.py` fills
-in the placeholder.) To update the hosted version too, paste `web/index.html`'s
-content into the Artifact and republish it.
+in the placeholder with every `web/leagues/*.json` combined into one object.
+`export_web_demo_data.py` — what `export_all_leagues.py` calls once per
+league — also works standalone via `--data`/`--fixtures`/`--model`/`--out`/
+`--label` if you only want to refresh one league's file.) To update the
+hosted version too, read it with the Artifact tool (`action: "read"`) at
+the URL above, then publish `web/index.html`'s freshly-built content to
+that same URL — omit `capabilities` on republish so it keeps the stored
+`db: {}` declaration.
 
-### "Today's matchday" + prediction history
+### "Today's matchday" + prediction history + track record
 
-The page also auto-predicts the whole next round (`data/fixtures.csv`, same
-window `predict_fixtures.py` uses — "Today's matchday" is really "the next
-scheduled round," which may be a few days out) and a **Predict & Save**
-button that logs those predictions to the page's own shared history —
-visible to anyone who opens the page, growing over time as it's clicked on
-new matchdays.
+The page also auto-predicts the whole next round for whichever league is
+selected (`data/<league>/fixtures.csv`, same window `predict_fixtures.py`
+uses — "Today's matchday" is really "the next scheduled round," which may be
+a few days out) and a **Predict & Save** button that logs those predictions
+to the page's own shared history, per league — visible to anyone who opens
+the page, growing over time as it's clicked on new matchdays.
 
-This part **only works on the hosted (claude.ai) copy** — saving needs
-Claude's `db` capability (a small per-artifact JSON store), which a page
-opened from a local file has no access to at all. `web/index.html` still
-shows the same predictions, just with the save button disabled and a note
-explaining why — open the hosted link above for history.
+Once a round's actual results make it back into `data/<league>/matches.csv`
+(via the [weekly refresh](#keeping-the-data-current-automatically)) and the
+page is rebuilt, every saved prediction is checked against what actually
+happened — each history entry shows the real final score next to the call
+(✓/✗), and the history header shows a running **track record**
+(`correct/known so far`). This is entirely computed in the browser from the
+page's own embedded data (`recent_results`, the last 60 days of each
+league's played matches) — nobody needs to check it by hand, it just needs
+the page rebuilt with fresh results to catch up.
 
-It's a log of predictions made, not (yet) a scored track record — there's no
-automatic check against actual results once a match is played. A page
-declaring `db` can also read game results back in, so that's a real
-follow-up if you want it, not a rebuild.
+This part **only works on the hosted (claude.ai) copy** — saving and reading
+history needs Claude's `db` capability (a small per-artifact JSON store),
+which a page opened from a local file has no access to at all.
+`web/index.html` still shows the same live predictions for every league,
+just with the save button disabled and a note explaining why — open the
+hosted link above for history and track record.
 
-## Keeping the data current
+## Keeping the data current, automatically
+
+A Claude Routine re-imports all 8 leagues, retrains, rebuilds the web page,
+republishes the hosted Artifact, and pushes — every Monday 06:00 UTC,
+unattended. It never pushes on a bad run: a source file it can't parse, an
+implausible match-count swing, or a training failure stops it before
+anything is committed, leaving the repo as-is for a human to look at.
+Manage it (pause it, check its last run, change the schedule) from
+whichever Claude session created it, or the claude.ai Routines UI.
+
+The one thing it can't self-heal: each import command's season-file list is
+range-bounded (currently through the 2026-27/2027-28 season files). When a
+league's archive adds a season beyond that range, extend the routine's
+prompt (or just re-run the commands below by hand for that one league) to
+include it.
+
+## Keeping the data current, by hand
 
 openfootball/england updates its current-season file after real matchdays
 are played. To pull in newer results (and refresh `data/fixtures.csv` with
@@ -251,7 +285,7 @@ python src/import_openfootball.py \
     /tmp/openfootball-england/2026-27/1-premierleague.txt \
     --out data/matches.csv --fixtures-out data/fixtures.csv
 python src/train.py
-python src/export_web_demo_data.py && python src/build_web_page.py
+python src/export_all_leagues.py && python src/build_web_page.py
 ```
 
 Pass every season file oldest-first (see the `git log` on
@@ -294,11 +328,26 @@ since football-data.co.uk only publishes results.
   baseline is real signal.
 - Draws are structurally the hardest class to call; expect low recall there.
 - This is a starting point (Elo + form + head-to-head + logistic regression),
-  not a betting-grade model. Realistic next steps: add bookmaker odds as a
-  feature (they're already the best public predictor), try gradient boosting
-  (`GradientBoostingClassifier` / XGBoost), add player-availability/injury
-  data, and validate with a rolling-season backtest instead of one train/test
-  split.
+  not a betting-grade model.
+- **Tried, and deliberately not adopted:** Gradient Boosting and Random
+  Forest, evaluated against logistic regression across all 8
+  leagues/divisions. Random Forest won (barely) on the three biggest
+  leagues, logistic regression won everywhere else — a 0.1-1.4 percentage
+  point spread either way, not a real improvement, and neither tree model
+  has a `coef_`/`intercept_` to export, so switching would also break the
+  web demo's client-side prediction (it replicates the model's exact math in
+  ~10 lines of JS specifically because it's linear). Not worth it for
+  this data.
+- **Real next step, not yet done:** bookmaker odds as a feature — they're
+  already the best public predictor, and would likely beat both of the
+  above. Blocked on data, not effort: this project's real match data comes
+  from openfootball, which doesn't carry odds. A dataset that does (e.g.
+  [xgabora/Club-Football-Match-Data-2000-2025](https://github.com/xgabora/Club-Football-Match-Data-2000-2025),
+  sourced from football-data.co.uk) uses different team-name conventions and
+  would need a join on date+teams to merge in — feasible, but a real data
+  task in its own right, not a flag flip. Other real next steps: player-
+  availability/injury data, and a rolling-season backtest instead of one
+  train/test split.
 
 ## Project layout
 
@@ -312,14 +361,15 @@ data/copa-del-rey/, data/coupe-de-france/                 same, per cup competit
 src/import_openfootball.py  converts openfootball season files (any of the 13 competitions above)
 src/generate_sample_data.py synthetic data generator (alternative to real data)
 src/features.py             feature engineering (Elo, form, head-to-head)
-src/train.py                 training + evaluation
+src/train.py                 training + evaluation (writes metrics.json next to the model)
 src/predict.py               CLI to predict a single fixture
 src/predict_fixtures.py      CLI to predict a fixtures.csv (next matchday by default)
-src/export_web_demo_data.py  exports model + team state -> web/model_export.json
-src/build_web_page.py        embeds web/model_export.json into web/index.html
+src/export_web_demo_data.py  exports one league's model + team state + recent results -> JSON
+src/export_all_leagues.py    runs the above for every league the web switcher covers -> web/leagues/*.json
+src/build_web_page.py        combines web/leagues/*.json into web/index.html
 web/template.html            web demo page shell (has the JSON placeholder)
-web/model_export.json        exported model + team state (Premier League)
-web/index.html                the runnable web demo (open directly in a browser)
+web/leagues/<slug>.json       one exported league's data (input to build_web_page.py)
+web/index.html                the runnable web demo — every league, open directly in a browser
 models/                      trained Premier League model + metrics (git-ignored)
 models/<league>/              same, per league/division above (git-ignored)
 ```
