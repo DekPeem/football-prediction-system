@@ -70,8 +70,8 @@ def extract_score(text: str) -> tuple[int, int] | None:
     return None
 
 
-def split_match_line(content: str) -> tuple[str, str, str | None] | None:
-    """Split one non-header line into (home, away, score_text_or_None).
+def split_match_line(content: str) -> tuple[str, str, str | None, str | None] | None:
+    """Split one non-header line into (home, away, score_text_or_None, kickoff_time_or_None).
 
     Splitting on runs of 2+ spaces is what actually separates the columns —
     team names and the scoreline can each contain single spaces internally,
@@ -80,10 +80,15 @@ def split_match_line(content: str) -> tuple[str, str, str | None] | None:
     plus the case where a long team name overflows its column padding down to
     a single space before "v" (so "Team A v Team B" collapses into one field
     once split), and a multi-token scoreline ("0-3    [awarded]",
-    "5-4 pen. 0-0 a.e.t. (0-0)") that itself contains 2+-space gaps.
+    "5-4 pen. 0-0 a.e.t. (0-0)") that itself contains 2+-space gaps. A leading
+    kickoff-time field ("21:00  Team A v Team B") is captured, not just
+    stripped, so callers can surface it (a future fixture especially benefits
+    from knowing when it kicks off, not just what day).
     """
     fields = FIELD_SPLIT_RE.split(content)
+    time_text = None
     if fields and TIME_RE.match(fields[0]):
+        time_text = fields[0]
         fields = fields[1:]
     if not fields:
         return None
@@ -104,7 +109,7 @@ def split_match_line(content: str) -> tuple[str, str, str | None] | None:
             away, score_text = fields[-1], " ".join(fields[1:-1])
     else:
         return None
-    return home.strip(), away.strip(), (score_text or None)
+    return home.strip(), away.strip(), (score_text or None), time_text
 
 TEAM_ALIASES = {
     "AFC Bournemouth": "Bournemouth", "Bournemouth": "Bournemouth",
@@ -391,7 +396,7 @@ def parse_season_file(path: str) -> list[dict]:
         parsed = split_match_line(content)
         if parsed is None:
             continue  # not a match line (blank/annotation we didn't already skip)
-        home, away, score_text = parsed
+        home, away, score_text, time_text = parsed
 
         home_goals = away_goals = None
         if score_text:
@@ -405,7 +410,7 @@ def parse_season_file(path: str) -> list[dict]:
             ftr = "H" if home_goals > away_goals else ("A" if away_goals > home_goals else "D")
 
         rows.append({
-            "Date": current_date, "HomeTeam": home, "AwayTeam": away,
+            "Date": current_date, "Time": time_text or "", "HomeTeam": home, "AwayTeam": away,
             "FTHG": home_goals, "FTAG": away_goals, "FTR": ftr,
         })
 
@@ -447,15 +452,15 @@ def main() -> None:
         print(f"({malformed} row(s) with an unparsed playoff/extra-time/penalty scoreline dropped entirely)")
 
     with open(args.out, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR"])
+        writer = csv.DictWriter(f, fieldnames=["Date", "Time", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR"])
         writer.writeheader()
         writer.writerows(played)
     print(f"\nWrote {len(played)} played matches -> {args.out}")
 
     with open(args.fixtures_out, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["Date", "HomeTeam", "AwayTeam"])
+        writer = csv.DictWriter(f, fieldnames=["Date", "Time", "HomeTeam", "AwayTeam"])
         writer.writeheader()
-        writer.writerows({"Date": r["Date"], "HomeTeam": r["HomeTeam"], "AwayTeam": r["AwayTeam"]} for r in upcoming)
+        writer.writerows({"Date": r["Date"], "Time": r["Time"], "HomeTeam": r["HomeTeam"], "AwayTeam": r["AwayTeam"]} for r in upcoming)
     print(f"Wrote {len(upcoming)} upcoming fixtures -> {args.fixtures_out}")
 
 

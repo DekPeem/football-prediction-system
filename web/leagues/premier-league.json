@@ -1259,51 +1259,61 @@
   "next_matchday": [
     {
       "date": "2026-09-04",
+      "time": "20:00",
       "home": "Ipswich Town",
       "away": "Liverpool"
     },
     {
       "date": "2026-09-05",
+      "time": "12:30",
       "home": "Newcastle",
       "away": "Bournemouth"
     },
     {
       "date": "2026-09-05",
+      "time": "15:00",
       "home": "Nottingham Forest",
       "away": "Tottenham"
     },
     {
       "date": "2026-09-05",
+      "time": "",
       "home": "Man City",
       "away": "Coventry City"
     },
     {
       "date": "2026-09-05",
+      "time": "",
       "home": "Brighton",
       "away": "Leeds"
     },
     {
       "date": "2026-09-05",
+      "time": "",
       "home": "Brentford",
       "away": "Sunderland"
     },
     {
       "date": "2026-09-05",
+      "time": "",
       "home": "Fulham",
       "away": "Crystal Palace"
     },
     {
       "date": "2026-09-05",
+      "time": "17:30",
       "home": "Hull City",
       "away": "Aston Villa"
     },
     {
       "date": "2026-09-06",
+      "time": "16:30",
       "home": "Arsenal",
       "away": "Chelsea"
     },
     {
       "date": "2026-09-06",
+      "time": "14:00",
       "home": "Everton",
       "away": "Man United"
     }
@@ -1311,6 +1321,7 @@
   "recent_results": [
     {
       "date": "2026-08-21",
+      "time": "20:00",
       "home": "Arsenal",
       "away": "Coventry City",
       "home_goals": 3,
@@ -1319,6 +1330,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "12:30",
       "home": "Hull City",
       "away": "Man United",
       "home_goals": 2,
@@ -1327,6 +1339,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "15:00",
       "home": "Ipswich Town",
       "away": "Sunderland",
       "home_goals": 2,
@@ -1335,6 +1348,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Nottingham Forest",
       "away": "Leeds",
       "home_goals": 0,
@@ -1343,6 +1357,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Everton",
       "away": "Crystal Palace",
       "home_goals": 2,
@@ -1351,6 +1366,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "17:30",
       "home": "Brentford",
       "away": "Tottenham",
       "home_goals": 3,
@@ -1359,6 +1375,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "16:30",
       "home": "Newcastle",
       "away": "Liverpool",
       "home_goals": 2,
@@ -1367,6 +1384,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "14:00",
       "home": "Man City",
       "away": "Bournemouth",
       "home_goals": 2,
@@ -1375,6 +1393,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "",
       "home": "Brighton",
       "away": "Aston Villa",
       "home_goals": 4,
@@ -1383,6 +1402,7 @@
     },
     {
       "date": "2026-08-24",
+      "time": "20:00",
       "home": "Fulham",
       "away": "Chelsea",
       "home_goals": 2,
@@ -1391,6 +1411,7 @@
     },
     {
       "date": "2026-08-28",
+      "time": "20:00",
       "home": "Crystal Palace",
       "away": "Man City",
       "home_goals": 1,
@@ -1399,6 +1420,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "",
       "home": "Coventry City",
       "away": "Hull City",
       "home_goals": 0,
@@ -1407,6 +1429,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "17:30",
       "home": "Tottenham",
       "away": "Newcastle",
       "home_goals": 0,
@@ -1415,6 +1438,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "12:30",
       "home": "Liverpool",
       "away": "Nottingham Forest",
       "home_goals": 2,
@@ -1423,6 +1447,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "15:00",
       "home": "Bournemouth",
       "away": "Everton",
       "home_goals": 1,
@@ -1431,6 +1456,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "",
       "home": "Leeds",
       "away": "Brentford",
       "home_goals": 1,
@@ -1439,6 +1465,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "16:30",
       "home": "Man United",
       "away": "Ipswich Town",
       "home_goals": 5,
@@ -1447,6 +1474,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "14:00",
       "home": "Sunderland",
       "away": "Fulham",
       "home_goals": 1,
@@ -1455,6 +1483,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "",
       "home": "Chelsea",
       "away": "Brighton",
       "home_goals": 4,
@@ -1463,6 +1492,7 @@
     },
     {
       "date": "2026-08-31",
+      "time": "20:00",
       "home": "Aston Villa",
       "away": "Arsenal",
       "home_goals": 0,

@@ -1487,36 +1487,43 @@
   "next_matchday": [
     {
       "date": "2025-11-05",
+      "time": "19:00",
       "home": "Real Sociedad B",
       "away": "Huesca"
     },
     {
       "date": "2025-11-07",
+      "time": "19:30",
       "home": "Mirandes",
       "away": "Sporting Gijon"
     },
     {
       "date": "2025-11-08",
+      "time": "13:00",
       "home": "Real Sociedad B",
       "away": "Leganes"
     },
     {
       "date": "2025-11-08",
+      "time": "15:15",
       "home": "Eibar",
       "away": "Albacete"
     },
     {
       "date": "2025-11-08",
+      "time": "",
       "home": "Huesca",
       "away": "Andorra"
     },
     {
       "date": "2025-11-08",
+      "time": "17:30",
       "home": "Deportivo La Coruna",
       "away": "Cultural Leonesa"
     },
     {
       "date": "2025-11-08",
+      "time": "20:00",
       "home": "Malaga",
       "away": "Cordoba"
     }
@@ -1524,6 +1531,7 @@
   "recent_results": [
     {
       "date": "2025-09-05",
+      "time": "18:30",
       "home": "Albacete",
       "away": "Mirandes",
       "home_goals": 1,
@@ -1532,6 +1540,7 @@
     },
     {
       "date": "2025-09-05",
+      "time": "20:30",
       "home": "Cordoba",
       "away": "Castellon",
       "home_goals": 2,
@@ -1540,6 +1549,7 @@
     },
     {
       "date": "2025-09-06",
+      "time": "17:30",
       "home": "Real Zaragoza",
       "away": "Valladolid",
       "home_goals": 1,
@@ -1548,6 +1558,7 @@
     },
     {
       "date": "2025-09-06",
+      "time": "20:00",
       "home": "Malaga",
       "away": "Granada",
       "home_goals": 2,
@@ -1556,6 +1567,7 @@
     },
     {
       "date": "2025-09-06",
+      "time": "15:15",
       "home": "Deportivo La Coruna",
       "away": "Sporting Gijon",
       "home_goals": 1,
@@ -1564,6 +1576,7 @@
     },
     {
       "date": "2025-09-07",
+      "time": "13:00",
       "home": "Ceuta",
       "away": "Huesca",
       "home_goals": 2,
@@ -1572,6 +1585,7 @@
     },
     {
       "date": "2025-09-07",
+      "time": "15:15",
       "home": "Burgos",
       "away": "Las Palmas",
       "home_goals": 0,
@@ -1580,6 +1594,7 @@
     },
     {
       "date": "2025-09-07",
+      "time": "",
       "home": "Real Sociedad B",
       "away": "Cadiz",
       "home_goals": 3,
@@ -1588,6 +1603,7 @@
     },
     {
       "date": "2025-09-07",
+      "time": "17:30",
       "home": "Almeria",
       "away": "Racing Santander",
       "home_goals": 2,
@@ -1596,6 +1612,7 @@
     },
     {
       "date": "2025-09-07",
+      "time": "",
       "home": "Cultural Leonesa",
       "away": "Leganes",
       "home_goals": 0,
@@ -1604,6 +1621,7 @@
     },
     {
       "date": "2025-09-08",
+      "time": "19:30",
       "home": "Eibar",
       "away": "Andorra",
       "home_goals": 2,
@@ -1612,6 +1630,7 @@
     },
     {
       "date": "2025-09-12",
+      "time": "19:30",
       "home": "Las Palmas",
       "away": "Real Sociedad B",
       "home_goals": 2,
@@ -1620,6 +1639,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "15:15",
       "home": "Cadiz",
       "away": "Eibar",
       "home_goals": 1,
@@ -1628,6 +1648,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "",
       "home": "Mirandes",
       "away": "Deportivo La Coruna",
       "home_goals": 1,
@@ -1636,6 +1657,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "17:30",
       "home": "Huesca",
       "away": "Malaga",
       "home_goals": 1,
@@ -1644,6 +1666,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "20:00",
       "home": "Valladolid",
       "away": "Almeria",
       "home_goals": 3,
@@ -1652,6 +1675,7 @@
     },
     {
       "date": "2025-09-14",
+      "time": "20:00",
       "home": "Granada",
       "away": "Leganes",
       "home_goals": 0,
@@ -1660,6 +1684,7 @@
     },
     {
       "date": "2025-09-14",
+      "time": "17:30",
       "home": "Castellon",
       "away": "Ceuta",
       "home_goals": 3,
@@ -1668,6 +1693,7 @@
     },
     {
       "date": "2025-09-14",
+      "time": "",
       "home": "Sporting Gijon",
       "away": "Burgos",
       "home_goals": 2,
@@ -1676,6 +1702,7 @@
     },
     {
       "date": "2025-09-14",
+      "time": "13:00",
       "home": "Andorra",
       "away": "Cordoba",
       "home_goals": 3,
@@ -1684,6 +1711,7 @@
     },
     {
       "date": "2025-09-14",
+      "time": "15:15",
       "home": "Racing Santander",
       "away": "Cultural Leonesa",
       "home_goals": 2,
@@ -1692,6 +1720,7 @@
     },
     {
       "date": "2025-09-15",
+      "time": "19:30",
       "home": "Real Zaragoza",
       "away": "Albacete",
       "home_goals": 0,
@@ -1700,6 +1729,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "19:30",
       "home": "Deportivo La Coruna",
       "away": "Huesca",
       "home_goals": 4,
@@ -1708,6 +1738,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "15:15",
       "home": "Cultural Leonesa",
       "away": "Castellon",
       "home_goals": 1,
@@ -1716,6 +1747,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "17:30",
       "home": "Leganes",
       "away": "Las Palmas",
       "home_goals": 0,
@@ -1724,6 +1756,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "",
       "home": "Andorra",
       "away": "Mirandes",
       "home_goals": 1,
@@ -1732,6 +1765,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "20:00",
       "home": "Almeria",
       "away": "Sporting Gijon",
       "home_goals": 2,
@@ -1740,6 +1774,7 @@
     },
     {
       "date": "2025-09-21",
+      "time": "13:00",
       "home": "Ceuta",
       "away": "Real Zaragoza",
       "home_goals": 1,
@@ -1748,6 +1783,7 @@
     },
     {
       "date": "2025-09-21",
+      "time": "15:15",
       "home": "Albacete",
       "away": "Valladolid",
       "home_goals": 2,
@@ -1756,6 +1792,7 @@
     },
     {
       "date": "2025-09-21",
+      "time": "17:30",
       "home": "Eibar",
       "away": "Real Sociedad B",
       "home_goals": 2,
@@ -1764,6 +1801,7 @@
     },
     {
       "date": "2025-09-21",
+      "time": "",
       "home": "Malaga",
       "away": "Cadiz",
       "home_goals": 0,
@@ -1772,6 +1810,7 @@
     },
     {
       "date": "2025-09-21",
+      "time": "20:00",
       "home": "Cordoba",
       "away": "Racing Santander",
       "home_goals": 2,
@@ -1780,6 +1819,7 @@
     },
     {
       "date": "2025-09-22",
+      "time": "19:30",
       "home": "Burgos",
       "away": "Granada",
       "home_goals": 1,
@@ -1788,6 +1828,7 @@
     },
     {
       "date": "2025-09-26",
+      "time": "19:30",
       "home": "Mirandes",
       "away": "Real Zaragoza",
       "home_goals": 0,
@@ -1796,6 +1837,7 @@
     },
     {
       "date": "2025-09-27",
+      "time": "20:00",
       "home": "Las Palmas",
       "away": "Almeria",
       "home_goals": 0,
@@ -1804,6 +1846,7 @@
     },
     {
       "date": "2025-09-27",
+      "time": "",
       "home": "Racing Santander",
       "away": "Andorra",
       "home_goals": 1,
@@ -1812,6 +1855,7 @@
     },
     {
       "date": "2025-09-27",
+      "time": "17:30",
       "home": "Eibar",
       "away": "Deportivo La Coruna",
       "home_goals": 1,
@@ -1820,6 +1864,7 @@
     },
     {
       "date": "2025-09-28",
+      "time": "13:00",
       "home": "Real Sociedad B",
       "away": "Cordoba",
       "home_goals": 1,
@@ -1828,6 +1873,7 @@
     },
     {
       "date": "2025-09-28",
+      "time": "15:15",
       "home": "Burgos",
       "away": "Malaga",
       "home_goals": 2,
@@ -1836,6 +1882,7 @@
     },
     {
       "date": "2025-09-28",
+      "time": "",
       "home": "Cadiz",
       "away": "Ceuta",
       "home_goals": 0,
@@ -1844,6 +1891,7 @@
     },
     {
       "date": "2025-09-28",
+      "time": "17:30",
       "home": "Sporting Gijon",
       "away": "Albacete",
       "home_goals": 3,
@@ -1852,6 +1900,7 @@
     },
     {
       "date": "2025-09-28",
+      "time": "",
       "home": "Valladolid",
       "away": "Cultural Leonesa",
       "home_goals": 0,
@@ -1860,6 +1909,7 @@
     },
     {
       "date": "2025-09-28",
+      "time": "20:00",
       "home": "Huesca",
       "away": "Granada",
       "home_goals": 0,
@@ -1868,6 +1918,7 @@
     },
     {
       "date": "2025-09-29",
+      "time": "19:30",
       "home": "Leganes",
       "away": "Castellon",
       "home_goals": 0,
@@ -1876,6 +1927,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "19:30",
       "home": "Ceuta",
       "away": "Eibar",
       "home_goals": 1,
@@ -1884,6 +1936,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "20:00",
       "home": "Granada",
       "away": "Real Sociedad B",
       "home_goals": 5,
@@ -1892,6 +1945,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "15:15",
       "home": "Deportivo La Coruna",
       "away": "Almeria",
       "home_goals": 1,
@@ -1900,6 +1954,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "17:30",
       "home": "Andorra",
       "away": "Leganes",
       "home_goals": 1,
@@ -1908,6 +1963,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "",
       "home": "Huesca",
       "away": "Burgos",
       "home_goals": 2,
@@ -1916,6 +1972,7 @@
     },
     {
       "date": "2025-10-05",
+      "time": "20:00",
       "home": "Las Palmas",
       "away": "Cadiz",
       "home_goals": 1,
@@ -1924,6 +1981,7 @@
     },
     {
       "date": "2025-10-05",
+      "time": "",
       "home": "Valladolid",
       "away": "Mirandes",
       "home_goals": 1,
@@ -1932,6 +1990,7 @@
     },
     {
       "date": "2025-10-05",
+      "time": "15:15",
       "home": "Castellon",
       "away": "Sporting Gijon",
       "home_goals": 3,
@@ -1940,6 +1999,7 @@
     },
     {
       "date": "2025-10-05",
+      "time": "13:00",
       "home": "Real Zaragoza",
       "away": "Cordoba",
       "home_goals": 0,
@@ -1948,6 +2008,7 @@
     },
     {
       "date": "2025-10-05",
+      "time": "17:30",
       "home": "Racing Santander",
       "away": "Malaga",
       "home_goals": 3,
@@ -1956,6 +2017,7 @@
     },
     {
       "date": "2025-10-06",
+      "time": "19:30",
       "home": "Cultural Leonesa",
       "away": "Albacete",
       "home_goals": 0,
@@ -1964,6 +2026,7 @@
     },
     {
       "date": "2025-10-10",
+      "time": "19:30",
       "home": "Granada",
       "away": "Las Palmas",
       "home_goals": 0,
@@ -1972,6 +2035,7 @@
     },
     {
       "date": "2025-10-11",
+      "time": "15:15",
       "home": "Mirandes",
       "away": "Leganes",
       "home_goals": 0,
@@ -1980,6 +2044,7 @@
     },
     {
       "date": "2025-10-11",
+      "time": "17:30",
       "home": "Almeria",
       "away": "Real Zaragoza",
       "home_goals": 4,
@@ -1988,6 +2053,7 @@
     },
     {
       "date": "2025-10-11",
+      "time": "",
       "home": "Real Sociedad B",
       "away": "Andorra",
       "home_goals": 3,
@@ -1996,6 +2062,7 @@
     },
     {
       "date": "2025-10-12",
+      "time": "",
       "home": "Cadiz",
       "away": "Huesca",
       "home_goals": 1,
@@ -2004,6 +2071,7 @@
     },
     {
       "date": "2025-10-12",
+      "time": "17:30",
       "home": "Burgos",
       "away": "Valladolid",
       "home_goals": 0,
@@ -2012,6 +2080,7 @@
     },
     {
       "date": "2025-10-12",
+      "time": "20:00",
       "home": "Malaga",
       "away": "Deportivo La Coruna",
       "home_goals": 3,
@@ -2020,6 +2089,7 @@
     },
     {
       "date": "2025-10-12",
+      "time": "15:15",
       "home": "Eibar",
       "away": "Castellon",
       "home_goals": 0,
@@ -2028,6 +2098,7 @@
     },
     {
       "date": "2025-10-12",
+      "time": "13:00",
       "home": "Albacete",
       "away": "Ceuta",
       "home_goals": 0,
@@ -2036,6 +2107,7 @@
     },
     {
       "date": "2025-10-12",
+      "time": "",
       "home": "Sporting Gijon",
       "away": "Racing Santander",
       "home_goals": 2,
@@ -2044,6 +2116,7 @@
     },
     {
       "date": "2025-10-13",
+      "time": "19:30",
       "home": "Cordoba",
       "away": "Cultural Leonesa",
       "home_goals": 1,
@@ -2052,6 +2125,7 @@
     },
     {
       "date": "2025-10-17",
+      "time": "19:30",
       "home": "Andorra",
       "away": "Granada",
       "home_goals": 0,
@@ -2060,6 +2134,7 @@
     },
     {
       "date": "2025-10-18",
+      "time": "15:15",
       "home": "Ceuta",
       "away": "Mirandes",
       "home_goals": 2,
@@ -2068,6 +2143,7 @@
     },
     {
       "date": "2025-10-18",
+      "time": "17:30",
       "home": "Real Zaragoza",
       "away": "Cultural Leonesa",
       "home_goals": 0,
@@ -2076,6 +2152,7 @@
     },
     {
       "date": "2025-10-19",
+      "time": "13:00",
       "home": "Leganes",
       "away": "Malaga",
       "home_goals": 2,
@@ -2084,6 +2161,7 @@
     },
     {
       "date": "2025-10-19",
+      "time": "15:15",
       "home": "Castellon",
       "away": "Albacete",
       "home_goals": 0,
@@ -2092,6 +2170,7 @@
     },
     {
       "date": "2025-10-19",
+      "time": "",
       "home": "Valladolid",
       "away": "Sporting Gijon",
       "home_goals": 2,
@@ -2100,6 +2179,7 @@
     },
     {
       "date": "2025-10-19",
+      "time": "17:30",
       "home": "Racing Santander",
       "away": "Deportivo La Coruna",
       "home_goals": 2,
@@ -2108,6 +2188,7 @@
     },
     {
       "date": "2025-10-19",
+      "time": "",
       "home": "Cordoba",
       "away": "Almeria",
       "home_goals": 1,
@@ -2116,6 +2197,7 @@
     },
     {
       "date": "2025-10-19",
+      "time": "20:00",
       "home": "Las Palmas",
       "away": "Eibar",
       "home_goals": 3,
@@ -2124,6 +2206,7 @@
     },
     {
       "date": "2025-10-20",
+      "time": "19:30",
       "home": "Cadiz",
       "away": "Burgos",
       "home_goals": 1,
@@ -2132,6 +2215,7 @@
     },
     {
       "date": "2025-10-24",
+      "time": "19:30",
       "home": "Huesca",
       "away": "Las Palmas",
       "home_goals": 1,
@@ -2140,6 +2224,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "20:00",
       "home": "Mirandes",
       "away": "Racing Santander",
       "home_goals": 1,
@@ -2148,6 +2233,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "",
       "home": "Granada",
       "away": "Cadiz",
       "home_goals": 0,
@@ -2156,6 +2242,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "17:30",
       "home": "Burgos",
       "away": "Real Sociedad B",
       "home_goals": 1,
@@ -2164,6 +2251,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "15:15",
       "home": "Albacete",
       "away": "Cordoba",
       "home_goals": 1,
@@ -2172,6 +2260,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "13:00",
       "home": "Cultural Leonesa",
       "away": "Ceuta",
       "home_goals": 0,
@@ -2180,6 +2269,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "",
       "home": "Eibar",
       "away": "Leganes",
       "home_goals": 0,
@@ -2188,6 +2278,7 @@
     },
     {
       "date": "2025-10-26",
+      "time": "13:00",
       "home": "Malaga",
       "away": "Andorra",
       "home_goals": 4,
@@ -2196,6 +2287,7 @@
     },
     {
       "date": "2025-10-26",
+      "time": "17:30",
       "home": "Sporting Gijon",
       "away": "Real Zaragoza",
       "home_goals": 1,
@@ -2204,6 +2296,7 @@
     },
     {
       "date": "2025-10-26",
+      "time": "",
       "home": "Almeria",
       "away": "Castellon",
       "home_goals": 1,
@@ -2212,6 +2305,7 @@
     },
     {
       "date": "2025-10-26",
+      "time": "20:00",
       "home": "Deportivo La Coruna",
       "away": "Valladolid",
       "home_goals": 1,
@@ -2220,6 +2314,7 @@
     },
     {
       "date": "2025-10-31",
+      "time": "19:30",
       "home": "Racing Santander",
       "away": "Real Sociedad B",
       "home_goals": 1,
@@ -2228,6 +2323,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "15:15",
       "home": "Cultural Leonesa",
       "away": "Mirandes",
       "home_goals": 3,
@@ -2236,6 +2332,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "17:30",
       "home": "Albacete",
       "away": "Huesca",
       "home_goals": 2,
@@ -2244,6 +2341,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "",
       "home": "Leganes",
       "away": "Burgos",
       "home_goals": 1,
@@ -2252,6 +2350,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "20:00",
       "home": "Almeria",
       "away": "Eibar",
       "home_goals": 3,
@@ -2260,6 +2359,7 @@
     },
     {
       "date": "2025-11-02",
+      "time": "17:30",
       "home": "Castellon",
       "away": "Malaga",
       "home_goals": 2,
@@ -2268,6 +2368,7 @@
     },
     {
       "date": "2025-11-02",
+      "time": "",
       "home": "Sporting Gijon",
       "away": "Las Palmas",
       "home_goals": 0,
@@ -2276,6 +2377,7 @@
     },
     {
       "date": "2025-11-02",
+      "time": "20:00",
       "home": "Real Zaragoza",
       "away": "Deportivo La Coruna",
       "home_goals": 0,
@@ -2284,6 +2386,7 @@
     },
     {
       "date": "2025-11-02",
+      "time": "13:00",
       "home": "Andorra",
       "away": "Cadiz",
       "home_goals": 0,
@@ -2292,6 +2395,7 @@
     },
     {
       "date": "2025-11-02",
+      "time": "15:15",
       "home": "Cordoba",
       "away": "Ceuta",
       "home_goals": 2,
@@ -2300,6 +2404,7 @@
     },
     {
       "date": "2025-11-03",
+      "time": "19:30",
       "home": "Valladolid",
       "away": "Granada",
       "home_goals": 2,

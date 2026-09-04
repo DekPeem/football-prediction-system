@@ -1291,51 +1291,61 @@
   "next_matchday": [
     {
       "date": "2026-09-04",
+      "time": "20:45",
       "home": "Genoa",
       "away": "Como"
     },
     {
       "date": "2026-09-05",
+      "time": "15:00",
       "home": "Fiorentina",
       "away": "Torino"
     },
     {
       "date": "2026-09-05",
+      "time": "18:00",
       "home": "Inter",
       "away": "Napoli"
     },
     {
       "date": "2026-09-05",
+      "time": "20:45",
       "home": "AS Roma",
       "away": "Atalanta"
     },
     {
       "date": "2026-09-06",
+      "time": "15:00",
       "home": "Parma",
       "away": "Monza"
     },
     {
       "date": "2026-09-06",
+      "time": "",
       "home": "Frosinone",
       "away": "Venezia"
     },
     {
       "date": "2026-09-06",
+      "time": "18:00",
       "home": "Bologna",
       "away": "Sassuolo"
     },
     {
       "date": "2026-09-06",
+      "time": "20:45",
       "home": "Juventus",
       "away": "AC Milan"
     },
     {
       "date": "2026-09-07",
+      "time": "18:30",
       "home": "Cagliari",
       "away": "Lecce"
     },
     {
       "date": "2026-09-07",
+      "time": "20:45",
       "home": "Udinese",
       "away": "Lazio"
     }
@@ -1343,6 +1353,7 @@
   "recent_results": [
     {
       "date": "2026-08-22",
+      "time": "18:30",
       "home": "Udinese",
       "away": "Como",
       "home_goals": 1,
@@ -1351,6 +1362,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Inter",
       "away": "Monza",
       "home_goals": 4,
@@ -1359,6 +1371,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "20:45",
       "home": "Genoa",
       "away": "Napoli",
       "home_goals": 0,
@@ -1367,6 +1380,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Parma",
       "away": "Cagliari",
       "home_goals": 0,
@@ -1375,6 +1389,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "18:30",
       "home": "Frosinone",
       "away": "Juventus",
       "home_goals": 0,
@@ -1383,6 +1398,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "",
       "home": "Venezia",
       "away": "Lecce",
       "home_goals": 0,
@@ -1391,6 +1407,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "20:45",
       "home": "Atalanta",
       "away": "Sassuolo",
       "home_goals": 2,
@@ -1399,6 +1416,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "",
       "home": "Torino",
       "away": "AC Milan",
       "home_goals": 1,
@@ -1407,6 +1425,7 @@
     },
     {
       "date": "2026-08-24",
+      "time": "18:30",
       "home": "Bologna",
       "away": "Lazio",
       "home_goals": 0,
@@ -1415,6 +1434,7 @@
     },
     {
       "date": "2026-08-24",
+      "time": "20:45",
       "home": "AS Roma",
       "away": "Fiorentina",
       "home_goals": 4,
@@ -1423,6 +1443,7 @@
     },
     {
       "date": "2026-08-28",
+      "time": "20:45",
       "home": "AC Milan",
       "away": "Venezia",
       "home_goals": 2,
@@ -1431,6 +1452,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "",
       "home": "Monza",
       "away": "Udinese",
       "home_goals": 2,
@@ -1439,6 +1461,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "",
       "home": "Fiorentina",
       "away": "Frosinone",
       "home_goals": 0,
@@ -1447,6 +1470,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "18:30",
       "home": "Sassuolo",
       "away": "Torino",
       "home_goals": 2,
@@ -1455,6 +1479,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "20:45",
       "home": "Juventus",
       "away": "Parma",
       "home_goals": 2,
@@ -1463,6 +1488,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "20:45",
       "home": "Lazio",
       "away": "Genoa",
       "home_goals": 1,
@@ -1471,6 +1497,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "18:30",
       "home": "Napoli",
       "away": "Como",
       "home_goals": 1,
@@ -1479,6 +1506,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "",
       "home": "Cagliari",
       "away": "Inter",
       "home_goals": 0,
@@ -1487,6 +1515,7 @@
     },
     {
       "date": "2026-08-31",
+      "time": "18:30",
       "home": "Lecce",
       "away": "AS Roma",
       "home_goals": 0,
@@ -1495,6 +1524,7 @@
     },
     {
       "date": "2026-08-31",
+      "time": "20:45",
       "home": "Atalanta",
       "away": "Bologna",
       "home_goals": 1,

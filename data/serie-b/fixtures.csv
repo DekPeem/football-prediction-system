@@ -1,72 +1,72 @@
-Date,HomeTeam,AwayTeam
-17/03/2026,Catanzaro,Modena
-21/03/2026,Bari,Carrarese
-21/03/2026,Cesena,Catanzaro
-21/03/2026,Empoli,Pescara
-21/03/2026,Virtus Entella,Reggiana
-21/03/2026,Juve Stabia,Spezia
-21/03/2026,Modena,Mantova
-21/03/2026,Monza,Venezia
-21/03/2026,Padova,Palermo
-21/03/2026,Sampdoria,Avellino
-21/03/2026,Sudtirol,Frosinone
-06/04/2026,Bari,Modena
-06/04/2026,Carrarese,Spezia
-06/04/2026,Catanzaro,Monza
-06/04/2026,Cesena,Sudtirol
-06/04/2026,Frosinone,Padova
-06/04/2026,Mantova,Virtus Entella
-06/04/2026,Palermo,Avellino
-06/04/2026,Reggiana,Pescara
-06/04/2026,Sampdoria,Empoli
-06/04/2026,Venezia,Juve Stabia
-11/04/2026,Avellino,Catanzaro
-11/04/2026,Virtus Entella,Venezia
-11/04/2026,Frosinone,Palermo
-11/04/2026,Juve Stabia,Cesena
-11/04/2026,Monza,Bari
-11/04/2026,Padova,Empoli
-11/04/2026,Pescara,Sampdoria
-11/04/2026,Reggiana,Carrarese
-11/04/2026,Spezia,Mantova
-11/04/2026,Sudtirol,Modena
-18/04/2026,Bari,Venezia
-18/04/2026,Carrarese,Pescara
-18/04/2026,Empoli,Virtus Entella
-18/04/2026,Juve Stabia,Catanzaro
-18/04/2026,Mantova,Avellino
-18/04/2026,Modena,Frosinone
-18/04/2026,Padova,Reggiana
-18/04/2026,Palermo,Cesena
-18/04/2026,Sampdoria,Monza
-18/04/2026,Spezia,Sudtirol
-25/04/2026,Avellino,Bari
-25/04/2026,Catanzaro,Spezia
-25/04/2026,Cesena,Sampdoria
-25/04/2026,Virtus Entella,Padova
-25/04/2026,Frosinone,Carrarese
-25/04/2026,Monza,Modena
-25/04/2026,Pescara,Juve Stabia
-25/04/2026,Reggiana,Palermo
-25/04/2026,Sudtirol,Mantova
-25/04/2026,Venezia,Empoli
-01/05/2026,Bari,Virtus Entella
-01/05/2026,Carrarese,Cesena
-01/05/2026,Empoli,Avellino
-01/05/2026,Juve Stabia,Frosinone
-01/05/2026,Mantova,Monza
-01/05/2026,Modena,Reggiana
-01/05/2026,Padova,Pescara
-01/05/2026,Palermo,Catanzaro
-01/05/2026,Sampdoria,Sudtirol
-01/05/2026,Spezia,Venezia
-09/05/2026,Avellino,Modena
-09/05/2026,Catanzaro,Bari
-09/05/2026,Cesena,Padova
-09/05/2026,Virtus Entella,Carrarese
-09/05/2026,Frosinone,Mantova
-09/05/2026,Monza,Empoli
-09/05/2026,Pescara,Spezia
-09/05/2026,Reggiana,Sampdoria
-09/05/2026,Sudtirol,Juve Stabia
-09/05/2026,Venezia,Palermo
+Date,Time,HomeTeam,AwayTeam
+17/03/2026,,Catanzaro,Modena
+21/03/2026,,Bari,Carrarese
+21/03/2026,,Cesena,Catanzaro
+21/03/2026,,Empoli,Pescara
+21/03/2026,,Virtus Entella,Reggiana
+21/03/2026,,Juve Stabia,Spezia
+21/03/2026,,Modena,Mantova
+21/03/2026,,Monza,Venezia
+21/03/2026,,Padova,Palermo
+21/03/2026,,Sampdoria,Avellino
+21/03/2026,,Sudtirol,Frosinone
+06/04/2026,,Bari,Modena
+06/04/2026,,Carrarese,Spezia
+06/04/2026,,Catanzaro,Monza
+06/04/2026,,Cesena,Sudtirol
+06/04/2026,,Frosinone,Padova
+06/04/2026,,Mantova,Virtus Entella
+06/04/2026,,Palermo,Avellino
+06/04/2026,,Reggiana,Pescara
+06/04/2026,,Sampdoria,Empoli
+06/04/2026,,Venezia,Juve Stabia
+11/04/2026,,Avellino,Catanzaro
+11/04/2026,,Virtus Entella,Venezia
+11/04/2026,,Frosinone,Palermo
+11/04/2026,,Juve Stabia,Cesena
+11/04/2026,,Monza,Bari
+11/04/2026,,Padova,Empoli
+11/04/2026,,Pescara,Sampdoria
+11/04/2026,,Reggiana,Carrarese
+11/04/2026,,Spezia,Mantova
+11/04/2026,,Sudtirol,Modena
+18/04/2026,,Bari,Venezia
+18/04/2026,,Carrarese,Pescara
+18/04/2026,,Empoli,Virtus Entella
+18/04/2026,,Juve Stabia,Catanzaro
+18/04/2026,,Mantova,Avellino
+18/04/2026,,Modena,Frosinone
+18/04/2026,,Padova,Reggiana
+18/04/2026,,Palermo,Cesena
+18/04/2026,,Sampdoria,Monza
+18/04/2026,,Spezia,Sudtirol
+25/04/2026,,Avellino,Bari
+25/04/2026,,Catanzaro,Spezia
+25/04/2026,,Cesena,Sampdoria
+25/04/2026,,Virtus Entella,Padova
+25/04/2026,,Frosinone,Carrarese
+25/04/2026,,Monza,Modena
+25/04/2026,,Pescara,Juve Stabia
+25/04/2026,,Reggiana,Palermo
+25/04/2026,,Sudtirol,Mantova
+25/04/2026,,Venezia,Empoli
+01/05/2026,,Bari,Virtus Entella
+01/05/2026,,Carrarese,Cesena
+01/05/2026,,Empoli,Avellino
+01/05/2026,,Juve Stabia,Frosinone
+01/05/2026,,Mantova,Monza
+01/05/2026,,Modena,Reggiana
+01/05/2026,,Padova,Pescara
+01/05/2026,,Palermo,Catanzaro
+01/05/2026,,Sampdoria,Sudtirol
+01/05/2026,,Spezia,Venezia
+09/05/2026,,Avellino,Modena
+09/05/2026,,Catanzaro,Bari
+09/05/2026,,Cesena,Padova
+09/05/2026,,Virtus Entella,Carrarese
+09/05/2026,,Frosinone,Mantova
+09/05/2026,,Monza,Empoli
+09/05/2026,,Pescara,Spezia
+09/05/2026,,Reggiana,Sampdoria
+09/05/2026,,Sudtirol,Juve Stabia
+09/05/2026,,Venezia,Palermo

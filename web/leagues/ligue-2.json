@@ -1225,6 +1225,7 @@
   "next_matchday": [
     {
       "date": "2025-10-24",
+      "time": "",
       "home": "Bastia",
       "away": "Laval"
     }
@@ -1232,6 +1233,7 @@
   "recent_results": [
     {
       "date": "2025-09-12",
+      "time": "19:00",
       "home": "Boulogne",
       "away": "Laval",
       "home_goals": 1,
@@ -1240,6 +1242,7 @@
     },
     {
       "date": "2025-09-12",
+      "time": "",
       "home": "Troyes",
       "away": "Nancy",
       "home_goals": 3,
@@ -1248,6 +1251,7 @@
     },
     {
       "date": "2025-09-12",
+      "time": "",
       "home": "Pau",
       "away": "Red Star",
       "home_goals": 0,
@@ -1256,6 +1260,7 @@
     },
     {
       "date": "2025-09-12",
+      "time": "",
       "home": "Le Mans",
       "away": "Rodez",
       "home_goals": 0,
@@ -1264,6 +1269,7 @@
     },
     {
       "date": "2025-09-12",
+      "time": "",
       "home": "Amiens",
       "away": "Bastia",
       "home_goals": 0,
@@ -1272,6 +1278,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "13:00",
       "home": "Annecy",
       "away": "Reims",
       "home_goals": 1,
@@ -1280,6 +1287,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "19:00",
       "home": "Clermont",
       "away": "Saint-Etienne",
       "home_goals": 1,
@@ -1288,6 +1296,7 @@
     },
     {
       "date": "2025-09-13",
+      "time": "",
       "home": "Grenoble",
       "away": "Dunkerque",
       "home_goals": 1,
@@ -1296,6 +1305,7 @@
     },
     {
       "date": "2025-09-15",
+      "time": "19:45",
       "home": "Guingamp",
       "away": "Montpellier",
       "home_goals": 1,
@@ -1304,6 +1314,7 @@
     },
     {
       "date": "2025-09-16",
+      "time": "18:00",
       "home": "Boulogne",
       "away": "Bastia",
       "home_goals": 1,
@@ -1312,6 +1323,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "19:00",
       "home": "Boulogne",
       "away": "Pau",
       "home_goals": 0,
@@ -1320,6 +1332,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "",
       "home": "Nancy",
       "away": "Red Star",
       "home_goals": 0,
@@ -1328,6 +1341,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "",
       "home": "Grenoble",
       "away": "Annecy",
       "home_goals": 1,
@@ -1336,6 +1350,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "",
       "home": "Rodez",
       "away": "Clermont",
       "home_goals": 0,
@@ -1344,6 +1359,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "",
       "home": "Laval",
       "away": "Amiens",
       "home_goals": 0,
@@ -1352,6 +1368,7 @@
     },
     {
       "date": "2025-09-19",
+      "time": "",
       "home": "Dunkerque",
       "away": "Le Mans",
       "home_goals": 2,
@@ -1360,6 +1377,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "13:00",
       "home": "Troyes",
       "away": "Guingamp",
       "home_goals": 5,
@@ -1368,6 +1386,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "",
       "home": "Montpellier",
       "away": "Bastia",
       "home_goals": 2,
@@ -1376,6 +1395,7 @@
     },
     {
       "date": "2025-09-20",
+      "time": "19:00",
       "home": "Saint-Etienne",
       "away": "Reims",
       "home_goals": 3,
@@ -1384,6 +1404,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Reims",
       "away": "Clermont",
       "home_goals": 4,
@@ -1392,6 +1413,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Bastia",
       "away": "Rodez",
       "home_goals": 2,
@@ -1400,6 +1422,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Amiens",
       "away": "Saint-Etienne",
       "home_goals": 0,
@@ -1408,6 +1431,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Le Mans",
       "away": "Grenoble",
       "home_goals": 1,
@@ -1416,6 +1440,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Pau",
       "away": "Laval",
       "home_goals": 1,
@@ -1424,6 +1449,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Red Star",
       "away": "Troyes",
       "home_goals": 1,
@@ -1432,6 +1458,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Annecy",
       "away": "Nancy",
       "home_goals": 1,
@@ -1440,6 +1467,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "19:30",
       "home": "Guingamp",
       "away": "Dunkerque",
       "home_goals": 2,
@@ -1448,6 +1476,7 @@
     },
     {
       "date": "2025-09-23",
+      "time": "",
       "home": "Montpellier",
       "away": "Boulogne",
       "home_goals": 1,
@@ -1456,6 +1485,7 @@
     },
     {
       "date": "2025-09-26",
+      "time": "19:00",
       "home": "Nancy",
       "away": "Reims",
       "home_goals": 0,
@@ -1464,6 +1494,7 @@
     },
     {
       "date": "2025-09-26",
+      "time": "",
       "home": "Clermont",
       "away": "Le Mans",
       "home_goals": 1,
@@ -1472,6 +1503,7 @@
     },
     {
       "date": "2025-09-26",
+      "time": "",
       "home": "Troyes",
       "away": "Annecy",
       "home_goals": 3,
@@ -1480,6 +1512,7 @@
     },
     {
       "date": "2025-09-26",
+      "time": "",
       "home": "Grenoble",
       "away": "Bastia",
       "home_goals": 0,
@@ -1488,6 +1521,7 @@
     },
     {
       "date": "2025-09-26",
+      "time": "",
       "home": "Rodez",
       "away": "Pau",
       "home_goals": 1,
@@ -1496,6 +1530,7 @@
     },
     {
       "date": "2025-09-27",
+      "time": "19:00",
       "home": "Saint-Etienne",
       "away": "Guingamp",
       "home_goals": 2,
@@ -1504,6 +1539,7 @@
     },
     {
       "date": "2025-09-27",
+      "time": "13:00",
       "home": "Laval",
       "away": "Montpellier",
       "home_goals": 0,
@@ -1512,6 +1548,7 @@
     },
     {
       "date": "2025-09-27",
+      "time": "",
       "home": "Dunkerque",
       "away": "Amiens",
       "home_goals": 6,
@@ -1520,6 +1557,7 @@
     },
     {
       "date": "2025-09-29",
+      "time": "19:45",
       "home": "Boulogne",
       "away": "Red Star",
       "home_goals": 1,
@@ -1528,6 +1566,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "19:00",
       "home": "Guingamp",
       "away": "Nancy",
       "home_goals": 2,
@@ -1536,6 +1575,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "",
       "home": "Annecy",
       "away": "Laval",
       "home_goals": 0,
@@ -1544,6 +1584,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "",
       "home": "Pau",
       "away": "Clermont",
       "home_goals": 3,
@@ -1552,6 +1593,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "",
       "home": "Le Mans",
       "away": "Troyes",
       "home_goals": 2,
@@ -1560,6 +1602,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "",
       "home": "Amiens",
       "away": "Boulogne",
       "home_goals": 0,
@@ -1568,6 +1611,7 @@
     },
     {
       "date": "2025-10-03",
+      "time": "",
       "home": "Bastia",
       "away": "Dunkerque",
       "home_goals": 0,
@@ -1576,6 +1620,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "13:00",
       "home": "Red Star",
       "away": "Rodez",
       "home_goals": 1,
@@ -1584,6 +1629,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "",
       "home": "Reims",
       "away": "Grenoble",
       "home_goals": 2,
@@ -1592,6 +1638,7 @@
     },
     {
       "date": "2025-10-04",
+      "time": "19:00",
       "home": "Montpellier",
       "away": "Saint-Etienne",
       "home_goals": 0,
@@ -1600,6 +1647,7 @@
     },
     {
       "date": "2025-10-17",
+      "time": "",
       "home": "Rodez",
       "away": "Reims",
       "home_goals": 2,
@@ -1608,6 +1656,7 @@
     },
     {
       "date": "2025-10-17",
+      "time": "",
       "home": "Grenoble",
       "away": "Pau",
       "home_goals": 1,
@@ -1616,6 +1665,7 @@
     },
     {
       "date": "2025-10-17",
+      "time": "19:00",
       "home": "Boulogne",
       "away": "Guingamp",
       "home_goals": 2,
@@ -1624,6 +1674,7 @@
     },
     {
       "date": "2025-10-17",
+      "time": "",
       "home": "Clermont",
       "away": "Annecy",
       "home_goals": 0,
@@ -1632,6 +1683,7 @@
     },
     {
       "date": "2025-10-17",
+      "time": "",
       "home": "Troyes",
       "away": "Bastia",
       "home_goals": 1,
@@ -1640,6 +1692,7 @@
     },
     {
       "date": "2025-10-18",
+      "time": "13:00",
       "home": "Laval",
       "away": "Red Star",
       "home_goals": 0,
@@ -1648,6 +1701,7 @@
     },
     {
       "date": "2025-10-18",
+      "time": "",
       "home": "Dunkerque",
       "away": "Montpellier",
       "home_goals": 0,
@@ -1656,6 +1710,7 @@
     },
     {
       "date": "2025-10-18",
+      "time": "19:00",
       "home": "Saint-Etienne",
       "away": "Le Mans",
       "home_goals": 2,
@@ -1664,6 +1719,7 @@
     },
     {
       "date": "2025-10-20",
+      "time": "19:45",
       "home": "Nancy",
       "away": "Amiens",
       "home_goals": 0,
@@ -1672,6 +1728,7 @@
     },
     {
       "date": "2025-10-24",
+      "time": "",
       "home": "Le Mans",
       "away": "Boulogne",
       "home_goals": 1,
@@ -1680,6 +1737,7 @@
     },
     {
       "date": "2025-10-24",
+      "time": "",
       "home": "Reims",
       "away": "Troyes",
       "home_goals": 0,
@@ -1688,6 +1746,7 @@
     },
     {
       "date": "2025-10-24",
+      "time": "",
       "home": "Red Star",
       "away": "Grenoble",
       "home_goals": 1,
@@ -1696,6 +1755,7 @@
     },
     {
       "date": "2025-10-24",
+      "time": "",
       "home": "Pau",
       "away": "Dunkerque",
       "home_goals": 0,
@@ -1704,6 +1764,7 @@
     },
     {
       "date": "2025-10-24",
+      "time": "19:00",
       "home": "Guingamp",
       "away": "Clermont",
       "home_goals": 0,
@@ -1712,6 +1773,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "13:00",
       "home": "Montpellier",
       "away": "Nancy",
       "home_goals": 4,
@@ -1720,6 +1782,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "",
       "home": "Amiens",
       "away": "Rodez",
       "home_goals": 2,
@@ -1728,6 +1791,7 @@
     },
     {
       "date": "2025-10-25",
+      "time": "19:00",
       "home": "Annecy",
       "away": "Saint-Etienne",
       "home_goals": 4,
@@ -1736,6 +1800,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Dunkerque",
       "away": "Red Star",
       "home_goals": 3,
@@ -1744,6 +1809,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Laval",
       "away": "Le Mans",
       "home_goals": 1,
@@ -1752,6 +1818,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Rodez",
       "away": "Annecy",
       "home_goals": 2,
@@ -1760,6 +1827,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Troyes",
       "away": "Amiens",
       "home_goals": 3,
@@ -1768,6 +1836,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Grenoble",
       "away": "Guingamp",
       "home_goals": 0,
@@ -1776,6 +1845,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Saint-Etienne",
       "away": "Pau",
       "home_goals": 6,
@@ -1784,6 +1854,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Nancy",
       "away": "Bastia",
       "home_goals": 2,
@@ -1792,6 +1863,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "19:30",
       "home": "Boulogne",
       "away": "Reims",
       "home_goals": 2,
@@ -1800,6 +1872,7 @@
     },
     {
       "date": "2025-10-28",
+      "time": "",
       "home": "Clermont",
       "away": "Montpellier",
       "home_goals": 1,
@@ -1808,6 +1881,7 @@
     },
     {
       "date": "2025-10-31",
+      "time": "",
       "home": "Bastia",
       "away": "Clermont",
       "home_goals": 1,
@@ -1816,6 +1890,7 @@
     },
     {
       "date": "2025-10-31",
+      "time": "19:00",
       "home": "Guingamp",
       "away": "Laval",
       "home_goals": 2,
@@ -1824,6 +1899,7 @@
     },
     {
       "date": "2025-10-31",
+      "time": "",
       "home": "Annecy",
       "away": "Boulogne",
       "home_goals": 1,
@@ -1832,6 +1908,7 @@
     },
     {
       "date": "2025-10-31",
+      "time": "",
       "home": "Montpellier",
       "away": "Rodez",
       "home_goals": 2,
@@ -1840,6 +1917,7 @@
     },
     {
       "date": "2025-10-31",
+      "time": "",
       "home": "Le Mans",
       "away": "Nancy",
       "home_goals": 1,
@@ -1848,6 +1926,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "",
       "home": "Reims",
       "away": "Dunkerque",
       "home_goals": 1,
@@ -1856,6 +1935,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "19:00",
       "home": "Red Star",
       "away": "Saint-Etienne",
       "home_goals": 2,
@@ -1864,6 +1944,7 @@
     },
     {
       "date": "2025-11-01",
+      "time": "13:00",
       "home": "Amiens",
       "away": "Grenoble",
       "home_goals": 2,
@@ -1872,6 +1953,7 @@
     },
     {
       "date": "2025-11-03",
+      "time": "19:45",
       "home": "Pau",
       "away": "Troyes",
       "home_goals": 1,

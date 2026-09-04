@@ -83,18 +83,27 @@ def main() -> None:
             m = json.load(f)
         accuracy, baseline_accuracy = m["accuracy"], m["baseline_accuracy"]
 
+    def row_time(row, has_time):
+        # A missing/blank kickoff time reads back from CSV as NaN (pandas'
+        # default for an empty field), not "" - normalize both to "".
+        if not has_time:
+            return ""
+        t = getattr(row, "Time", "")
+        return "" if (t is None or (isinstance(t, float) and pd.isna(t))) else str(t)
+
     next_matchday = []
     if os.path.exists(args.fixtures):
         fixtures = pd.read_csv(args.fixtures)
         if not fixtures.empty:
             fixtures["Date"] = pd.to_datetime(fixtures["Date"], format="%d/%m/%Y")
             fixtures = fixtures.sort_values("Date")
+            has_time = "Time" in fixtures.columns
             # A round spans a few days (Fri-Mon), not just one date - same
             # window predict_fixtures.py uses for "next matchday".
             window_start = fixtures["Date"].min()
             round_fixtures = fixtures[fixtures["Date"] <= window_start + pd.Timedelta(days=3)]
             next_matchday = [
-                {"date": row.Date.strftime("%Y-%m-%d"), "home": row.HomeTeam, "away": row.AwayTeam}
+                {"date": row.Date.strftime("%Y-%m-%d"), "time": row_time(row, has_time), "home": row.HomeTeam, "away": row.AwayTeam}
                 for row in round_fixtures.itertuples(index=False)
             ]
 
@@ -104,9 +113,10 @@ def main() -> None:
     # re-imported).
     cutoff = matches["Date"].max() - pd.Timedelta(days=args.recent_days)
     recent = matches[matches["Date"] >= cutoff]
+    recent_has_time = "Time" in matches.columns
     recent_results = [
         {
-            "date": row.Date.strftime("%Y-%m-%d"), "home": row.HomeTeam, "away": row.AwayTeam,
+            "date": row.Date.strftime("%Y-%m-%d"), "time": row_time(row, recent_has_time), "home": row.HomeTeam, "away": row.AwayTeam,
             "home_goals": int(row.FTHG), "away_goals": int(row.FTAG), "result": row.FTR,
         }
         for row in recent.itertuples(index=False)

@@ -1197,46 +1197,55 @@
   "next_matchday": [
     {
       "date": "2026-09-03",
+      "time": "20:45",
       "home": "Toulouse",
       "away": "Lille"
     },
     {
       "date": "2026-09-04",
+      "time": "19:00",
       "home": "Lyon",
       "away": "Auxerre"
     },
     {
       "date": "2026-09-04",
+      "time": "21:05",
       "home": "PSG",
       "away": "Monaco"
     },
     {
       "date": "2026-09-05",
+      "time": "17:15",
       "home": "Lens",
       "away": "Lorient"
     },
     {
       "date": "2026-09-05",
+      "time": "20:45",
       "home": "Le Havre",
       "away": "Brest"
     },
     {
       "date": "2026-09-05",
+      "time": "",
       "home": "Nice",
       "away": "Le Mans"
     },
     {
       "date": "2026-09-06",
+      "time": "15:00",
       "home": "Troyes",
       "away": "Strasbourg"
     },
     {
       "date": "2026-09-06",
+      "time": "17:15",
       "home": "Angers",
       "away": "Rennes"
     },
     {
       "date": "2026-09-06",
+      "time": "20:45",
       "home": "Marseille",
       "away": "Paris FC"
     }
@@ -1244,6 +1253,7 @@
   "recent_results": [
     {
       "date": "2026-08-21",
+      "time": "20:45",
       "home": "Marseille",
       "away": "Strasbourg",
       "home_goals": 4,
@@ -1252,6 +1262,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Nice",
       "away": "Lorient",
       "home_goals": 0,
@@ -1260,6 +1271,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Troyes",
       "away": "Paris FC",
       "home_goals": 0,
@@ -1268,6 +1280,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "",
       "home": "Toulouse",
       "away": "Lyon",
       "home_goals": 0,
@@ -1276,6 +1289,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "17:15",
       "home": "Lens",
       "away": "Auxerre",
       "home_goals": 5,
@@ -1284,6 +1298,7 @@
     },
     {
       "date": "2026-08-22",
+      "time": "20:45",
       "home": "Le Mans",
       "away": "Brest",
       "home_goals": 2,
@@ -1292,6 +1307,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "15:00",
       "home": "Angers",
       "away": "Lille",
       "home_goals": 0,
@@ -1300,6 +1316,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "17:15",
       "home": "Le Havre",
       "away": "Monaco",
       "home_goals": 0,
@@ -1308,6 +1325,7 @@
     },
     {
       "date": "2026-08-23",
+      "time": "20:45",
       "home": "Rennes",
       "away": "PSG",
       "home_goals": 2,
@@ -1316,6 +1334,7 @@
     },
     {
       "date": "2026-08-28",
+      "time": "20:45",
       "home": "Lille",
       "away": "PSG",
       "home_goals": 2,
@@ -1324,6 +1343,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "",
       "home": "Auxerre",
       "away": "Angers",
       "home_goals": 1,
@@ -1332,6 +1352,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "17:15",
       "home": "Strasbourg",
       "away": "Lens",
       "home_goals": 2,
@@ -1340,6 +1361,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "20:45",
       "home": "Lorient",
       "away": "Troyes",
       "home_goals": 1,
@@ -1348,6 +1370,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "",
       "home": "Lyon",
       "away": "Le Havre",
       "home_goals": 1,
@@ -1356,6 +1379,7 @@
     },
     {
       "date": "2026-08-29",
+      "time": "",
       "home": "Brest",
       "away": "Toulouse",
       "home_goals": 2,
@@ -1364,6 +1388,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "17:15",
       "home": "Rennes",
       "away": "Le Mans",
       "home_goals": 3,
@@ -1372,6 +1397,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "15:00",
       "home": "Paris FC",
       "away": "Nice",
       "home_goals": 3,
@@ -1380,6 +1406,7 @@
     },
     {
       "date": "2026-08-30",
+      "time": "20:45",
       "home": "Monaco",
       "away": "Marseille",
       "home_goals": 2,
