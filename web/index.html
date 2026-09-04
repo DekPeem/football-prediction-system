@@ -55,6 +55,7 @@
   }
 
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
 
   body {
     background: var(--bg);
@@ -331,7 +332,7 @@
   }
   .save-btn:hover { opacity: 0.88; }
   .save-btn:disabled { cursor: not-allowed; opacity: 0.5; }
-  .save-status {
+  .save-status, .info-note {
     font-size: 12.5px;
     color: var(--text-dim);
     background: var(--surface-2);
@@ -339,6 +340,21 @@
     padding: 9px 12px;
     line-height: 1.5;
   }
+
+  .nav-row { display: flex; justify-content: flex-end; }
+  .back-row { display: flex; align-items: center; }
+  .link-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .link-btn:hover { text-decoration: underline; }
 
   .fixture-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
   .fixture-group-header {
@@ -440,7 +456,7 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="mainView">
   <header>
     <div class="eyebrow"><span class="dot"></span>Live model demo &middot; real results, 2015&ndash;present</div>
     <div class="title-row">
@@ -469,16 +485,7 @@
     <div class="today-sub" id="todaySub">—</div>
     <div class="fixture-list" id="fixtureList"></div>
     <div class="save-status" id="saveStatus" hidden></div>
-  </div>
-
-  <div class="card history" id="historyCard" hidden>
-    <div class="history-head">
-      <h2>Prediction history</h2>
-      <span class="track-record" id="trackRecord" hidden></span>
-    </div>
-    <div class="history-list" id="historyList">
-      <div class="history-empty">No saved predictions yet — click "Predict &amp; Save" above.</div>
-    </div>
+    <div class="nav-row"><button id="toHistoryBtn" class="link-btn" type="button">View prediction history &amp; accuracy →</button></div>
   </div>
 
   <div class="card picker">
@@ -534,8 +541,27 @@
   <footer>
     <span id="modelStatsLine">Model: multinomial logistic regression on Elo rating, 5-match rolling form and head-to-head record.</span>
     <span>Re-run <code>python src/import_openfootball.py ... &amp;&amp; python src/train.py &amp;&amp; python src/export_all_leagues.py &amp;&amp; python src/build_web_page.py</code> to bring this page's numbers up to date after a new matchday.</span>
-    <span>"Predict &amp; Save" writes to this page's own shared history — it needs the hosted version (opened on claude.ai); a copy saved to disk can still compute predictions but can't save or show history.</span>
+    <span>"Predict &amp; Save" always works: opened on claude.ai it writes to this page's shared history (visible to anyone who opens it there); opened elsewhere (GitHub Pages, or a copy saved to disk) it saves to this browser only.</span>
   </footer>
+</div>
+
+<div class="wrap" id="historyView" hidden>
+  <header>
+    <div class="back-row"><button id="toMainBtn" class="link-btn" type="button">&larr; Back to predictor</button></div>
+    <h1>Prediction History</h1>
+    <p class="sub" id="historyLeagueLabel">—</p>
+  </header>
+
+  <div class="card history">
+    <div class="history-head">
+      <h2>Saved predictions vs. actual results</h2>
+      <span class="track-record" id="trackRecord" hidden></span>
+    </div>
+    <div class="info-note" id="storageNote" hidden></div>
+    <div class="history-list" id="historyList">
+      <div class="history-empty">No saved predictions yet — go back and click "Predict &amp; Save" on a matchday.</div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -755,6 +781,24 @@
     }
   }
 
+  // --- Local (per-browser) fallback store, used whenever Claude's shared
+  // `db` capability isn't available (GitHub Pages, or a copy saved to disk).
+  // Same shape as a db entry, so renderHistory doesn't need to know which
+  // store it came from.
+  function localHistoryKey(slug) { return `ftp_predictions__${slug}`; }
+  function loadLocalHistory(slug) {
+    try {
+      const raw = localStorage.getItem(localHistoryKey(slug));
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveLocalHistory(slug, entry) {
+    const entries = loadLocalHistory(slug).filter(e => e.date !== entry.date);
+    entries.push(entry);
+    entries.sort((a, b) => b.date.localeCompare(a.date));
+    try { localStorage.setItem(localHistoryKey(slug), JSON.stringify(entries.slice(0, 20))); } catch (e) {}
+  }
+
   async function saveToday() {
     const fixtures = MODEL.next_matchday || [];
     if (!fixtures.length) return;
@@ -762,21 +806,20 @@
     saveBtn.disabled = true;
     const originalLabel = saveBtn.textContent;
     saveBtn.textContent = 'Saving…';
+    const roundDate = [...fixtures].sort((a, b) => a.date.localeCompare(b.date))[0].date;
+    const predicted = fixtures.map(f => {
+      const probs = predict(f.home, f.away);
+      const top = Object.entries(probs).sort((a, b) => b[1] - a[1])[0][0];
+      return { home: f.home, away: f.away, date: f.date, probs, predicted: top };
+    });
+    const entry = { league: currentSlug, date: roundDate, savedAt: new Date().toISOString(), fixtures: predicted };
     try {
-      const db = await window.claude.use('db');
-      if (!db) throw new Error('db unavailable');
-      const roundDate = [...fixtures].sort((a, b) => a.date.localeCompare(b.date))[0].date;
-      const predicted = fixtures.map(f => {
-        const probs = predict(f.home, f.away);
-        const top = Object.entries(probs).sort((a, b) => b[1] - a[1])[0][0];
-        return { home: f.home, away: f.away, date: f.date, probs, predicted: top };
-      });
-      await db.collection('predictions').doc(`${currentSlug}__${roundDate}`).set({
-        league: currentSlug,
-        date: roundDate,
-        savedAt: new Date().toISOString(),
-        fixtures: predicted,
-      });
+      if (db) {
+        await db.collection('predictions').doc(`${currentSlug}__${roundDate}`).set(entry);
+      } else {
+        saveLocalHistory(currentSlug, entry);
+        renderHistory(loadLocalHistory(currentSlug));
+      }
       saveBtn.textContent = 'Saved ✓';
     } catch (e) {
       saveBtn.textContent = 'Save failed';
@@ -787,16 +830,18 @@
 
   function subscribeHistory() {
     if (historyUnsub) { historyUnsub(); historyUnsub = null; }
-    if (!db) return;
-    document.getElementById('historyCard').hidden = false;
-    historyUnsub = db.collection('predictions')
-      .where('league', '==', currentSlug)
-      .orderBy('date', 'desc')
-      .limit(20)
-      .onSnapshot(
-        snap => renderHistory(snap.docs.map(d => d.data())),
-        err => { console.error('history subscribe failed', err); }
-      );
+    if (db) {
+      historyUnsub = db.collection('predictions')
+        .where('league', '==', currentSlug)
+        .orderBy('date', 'desc')
+        .limit(20)
+        .onSnapshot(
+          snap => renderHistory(snap.docs.map(d => d.data())),
+          err => { console.error('history subscribe failed', err); }
+        );
+    } else {
+      renderHistory(loadLocalHistory(currentSlug));
+    }
   }
 
   function updateHeaderText() {
@@ -833,6 +878,14 @@
     render();
     renderFixtureList();
     subscribeHistory();
+    document.getElementById('historyLeagueLabel').textContent =
+      `${MODEL.label} — predictions you've saved for this league, checked against results once that round has been played.`;
+  }
+
+  function showView(view) {
+    document.getElementById('mainView').hidden = view !== 'main';
+    document.getElementById('historyView').hidden = view !== 'history';
+    window.scrollTo(0, 0);
   }
 
   homeSel.addEventListener('change', render);
@@ -844,30 +897,32 @@
     render();
   });
   leagueSel.addEventListener('change', () => switchLeague(leagueSel.value));
+  document.getElementById('toHistoryBtn').addEventListener('click', () => showView('history'));
+  document.getElementById('toMainBtn').addEventListener('click', () => showView('main'));
 
   // --- db capability (hosted page only) ---
-  // Client-side prediction works everywhere; saving/reading history needs
-  // Claude's `db` capability, only available on the hosted (claude.ai) copy
-  // of this page — a copy opened from a local file has no window.claude at
-  // all, so this degrades to "predictions shown, save disabled".
+  // Client-side prediction, saving and history all work everywhere. Where
+  // Claude's `db` capability is available (the hosted claude.ai copy) saves
+  // go to that page's shared history, visible to anyone who opens it there.
+  // Everywhere else (GitHub Pages, or a copy saved to disk, which have no
+  // window.claude at all) saves fall back to this browser's own
+  // localStorage — still real, just private to this device.
   let db = null, historyUnsub = null;
 
   switchLeague(currentSlug); // first render, before we know whether db is available
 
   (async () => {
     const saveBtn = document.getElementById('saveBtn');
-    const saveStatus = document.getElementById('saveStatus');
+    const storageNote = document.getElementById('storageNote');
 
     if (window.claude && window.claude.use) {
       try { db = await window.claude.use('db'); } catch (e) { db = null; }
     }
 
-    if (!db) {
-      saveBtn.disabled = true;
-      saveStatus.hidden = false;
-      saveStatus.textContent = 'History needs the hosted page (open this on claude.ai) — a local copy can still predict, just not save.';
-      return;
-    }
+    storageNote.hidden = false;
+    storageNote.textContent = db
+      ? 'Shared history — visible to anyone who opens this page on claude.ai.'
+      : 'Saved locally in this browser only (no shared backend here) — it won’t follow you to another device or browser.';
 
     saveBtn.addEventListener('click', saveToday);
     subscribeHistory();

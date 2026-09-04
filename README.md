@@ -206,15 +206,16 @@ for why) behind a switcher in the header.
   double-click it (or in VS Code, right-click → Open with Live Server) to
   open it in a browser. It has every league's model weights baked in, so it
   works straight from disk.
-- **View it hosted (claude.ai, with save/history):** https://claude.ai/code/artifact/ceec7cc0-6284-4ca7-b495-718b45ad84a7
-  — needs a claude.ai login, since Predict & Save needs Claude's `db`
-  capability.
+- **View it hosted (claude.ai, shared history):** https://claude.ai/code/artifact/ceec7cc0-6284-4ca7-b495-718b45ad84a7
+  — needs a claude.ai login. Predict & Save here writes to Claude's `db`
+  capability, so the history page is shared across everyone who opens it.
 - **Or view it hosted (GitHub Pages, no login):** once
   [enabled](#github-pages-a-public-no-login-copy), publicly reachable at
   `https://<owner>.github.io/football-prediction-system/` — same live
-  predictions for every league, minus Predict & Save/history (no `db`
-  capability outside claude.ai; the page detects that and disables Save with
-  a note, same as any local copy).
+  predictions for every league, and Predict & Save still works (no `db`
+  capability outside claude.ai, so it falls back to saving in your own
+  browser's `localStorage` instead — private to that device, but real and
+  persistent across visits).
 
 Every league's page reads from the same scaler + logistic-regression weights
 `predict.py` uses for that league, so the CLI and the web page always agree.
@@ -255,34 +256,41 @@ automatically; nothing else to run.
 
 It's the same file as `web/index.html`, so it's exactly as capable as any
 other non-hosted copy: full live predictions for every league, "Today's
-matchday" included, Predict & Save disabled (no `db` capability outside
-claude.ai).
+matchday" included, and Predict & Save works — it just saves to your own
+browser instead of a shared store (see below).
 
-### "Today's matchday" + prediction history + track record
+### "Today's matchday" + a prediction-history page + track record
 
 The page also auto-predicts the whole next round for whichever league is
 selected (`data/<league>/fixtures.csv`, same window `predict_fixtures.py`
 uses — "Today's matchday" is really "the next scheduled round," which may be
-a few days out) and a **Predict & Save** button that logs those predictions
-to the page's own shared history, per league — visible to anyone who opens
-the page, growing over time as it's clicked on new matchdays.
+a few days out) and a **Predict & Save** button that logs those predictions.
+Next to it, "View prediction history & accuracy →" opens a second page (no
+reload — it's the same file, just a different view) that lists every saved
+round for the current league and, once results are in, checks each
+prediction against what actually happened.
 
-Once a round's actual results make it back into `data/<league>/matches.csv`
-(via the [weekly refresh](#keeping-the-data-current-automatically)) and the
-page is rebuilt, every saved prediction is checked against what actually
-happened — each history entry shows the real final score next to the call
-(✓/✗), and the history header shows a running **track record**
-(`correct/known so far`). This is entirely computed in the browser from the
-page's own embedded data (`recent_results`, the last 60 days of each
-league's played matches) — nobody needs to check it by hand, it just needs
-the page rebuilt with fresh results to catch up.
+Where those predictions get saved depends on which copy of the page you're
+on:
 
-This part **only works on the hosted (claude.ai) copy** — saving and reading
-history needs Claude's `db` capability (a small per-artifact JSON store),
-which a page opened from a local file has no access to at all.
-`web/index.html` still shows the same live predictions for every league,
-just with the save button disabled and a note explaining why — open the
-hosted link above for history and track record.
+- **Hosted on claude.ai:** writes to Claude's `db` capability — a small
+  shared JSON store — so the history page is the same for anyone who opens
+  it there, and grows over time as it's clicked on new matchdays.
+- **Anywhere else** (GitHub Pages, or a copy opened from disk, which have no
+  `window.claude` at all): falls back to that browser's own `localStorage`
+  — still saved and still checked against real results, just private to
+  that one browser/device rather than shared.
+
+The history page always says which mode it's in. Once a round's actual
+results make it back into `data/<league>/matches.csv` (via the
+[weekly refresh](#keeping-the-data-current-automatically)) and the page is
+rebuilt, every saved prediction is checked against what actually happened —
+each history entry shows the real final score next to the call (✓/✗), and
+the header shows a running **track record** (`correct/known so far`). This
+is entirely computed in the browser from the page's own embedded data
+(`recent_results`, the last 60 days of each league's played matches) —
+nobody needs to check it by hand, it just needs the page rebuilt with fresh
+results to catch up.
 
 ## Keeping the data current, automatically
 
