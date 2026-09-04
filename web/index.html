@@ -462,6 +462,101 @@
   .history-actual.wrong { color: var(--away); }
   .history-actual.pending { color: var(--text-dim); }
 
+  .form-error {
+    font-size: 12.5px;
+    color: var(--away);
+    background: color-mix(in srgb, var(--away) 12%, var(--surface-2));
+    border-radius: 8px;
+    padding: 9px 12px;
+    line-height: 1.5;
+  }
+
+  /* --- Betting ledger --- */
+  .section-title {
+    font-family: 'Teko', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 14px;
+    letter-spacing: 0.01em;
+  }
+  .bet-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (min-width: 480px) { .bet-stats { grid-template-columns: repeat(4, 1fr); } }
+  .bet-stat { background: var(--surface-2); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .bet-stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .bet-stat-value { font-family: 'Teko', sans-serif; font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bet-stat-value.positive { color: var(--home); }
+  .bet-stat-value.negative { color: var(--away); }
+
+  .bet-form { display: flex; flex-direction: column; gap: 10px; }
+  .bet-form-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .bet-form-row input {
+    flex: 1 1 120px;
+    min-width: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 9px;
+  }
+  .bet-form-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .bet-form-row .save-btn { flex: none; }
+
+  .bet-list { display: flex; flex-direction: column; gap: 8px; }
+  .bet-entry { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .bet-entry-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .bet-entry-match { font-weight: 500; font-size: 14px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bet-entry-date { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+  .bet-entry-body { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .bet-entry-stake { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text-dim); }
+  .bet-entry-profit { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; }
+  .bet-entry-profit.positive { color: var(--home); }
+  .bet-entry-profit.negative { color: var(--away); }
+  .bet-entry-profit.neutral { color: var(--text-dim); }
+  .bet-entry-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .bet-action-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+  .bet-action-btn.win:hover { border-color: var(--home); color: var(--home); }
+  .bet-action-btn.lose:hover { border-color: var(--away); color: var(--away); }
+  .bet-action-btn.void:hover { border-color: var(--draw); color: var(--draw); }
+  .bet-status-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 999px;
+    text-transform: capitalize;
+  }
+  .bet-status-pill[data-result="win"] { background: color-mix(in srgb, var(--home) 16%, transparent); color: var(--home); }
+  .bet-status-pill[data-result="lose"] { background: color-mix(in srgb, var(--away) 16%, transparent); color: var(--away); }
+  .bet-status-pill[data-result="void"] { background: color-mix(in srgb, var(--draw) 16%, transparent); color: var(--draw); }
+  .bet-delete-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 6px;
+  }
+  .bet-delete-btn:hover { color: var(--away); }
+
   footer {
     display: flex;
     flex-direction: column;
@@ -510,6 +605,7 @@
     <div class="today-sub" id="todaySub">—</div>
     <div class="fixture-list" id="fixtureList"></div>
     <div class="save-status" id="saveStatus" hidden></div>
+    <div class="nav-row"><button id="toBankrollBtn" class="link-btn" type="button">Track betting income &amp; expense →</button></div>
     <div class="nav-row"><button id="toHistoryBtn" class="link-btn" type="button">View prediction history &amp; accuracy →</button></div>
   </div>
 
@@ -586,6 +682,42 @@
     <div class="history-list" id="historyList">
       <div class="history-empty">No saved predictions yet — go back and click "Predict &amp; Save" on a matchday.</div>
     </div>
+  </div>
+</div>
+
+<div class="wrap" id="bankrollView" hidden>
+  <header>
+    <div class="back-row"><button id="toMainBtnFromBankroll" class="link-btn" type="button">&larr; Back to predictor</button></div>
+    <h1>Betting Ledger</h1>
+    <p class="sub">A running income/expense tally for money actually staked on these predictions — not the model's probabilities, what you put down and what came back. Saved the same way as prediction history.</p>
+  </header>
+
+  <div class="card">
+    <div class="bet-stats" id="betStats"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">Add a bet</h2>
+    <div class="bet-form">
+      <div class="bet-form-row">
+        <input type="date" id="betDate" aria-label="Date">
+        <input type="text" id="betMatch" placeholder="Team A vs Team B" aria-label="Match">
+      </div>
+      <div class="bet-form-row">
+        <input type="number" id="betStake" placeholder="Stake (฿)" min="0" step="1" aria-label="Stake">
+        <input type="number" id="betOdds" placeholder="Odds (e.g. 1.85)" min="1.01" step="0.01" aria-label="Odds">
+        <button id="addBetBtn" class="save-btn" type="button">+ Add</button>
+      </div>
+    </div>
+    <div class="form-error" id="betFormNote" hidden></div>
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">Bets</h2>
+    <div class="bet-list" id="betList">
+      <div class="history-empty">No bets logged yet — add one above.</div>
+    </div>
+    <div class="info-note" id="betStorageNote" hidden style="margin-top:12px;"></div>
   </div>
 </div>
 
@@ -968,7 +1100,169 @@
   function showView(view) {
     document.getElementById('mainView').hidden = view !== 'main';
     document.getElementById('historyView').hidden = view !== 'history';
+    document.getElementById('bankrollView').hidden = view !== 'bankroll';
     window.scrollTo(0, 0);
+  }
+
+  // --- Betting ledger: what you actually staked and what came back, not
+  // the model's probabilities. Same dual storage as prediction history (db
+  // when available, this browser's localStorage otherwise) but global, not
+  // per-league — it's your money, tracked in one place regardless of which
+  // league a bet was on.
+  function betsLocalKey() { return 'ftp_bets'; }
+  function loadLocalBets() {
+    try {
+      const raw = localStorage.getItem(betsLocalKey());
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveLocalBets(bets) {
+    try { localStorage.setItem(betsLocalKey(), JSON.stringify(bets.slice(0, 200))); } catch (e) {}
+  }
+  function newBetId() {
+    return window.crypto && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  }
+  function computeBetProfit(b) {
+    const stake = Number(b.stake) || 0, odds = Number(b.odds) || 0;
+    if (b.result === 'win') return +(stake * (odds - 1)).toFixed(2);
+    if (b.result === 'lose') return -stake;
+    return 0; // pending or void
+  }
+  function fmtMoney(n) {
+    const sign = n < 0 ? '-' : '';
+    return `${sign}฿${Math.abs(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+  }
+
+  let lastBets = [];
+
+  function renderBets(bets) {
+    lastBets = bets;
+    const list = document.getElementById('betList');
+    const sorted = [...bets].sort((a, b) =>
+      b.date.localeCompare(a.date) || (b.createdAt || '').localeCompare(a.createdAt || ''));
+
+    list.innerHTML = sorted.length ? sorted.map(b => {
+      const profit = computeBetProfit(b);
+      const profitCls = b.result === 'pending' ? 'neutral' : (profit > 0 ? 'positive' : (profit < 0 ? 'negative' : 'neutral'));
+      const profitLabel = b.result === 'pending' ? 'pending' : (b.result === 'void' ? 'void — refunded' : fmtMoney(profit));
+      const actionsHtml = b.result === 'pending'
+        ? `<button type="button" class="bet-action-btn win" data-action="win" data-id="${b.id}">Win</button>
+           <button type="button" class="bet-action-btn lose" data-action="lose" data-id="${b.id}">Lose</button>
+           <button type="button" class="bet-action-btn void" data-action="void" data-id="${b.id}">Void</button>`
+        : `<span class="bet-status-pill" data-result="${b.result}">${b.result}</span>`;
+      return `
+        <div class="bet-entry">
+          <div class="bet-entry-head">
+            <span class="bet-entry-match">${b.match}</span>
+            <span class="bet-entry-date">${b.date}</span>
+          </div>
+          <div class="bet-entry-body">
+            <span class="bet-entry-stake">${fmtMoney(Number(b.stake))} @ ${Number(b.odds).toFixed(2)}</span>
+            <span class="bet-entry-profit ${profitCls}">${profitLabel}</span>
+          </div>
+          <div class="bet-entry-actions">
+            ${actionsHtml}
+            <button type="button" class="bet-delete-btn" data-action="delete" data-id="${b.id}" aria-label="Delete bet">✕</button>
+          </div>
+        </div>`;
+    }).join('') : '<div class="history-empty">No bets logged yet — add one above.</div>';
+
+    let staked = 0, returned = 0, wins = 0, losses = 0, net = 0;
+    for (const b of bets) {
+      staked += Number(b.stake) || 0;
+      net += computeBetProfit(b);
+      if (b.result === 'win') { returned += Number(b.stake) * Number(b.odds); wins++; }
+      else if (b.result === 'lose') { losses++; }
+      else if (b.result === 'void') { returned += Number(b.stake); }
+    }
+    const settled = wins + losses;
+    const winRate = settled > 0 ? fmtPct(wins / settled) : '—';
+    const netCls = net > 0 ? 'positive' : (net < 0 ? 'negative' : '');
+
+    document.getElementById('betStats').innerHTML = `
+      <div class="bet-stat"><span class="bet-stat-label">Staked</span><span class="bet-stat-value">${fmtMoney(staked)}</span></div>
+      <div class="bet-stat"><span class="bet-stat-label">Returned</span><span class="bet-stat-value">${fmtMoney(returned)}</span></div>
+      <div class="bet-stat"><span class="bet-stat-label">Net P/L</span><span class="bet-stat-value ${netCls}">${fmtMoney(net)}</span></div>
+      <div class="bet-stat"><span class="bet-stat-label">Win rate</span><span class="bet-stat-value">${winRate}</span></div>
+    `;
+  }
+
+  let betsUnsub = null;
+  function subscribeBets() {
+    if (betsUnsub) { betsUnsub(); betsUnsub = null; }
+    if (db) {
+      betsUnsub = db.collection('bets')
+        .orderBy('date', 'desc')
+        .limit(200)
+        .onSnapshot(
+          snap => renderBets(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
+          err => { console.error('bets subscribe failed', err); }
+        );
+    } else {
+      renderBets(loadLocalBets());
+    }
+  }
+
+  async function addBet() {
+    const dateEl = document.getElementById('betDate');
+    const matchEl = document.getElementById('betMatch');
+    const stakeEl = document.getElementById('betStake');
+    const oddsEl = document.getElementById('betOdds');
+    const note = document.getElementById('betFormNote');
+
+    const date = dateEl.value || new Date().toISOString().slice(0, 10);
+    const match = matchEl.value.trim();
+    const stake = parseFloat(stakeEl.value);
+    const odds = parseFloat(oddsEl.value);
+
+    if (!match || !(stake > 0) || !(odds > 1)) {
+      note.hidden = false;
+      note.textContent = 'Fill in the match, a stake above 0, and odds above 1.00.';
+      return;
+    }
+    note.hidden = true;
+
+    const id = newBetId();
+    const bet = { date, match, league: currentSlug, stake, odds, result: 'pending', createdAt: new Date().toISOString() };
+    try {
+      if (db) {
+        await db.collection('bets').doc(id).set(bet);
+      } else {
+        const bets = loadLocalBets();
+        bets.unshift({ id, ...bet });
+        saveLocalBets(bets);
+        renderBets(loadLocalBets());
+      }
+      matchEl.value = ''; stakeEl.value = ''; oddsEl.value = '';
+    } catch (e) {
+      note.hidden = false;
+      note.textContent = 'Could not save that bet — try again.';
+    }
+  }
+
+  async function updateBetResult(id, result) {
+    try {
+      if (db) {
+        await db.collection('bets').doc(id).update({ result });
+      } else {
+        const bets = loadLocalBets();
+        const b = bets.find(x => x.id === id);
+        if (b) b.result = result;
+        saveLocalBets(bets);
+        renderBets(loadLocalBets());
+      }
+    } catch (e) { /* leave it as-is, the viewer can retry */ }
+  }
+
+  async function deleteBet(id) {
+    try {
+      if (db) {
+        await db.collection('bets').doc(id).delete();
+      } else {
+        saveLocalBets(loadLocalBets().filter(b => b.id !== id));
+        renderBets(loadLocalBets());
+      }
+    } catch (e) { /* leave it as-is */ }
   }
 
   homeSel.addEventListener('change', render);
@@ -982,6 +1276,8 @@
   leagueSel.addEventListener('change', () => switchLeague(leagueSel.value));
   document.getElementById('toHistoryBtn').addEventListener('click', () => showView('history'));
   document.getElementById('toMainBtn').addEventListener('click', () => showView('main'));
+  document.getElementById('toBankrollBtn').addEventListener('click', () => showView('bankroll'));
+  document.getElementById('toMainBtnFromBankroll').addEventListener('click', () => showView('main'));
 
   // Day-tab clicks, delegated (the tabs are rebuilt on every render, so a
   // listener on each one individually would need re-attaching every time).
@@ -998,6 +1294,16 @@
     renderHistory(lastHistoryEntries);
   });
 
+  document.getElementById('addBetBtn').addEventListener('click', addBet);
+  document.getElementById('betList').addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-action]');
+    if (!btn) return;
+    const { action, id } = btn.dataset;
+    if (action === 'delete') deleteBet(id);
+    else if (action === 'win' || action === 'lose' || action === 'void') updateBetResult(id, action);
+  });
+  document.getElementById('betDate').value = new Date().toISOString().slice(0, 10);
+
   // --- db capability (hosted page only) ---
   // Client-side prediction, saving and history all work everywhere. Where
   // Claude's `db` capability is available (the hosted claude.ai copy) saves
@@ -1008,22 +1314,28 @@
   let db = null, historyUnsub = null;
 
   switchLeague(currentSlug); // first render, before we know whether db is available
+  subscribeBets(); // global, not tied to a league - same before/after-db pattern
 
   (async () => {
     const saveBtn = document.getElementById('saveBtn');
     const storageNote = document.getElementById('storageNote');
+    const betStorageNote = document.getElementById('betStorageNote');
 
     if (window.claude && window.claude.use) {
       try { db = await window.claude.use('db'); } catch (e) { db = null; }
     }
 
-    storageNote.hidden = false;
-    storageNote.textContent = db
-      ? 'Shared history — visible to anyone who opens this page on claude.ai.'
+    const noteText = db
+      ? 'Shared — visible to anyone who opens this page on claude.ai.'
       : 'Saved locally in this browser only (no shared backend here) — it won’t follow you to another device or browser.';
+    storageNote.hidden = false;
+    storageNote.textContent = noteText;
+    betStorageNote.hidden = false;
+    betStorageNote.textContent = noteText;
 
     saveBtn.addEventListener('click', saveToday);
     subscribeHistory();
+    subscribeBets();
   })();
 </script>
 </body>

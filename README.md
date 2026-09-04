@@ -292,6 +292,23 @@ is entirely computed in the browser from the page's own embedded data
 nobody needs to check it by hand, it just needs the page rebuilt with fresh
 results to catch up.
 
+Both this list and "Today's matchday" show each match's kickoff time (parsed
+straight out of the openfootball source, blank where the source hasn't
+scheduled one yet) and split multi-day rounds into day-tabs — pick "Fri 04"
+or "Sat 05" to see just that day's matches instead of one long scroll.
+
+### Betting ledger
+
+A third page, reached from "Track betting income & expense →" next to
+Predict & Save, is a plain income/expense tracker for money actually staked
+on these predictions — separate from the model's probabilities, which never
+touch real currency. Log a match, stake and odds; mark it Win, Lose, or Void
+once it settles, and the page computes payout and running totals itself
+(staked, returned, net P/L, win rate). It's global rather than per-league —
+one ledger regardless of which league a bet was on — and saves the same way
+as prediction history (Claude's `db` when hosted on claude.ai, that
+browser's `localStorage` everywhere else).
+
 ## Keeping the data current, automatically
 
 A Claude Routine re-imports all 8 leagues, retrains, rebuilds the web page,
